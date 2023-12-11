@@ -1,4 +1,4 @@
-/src/main/resources/application.properties
+./src/main/resources/application.properties
 
 
 # Compiled source #
@@ -64,7 +64,7 @@ yarn-error.log*
 target/
 !**/src/main/**
 !**/src/test/**
-
+/src/main/resources/application.properties
 # Gradle #
 ##########
 build/
@@ -89,4 +89,3 @@ build/
 # VS Code #
 ###########
 .vscode/
-
