@@ -1,0 +1,50 @@
+CREATE DATABASE pet_planner;
+CREATE USER 'TestUser' @'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON pet_planner.* TO 'TestUser' @'localhost';
+FLUSH PRIVILEGES;
+DROP TABLE IF EXISTS PetsEvents;
+DROP TABLE IF EXISTS Events;
+DROP TABLE IF EXISTS Pets;
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) UNIQUE,
+    Password VARCHAR(255),
+    Email VARCHAR(255) UNIQUE,
+    ProfilePicture VARCHAR(2048)
+);
+CREATE TABLE Pets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    OwnerId INT,
+    Species ENUM('Dog', 'Cat', 'Bird', 'Fish', 'Reptile', 'Other'),
+    petPicture VARCHAR(2048),
+    birthday DATE,
+    temperment ENUM(
+        'Friendly',
+        'Reserved',
+        'Aggressive',
+        'Playful',
+        'Calm'
+    ),
+    description BLOB,
+    FOREIGN KEY (OwnerId) REFERENCES Users(id)
+);
+CREATE TABLE Events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATETIME,
+    duration TIME,
+    address VARCHAR(255),
+    OrganizerId INT,
+    description BLOB,
+    FOREIGN KEY (OrganizerId) REFERENCES Users(id)
+);
+CREATE TABLE PetsEvents (
+    PetId INT,
+    EventId INT,
+    PRIMARY KEY (PetId, EventId),
+    FOREIGN KEY (PetId) REFERENCES Pets(id),
+    FOREIGN KEY (EventId) REFERENCES Events(id)
+);
+INSERT INTO Users (Username, Password, Email)
+VALUES ('joser', 'password123', 'joser@gmail.com'),
+    ('wendyn', 'password321', 'wendyn@gmail.com');
