@@ -11,7 +11,9 @@ CREATE TABLE Users (
     Username VARCHAR(255) UNIQUE,
     Password VARCHAR(255),
     Email VARCHAR(255) UNIQUE,
-    ProfilePicture VARCHAR(2048)
+    ProfilePicture VARCHAR(2048),
+    Role ENUM('Role_User', 'Role_Admin'),
+    Enabled BOOLEAN
 );
 CREATE TABLE Pets (
     id INT AUTO_INCREMENT PRIMARY KEY,
