@@ -8,7 +8,6 @@ INDEX VERSION 1.134+/Users/wendynavarro/Desktop/project2/.metadata/.plugins/org.
 1787856708.index
 406534481.index
 2927327331.index
-1050248887.index
 579589137.index
 3163824031.index
 2114680186.index
@@ -31,7 +30,6 @@ INDEX VERSION 1.134+/Users/wendynavarro/Desktop/project2/.metadata/.plugins/org.
 390444336.index
 3084110718.index
 2607501145.index
-3916100488.index
 1084373926.index
 3593912694.index
 502477174.index
@@ -45,7 +43,6 @@ INDEX VERSION 1.134+/Users/wendynavarro/Desktop/project2/.metadata/.plugins/org.
 961771911.index
 564756862.index
 3350690128.index
-2657394288.index
 792391707.index
 544572420.index
 3302988521.index
