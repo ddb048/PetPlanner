@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 
@@ -25,8 +26,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
     }
 
     public Optional<User> getUserByUsername(String username) {
@@ -36,13 +38,9 @@ public class UserService {
     // UPDATE
     public User updateUser(User user) {
         // Check if the user exists before updating
-        if (userRepository.existsById(user.getId())) {
-            return userRepository.save(user);
-        }
-
-        // FIXME - CREATE CUSTOM EXCEPTION AND INSERT HERE
-
-        return null;
+        return userRepository.findById(user.getId())
+                .map(existingUser -> userRepository.save(user))
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", user.getId().toString()));
     }
 
     // DELETE
