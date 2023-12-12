@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
-./src/main/resources/application.properties
 
+/src/main/resources/application.properties
 
->>>>>>> a18ed1cb4b20dd397fa2b06ab9e869e01e1244af
 # Compiled source #
 ###################
 *.com
@@ -67,11 +64,8 @@ yarn-error.log*
 target/
 !**/src/main/**
 !**/src/test/**
-<<<<<<< HEAD
 
-=======
 /src/main/resources/application.properties
->>>>>>> a18ed1cb4b20dd397fa2b06ab9e869e01e1244af
 # Gradle #
 ##########
 build/
@@ -97,3 +91,5 @@ build/
 ###########
 .vscode/
 /.metadata/
+.gitignore
+
