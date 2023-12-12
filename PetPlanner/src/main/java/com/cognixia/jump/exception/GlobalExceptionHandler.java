@@ -32,6 +32,15 @@ public class GlobalExceptionHandler {
 		// give a general 400 status code to indicate error on client end
 		return ResponseEntity.status(400).body(errorDetails);
 	}
+	
+	//handles resourceNotFoundException
+		@ExceptionHandler(ResourceNotFoundException.class)
+		public ResponseEntity<?> resourceNotFound(ResourceNotFoundException ex, WebRequest request) {
+			
+			ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+			
+			return ResponseEntity.status(404).body(errorDetails);
+		}
 
 	
 	
