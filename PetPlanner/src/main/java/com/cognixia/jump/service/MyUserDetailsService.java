@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.cognixia.jump.model.User;
+import com.cognixia.jump.repository.UserRepository;
+
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -25,16 +28,16 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Optional<Customer> customerFound = repo.findByUsername(username);
+		Optional<User> userFound = repo.findByUsername(username);
 		
 		// if username doesn't exist in the table, throw an exception
-		if(customerFound.isEmpty()) {
+		if(userFound.isEmpty()) {
 			throw new UsernameNotFoundException("No user with username = " + username);
 		}
 		
 		// as long as we found the user, create a user details object with all the relevant info for security 
 		// security will take this object and perform authorization & authentication
-		return new MyUserDetails( customerFound.get() );
+		return new MyUserDetails( userFound.get() );
 	}
 
 }
