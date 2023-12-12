@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.cognixia.jump.model.Customer;
+import com.cognixia.jump.model.User;
 
 // UserDetails class -> inherit from the UserDetails interface
 //					 -> used by spring security to find all the necessary info for authorization & authentication
@@ -23,15 +23,15 @@ public class MyUserDetails implements UserDetails {
 	private List<GrantedAuthority> authorities;
 	
 	
-	public MyUserDetails(Customer customer) {
+	public MyUserDetails(User user) {
 		
-		this.username = customer.getUsername();
-		this.password = customer.getPassword();
-		this.enabled = customer.isEnabled();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.enabled = user.isEnabled();
 		
 		// Granted Authorities -> permissions as a user (which endpoints can we access)
 		//					   -> can find our GA based on what the user's roles are
-		this.authorities = Arrays.asList( new SimpleGrantedAuthority( customer.getRole().name() ) );
+		this.authorities = Arrays.asList( new SimpleGrantedAuthority( user.getRole().name() ) );
 	}
 	
 	
