@@ -52,21 +52,20 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Event> organizedEvents = new HashSet<>();
 	
-	
 	public User(Long id,
 			@NotBlank(message = "Username is required") @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters") String username,
 			@NotBlank(message = "Password is required") @Size(min = 6, message = "Password must have at least 6 characters") String password,
 			@NotBlank(message = "Email is required") @Email(message = "Email should be valid") String email,
-			String profilePic) {
+			String profilePic, Set<Pet> pets, Set<Event> organizedEvents) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.profilePic = profilePic;
+		this.pets = pets;
+		this.organizedEvents = organizedEvents;
 	}
-	
-	
 	public User()
 	{
 		
@@ -128,12 +127,13 @@ public class User implements Serializable {
     }
 
 
-	//TO-DO: include events and pets in To String method
-    @Override
+	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", profilePic=" + profilePic + "]";
+				+ ", profilePic=" + profilePic + ", pets=" + pets + ", organizedEvents=" + organizedEvents + "]";
 	}
+
+   
 
 	
 	

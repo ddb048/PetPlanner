@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -53,12 +52,7 @@ public class Pet implements Serializable {
 	@Column(length=500)
 	private String description;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "petsEvents",
-        joinColumns = @JoinColumn(name = "petId"),
-        inverseJoinColumns = @JoinColumn(name = "eventId")
-    )
+	@ManyToMany(mappedBy = "pets")
     private Set<Event> events = new HashSet<>();
 
 	public Pet()
@@ -66,8 +60,9 @@ public class Pet implements Serializable {
 		
 	}
 	
-	public Pet(Long id, User ownerId, Species species, String petPicture, Date birthdate, Temperament temparement,
-			String description) {
+	
+	public Pet(Long id, User ownerId, @NotBlank Species species, String petPicture, Date birthdate,
+			@NotBlank Temperament temparement, String description, Set<Event> events) {
 		super();
 		this.id = id;
 		this.ownerId = ownerId;
@@ -76,7 +71,10 @@ public class Pet implements Serializable {
 		this.birthdate = birthdate;
 		this.temparement = temparement;
 		this.description = description;
+		this.events = events;
 	}
+
+
 
 
 
@@ -144,7 +142,14 @@ public class Pet implements Serializable {
     public enum Temperament {
         FRIENDLY, RESERVED, AGGRESSIVE, PLAYFUL, CALM
     }
+
+	@Override
+	public String toString() {
+		return "Pet [id=" + id + ", ownerId=" + ownerId + ", species=" + species + ", petPicture=" + petPicture
+				+ ", birthdate=" + birthdate + ", temparement=" + temparement + ", description=" + description
+				+ ", events=" + events + "]";
+	}
 	
-   //TO-DO:  ToString method
+   
 
 }
