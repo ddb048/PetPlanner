@@ -11,6 +11,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import com.cognixia.jump.controller.PetController;
+import com.cognixia.jump.service.PetService;
+import com.cognixia.jump.exception.ResourceNotFoundException;
+import com.cognixia.jump.model.Event;
+import com.cognixia.jump.model.Pet;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +38,12 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-        petService = mock(PetService.class);
-        petController = new PetController();
-    }
+    	 petService = mock(PetService.class);
+         petController = new PetController(petService);
+     }
+       
+       
+    
 
     @Test
     void testGetAllPets() {

@@ -72,6 +72,6 @@ class EventControllerTest {
         assertEquals(event, response.getBody().get());
     }
 
-    // Add more tests for other methods
+   
 
 }
