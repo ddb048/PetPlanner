@@ -16,6 +16,8 @@ function HomePage() {
                 <button onClick={() => setShowSignup(true)}>Sign Up</button>
                 <button onClick={() => setShowLogin(true)}>Login</button>
 
+              
+
             </div>
             {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
             {showSignup && <SignupModal onClose={() => setShowSignup(false)} />}
