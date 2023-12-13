@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,14 +23,15 @@ import com.cognixia.jump.service.PetService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
-
-
 @RestController
 @RequestMapping("/api/pets")
 public class PetController {
 
-    @Autowired
-    private PetService petService;
+    private final PetService petService;
+
+    public PetController(PetService petService) {
+        this.petService = petService;
+    };
 
     @GetMapping
     @Operation(summary = "Get all pets", description = "Retrieves a list of all pets")

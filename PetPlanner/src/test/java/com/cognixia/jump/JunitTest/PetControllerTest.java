@@ -1,10 +1,24 @@
 package com.cognixia.jump.JunitTest;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.cognixia.jump.controller.PetController;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.service.PetService;
+<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -30,6 +44,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+=======
+>>>>>>> 1f5e06f8d094c7ca0c865cd04b931aa0714b4ca2
 
 class PetControllerTest {
 
@@ -38,12 +54,18 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
+<<<<<<< HEAD
     	 petService = mock(PetService.class);
          petController = new PetController(petService);
      }
        
        
     
+=======
+        petService = mock(PetService.class);
+        petController = new PetController(petService);
+    }
+>>>>>>> 1f5e06f8d094c7ca0c865cd04b931aa0714b4ca2
 
     @Test
     void testGetAllPets() {
