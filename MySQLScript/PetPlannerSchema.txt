@@ -50,3 +50,25 @@ CREATE TABLE PetsEvents (
 INSERT INTO Users (Username, Password, Email)
 VALUES ('joser', 'password123', 'joser@gmail.com'),
     ('wendyn', 'password321', 'wendyn@gmail.com');
+INSERT INTO Users (Username, Password, Email, ProfilePicture, Role, Enabled)
+VALUES
+('alexg', 'pass456', 'alexg@example.com', 'https://example.com/profiles/alexg.jpg', 'Role_User', True),
+('mariak', 'pass789', 'mariak@example.com', 'https://example.com/profiles/mariak.jpg', 'Role_Admin', True),
+INSERT INTO Pets (OwnerId, Species, petPicture, birthday, temperment, description, 'Role_User', True);
+VALUES
+(1, 'Dog', 'https://example.com/pets/dog1.jpg', '2019-06-15', 'Playful', 'A playful golden retriever.'),
+(2, 'Cat', 'https://example.com/pets/cat1.jpg', '2018-08-21', 'Calm', 'A calm and affectionate tabby cat.'),
+(3, 'Bird', 'https://example.com/pets/bird1.jpg', '2020-05-30', 'Friendly', 'A friendly parrot with vibrant feathers.'),
+(4, 'Reptile', 'https://example.com/pets/reptile1.jpg', '2021-01-10', 'Reserved', 'A reserved but curious gecko.');
+INSERT INTO Events (date, duration, address, OrganizerId, description)
+VALUES
+('2023-12-20 15:00:00', '02:00:00', '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
+('2023-12-22 10:00:00', '03:00:00', '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
+('2023-12-25 17:00:00', '01:30:00', '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
+('2023-12-28 20:00:00', '02:00:00', '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
+INSERT INTO PetsEvents (PetId, EventId)
+VALUES
+(1, 1), -- Dog goes to the dog meet-up
+(2, 2), -- Cat goes to the beach day
+(3, 3), -- Bird goes to bird watching
+(4, 4); -- Reptile goes to the reptile showcase
