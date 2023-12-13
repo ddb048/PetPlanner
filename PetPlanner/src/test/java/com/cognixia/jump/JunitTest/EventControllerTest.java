@@ -19,8 +19,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.cognixia.jump.model.Event;
-import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.service.EventService;
+
+
 
 class EventControllerTest {
 

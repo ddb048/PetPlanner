@@ -1,7 +1,10 @@
+//Events 
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const PetDetails = () => {
+const PetEvents = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
   const [events, setEvents] = useState([]);
@@ -21,7 +24,7 @@ const PetDetails = () => {
   }, [id]);
 
   if (!pet) {
-    return <div>Loading...</div>;
+    return <div>Loading...Meow... Still Looking </div>;
   }
 
   return (
@@ -34,7 +37,7 @@ const PetDetails = () => {
         <p>Description: {pet.description}</p>
       </div>
 
-      <h2>Events</h2>
+      <h2> Events:  </h2>
       <ul>
         {events.map((event) => (
           <li key={event.id}>
@@ -46,4 +49,4 @@ const PetDetails = () => {
   );
 };
 
-export default PetDetails;
+export default PetEvents;
