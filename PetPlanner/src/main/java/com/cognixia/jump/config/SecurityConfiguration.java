@@ -62,15 +62,15 @@ public class SecurityConfiguration {
 				.and()
 				.csrf().disable()
 				.authorizeHttpRequests()
-				.antMatchers("/api/admin").hasRole("ADMIN")
+				.antMatchers("/api/admin").hasRole("Role_Admin")
 				.antMatchers("/api/all").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/users").permitAll() // anyone can create a user (user sign ups)
-				.antMatchers(HttpMethod.POST, "/api/pets/**").hasRole("USER") // any user can create a pet
-				.antMatchers(HttpMethod.POST, "/api/events/**").hasRole("USER") // don't want just anyone to be able to
-				.antMatchers(HttpMethod.GET, "/api/pets/**").hasRole("USER") // any user can view pets
-				.antMatchers(HttpMethod.GET, "/api/events/**").hasRole("USER") // any user can view events
-				.antMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("USER") // any user can delete pets
-				.antMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("USER") // any user can delete events
+				.antMatchers(HttpMethod.POST, "/api/pets/**").hasRole("Role_User") // any user can create a pet
+				.antMatchers(HttpMethod.POST, "/api/events/**").hasRole("Role_User") // don't want just anyone to be
+				.antMatchers(HttpMethod.GET, "/api/pets/**").hasRole("Role_User") // any user can view pets
+				.antMatchers(HttpMethod.GET, "/api/events/**").hasRole("Role_User") // any user can view events
+				.antMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("Role_User") // any user can delete pets
+				.antMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("Role_User") // any user can delete events
 				.antMatchers("/authenticate").permitAll() // anyone can ATTEMPT to create a JWT
 				.anyRequest().authenticated() // if not specified, all other end points need a user login
 				.and()

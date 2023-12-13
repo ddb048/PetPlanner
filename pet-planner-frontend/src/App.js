@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
+import SignupModal from './components/SignIn';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* Add routes for other components */}
+        <Route path="/signup" element={<SignupModal />} />
       </Routes>
     </Router>
   );
