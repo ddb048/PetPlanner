@@ -29,7 +29,7 @@ public class MyUserDetails implements UserDetails {
 
 		// Granted Authorities -> permissions as a user (which endpoints can we access)
 		// -> can find our GA based on what the user's roles are
-		this.authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole().name()));
+		this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
 	}
 
 	@Override

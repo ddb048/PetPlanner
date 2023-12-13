@@ -4,10 +4,10 @@ use pet_planner;
 
 INSERT INTO Users (Username, Password, Email, profile_pic, Role, Enabled)
 VALUES
-('joser', 'password123', 'joser@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'Role_User', True),
-('wendyn', 'password321', 'wendyn@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'Role_User', True ),
-('alexg', 'pass456', 'alexg@example.com', 'https://example.com/profiles/alexg.jpg', 'Role_User', True),
-('mariak', 'pass789', 'mariak@example.com', 'https://example.com/profiles/mariak.jpg', 'Role_Admin', True);
+('joser', 'password123', 'joser@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'ROLE_USER', True),
+('wendyn', 'password321', 'wendyn@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'ROLE_USER', True ),
+('alexg', 'pass456', 'alexg@example.com', 'https://example.com/profiles/alexg.jpg', 'ROLE_USER', True),
+('mariak', 'pass789', 'mariak@example.com', 'https://example.com/profiles/mariak.jpg', 'ROLE_ADMIN', True);
 
 INSERT INTO Pets (owner_id, Species, pet_picture, birthdate, temparement, description)
 VALUES
@@ -29,3 +29,5 @@ VALUES
 (2, 2), -- Cat goes to the beach day
 (3, 3), -- Bird goes to bird watching
 (4, 4); -- Reptile goes to the reptile showcase
+
+SELECT * FROM Users;
