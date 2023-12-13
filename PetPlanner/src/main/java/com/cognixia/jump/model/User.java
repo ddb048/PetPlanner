@@ -18,8 +18,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "users")
+@Schema(description = "Represents a user in the system")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,35 +33,44 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the User")
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Role of the User in the system")
     private Role role;
 
     @NotBlank(message = "Username is required")
     @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters")
     @Column(unique = true)
+    @Schema(description = "Username of the User")
     private String username;
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must have at least 6 characters")
+    @Schema(description = "Password for the User account")
     private String password;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     @Column(unique = true)
+    @Schema(description = "Email address of the User")
     private String email;
 
     @Column(columnDefinition = "boolean default true")
+    @Schema(description = "Status to indicate if the User account is enabled")
     private boolean enabled;
 
+    @Schema(description = "Profile picture URL of the User")
     private String profilePic;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Schema(description = "Pets owned by the User")
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Schema(description = "Events organized by the User")
     private Set<Event> organizedEvents = new HashSet<>();
 
     public User() {

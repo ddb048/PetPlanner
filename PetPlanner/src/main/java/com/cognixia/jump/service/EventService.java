@@ -64,4 +64,8 @@ public class EventService {
         throw new ResourceNotFoundException("Event", "id", id.toString());
     }
 
+    public List<Event> getAllEventsByUser(Long userId) {
+        return eventRepository.findByOrganizer(userId);
+    }
+
 }

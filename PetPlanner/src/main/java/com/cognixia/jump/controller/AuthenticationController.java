@@ -27,13 +27,12 @@ public class AuthenticationController {
 
 	@Autowired
 	JwtUtil jwtUtil;
-	
-	
-	// create the token at http://localhost:8080/authenticate 
+
+	// create the token at http://localhost:8080/authenticate
 	// send the username & password and try to generate a token as a response
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createJwtToken(@RequestBody AuthenticationRequest request) throws Exception {
-		
+
 		// try to catch the exception for bad credentials, just so we can set our own
 		// message when this doesn't work
 		try {
@@ -55,8 +54,8 @@ public class AuthenticationController {
 		final String jwt = jwtUtil.generateTokens(userDetails);
 
 		// return the token
-		return ResponseEntity.status(201).body( new AuthenticationResponse(jwt) );
+		return ResponseEntity.status(201).body(new AuthenticationResponse(jwt));
 
 	}
-	
+
 }

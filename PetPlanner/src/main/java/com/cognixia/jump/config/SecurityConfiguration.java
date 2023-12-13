@@ -1,5 +1,7 @@
 package com.cognixia.jump.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,9 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.cognixia.jump.filter.JwtRequestFilter;
 
@@ -28,6 +33,19 @@ public class SecurityConfiguration {
 	@Autowired
 	JwtRequestFilter jwtRequestFilter;
 
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept"));
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
 	// Authentication -> who are you?
 	@Bean
 	protected UserDetailsService userDetailsService() {
@@ -39,7 +57,10 @@ public class SecurityConfiguration {
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		http.csrf().disable()
+		http
+				.cors().configurationSource(corsConfigurationSource())
+				.and()
+				.csrf().disable()
 				.authorizeHttpRequests()
 				.antMatchers("/api/admin").hasRole("ADMIN")
 				.antMatchers("/api/all").permitAll()

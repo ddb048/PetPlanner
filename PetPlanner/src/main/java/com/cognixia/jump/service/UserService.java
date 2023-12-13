@@ -1,5 +1,6 @@
 package com.cognixia.jump.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
+import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 
@@ -26,9 +28,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toString()));
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public List<Pet> getPetsByUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
+
+        return new ArrayList<>(user.getPets());
     }
 
     public Optional<User> getUserByUsername(String username) {
