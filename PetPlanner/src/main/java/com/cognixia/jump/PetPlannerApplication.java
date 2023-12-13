@@ -1,4 +1,4 @@
-package com.cognixia.jump.pets;
+package com.cognixia.jump;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
