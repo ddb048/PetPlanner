@@ -18,4 +18,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByDate(Date date);
 
     List<Event> findByPets(Pet pet);
+
+    List<Event> findByOrganizer(Long userId);
 }

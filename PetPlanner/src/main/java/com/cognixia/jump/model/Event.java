@@ -4,53 +4,56 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "events")
 public class Event implements Serializable {
-	
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	
+
 	@Temporal(TemporalType.TIME)
 	private Date duration;
-	
+
 	@NotNull
 	private String address;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OrganizerId")
-	private User organizer;
-	
-	@Column(length=500)
-	private String description;
-	
-	@ManyToMany
-    @JoinTable(
-        name = "PetsEvents",
-        joinColumns = @JoinColumn(name = "EventId"),
-        inverseJoinColumns = @JoinColumn(name = "PetId")
-    )
-    private Set<Pet> pets = new HashSet<>();
 
-	public Event()
-	{
-		
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OrganizerId")
+	private User organizer;
+
+	@Column(length = 500)
+	private String description;
+
+	@ManyToMany
+	@JoinTable(name = "PetsEvents", joinColumns = @JoinColumn(name = "EventId"), inverseJoinColumns = @JoinColumn(name = "PetId"))
+	private Set<Pet> pets = new HashSet<>();
+
+	public Event() {
+
 	}
-	
+
 	public Event(Long id, Date date, Date duration, String address, User organizer, String description, Set<Pet> pets) {
 		super();
 		this.id = id;
@@ -123,6 +126,5 @@ public class Event implements Serializable {
 		return "Event [id=" + id + ", date=" + date + ", duration=" + duration + ", address=" + address + ", organizer="
 				+ organizer + ", description=" + description + ", pets=" + pets + "]";
 	}
-	
 
 }
