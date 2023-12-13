@@ -37,3 +37,27 @@ export async function authenticate(username, password) {
         return { success: false, message: error.message || 'Failed to authenticate' };
     }
 }
+
+export async function signup(username, password, email, profilePic) {
+    try {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('email', email);
+        formData.append('profilePic', profilePic);
+
+        const response = await fetch('http://localhost:8080/api/users', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            return { success: true };
+        } else {
+            const data = await response.json();
+            return { success: false, message: data.message || 'Signup failed' };
+        }
+    } catch (error) {
+        return { success: false, message: error.message || 'Failed to signup' };
+    }
+}

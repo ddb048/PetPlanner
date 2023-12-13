@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,7 +33,7 @@ public class Pet implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
-	private User ownerId;
+	private User owner;
 
 	@NotBlank
 	@Enumerated(EnumType.STRING)
@@ -61,7 +62,7 @@ public class Pet implements Serializable {
 			@NotBlank Temperament temparement, String description, Set<Event> events) {
 		super();
 		this.id = id;
-		this.ownerId = ownerId;
+		this.owner = ownerId;
 		this.species = species;
 		this.petPicture = petPicture;
 		this.birthdate = birthdate;
@@ -79,11 +80,11 @@ public class Pet implements Serializable {
 	}
 
 	public User getOwnerId() {
-		return ownerId;
+		return owner;
 	}
 
-	public void setOwnerId(User ownerId) {
-		this.ownerId = ownerId;
+	public void setOwnerId(User owner) {
+		this.owner = owner;
 	}
 
 	public Species getSpecies() {
@@ -136,7 +137,7 @@ public class Pet implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", ownerId=" + ownerId + ", species=" + species + ", petPicture=" + petPicture
+		return "Pet [id=" + id + ", ownerId=" + owner + ", species=" + species + ", petPicture=" + petPicture
 				+ ", birthdate=" + birthdate + ", temparement=" + temparement + ", description=" + description
 				+ ", events=" + events + "]";
 	}

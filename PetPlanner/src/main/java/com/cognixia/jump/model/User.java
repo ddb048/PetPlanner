@@ -66,7 +66,6 @@ public class User implements Serializable {
     private String profilePic;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Schema(description = "Pets owned by the User")
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
