@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
+import './index.css';
 
 function LoginModal({ onClose }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+
+    const handleBackdropClick = (event) => {
+        if (event.target.classList.contains('modal-backdrop')) {
+            onClose();
+        }
+    };
+
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -10,13 +19,34 @@ function LoginModal({ onClose }) {
     };
 
     return (
-        <div className="modal">
-            <form onSubmit={handleLogin}>
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-                <button type="submit">Login</button>
-                <button onClick={onClose}>Close</button>
-            </form>
+        <div className='modal-backdrop' onClick={handleBackdropClick}>
+            <div className="modal">
+                <div className="modal-content">
+                    <div className="modal-title">Login</div>
+                    <form onSubmit={handleLogin}>
+                        <input
+                            className="modal-input"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                            required
+                        />
+                        <input
+                            className="modal-input"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            required
+                        />
+                        <div className='modal-button-container'>
+                            <button className="modal-button" type="submit">Login</button>
+                            <button className="modal-button" type="button" onClick={onClose}>Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }

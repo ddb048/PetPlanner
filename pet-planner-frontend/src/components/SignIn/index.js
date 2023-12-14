@@ -10,6 +10,13 @@ function SignupModal({ onClose }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+
+    const handleBackdropClick = (event) => {
+        if (event.target.classList.contains('modal-backdrop')) {
+            onClose();
+        }
+    };
+
     const handleSignup = async (event) => {
         event.preventDefault();
         setError('');
@@ -32,47 +39,49 @@ function SignupModal({ onClose }) {
     };
 
     return (
-        <div className="modal">
-            <div className='modal-content'>
-                <div className='modal-title'>Sign Up</div>
-                {error && <div className="error">{error}</div>}
-                {success && <div className="success">Signup successful!</div>}
-                <form onSubmit={handleSignup}>
-                    <input
-                        className="modal-input"
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <input
-                        className="modal-input"
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <input
-                        className="modal-input"
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className='modal-backdrop' onClick={handleBackdropClick}>
+            <div className="modal">
+                <div className='modal-content'>
+                    <div className='modal-title'>Sign Up</div>
+                    {error && <div className="error">{error}</div>}
+                    {success && <div className="success">Signup successful!</div>}
+                    <form onSubmit={handleSignup}>
+                        <input
+                            className="modal-input"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                        <input
+                            className="modal-input"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <input
+                            className="modal-input"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
 
-                    <input
-                        className="modal-input"
-                        type="file"
-                        placeholder="Upload a profile Picture"
-                        onChange={handleProfilePicChange} />
-                    <div className='modal-button-container'>
-                        <button className="modal-button" type="submit">Sign Up</button>
-                        <button className="modal-button" type="button" onClick={onClose}>Close</button>
-                    </div>
-                </form>
+                        <input
+                            className="modal-input"
+                            type="file"
+                            placeholder="Upload a profile Picture"
+                            onChange={handleProfilePicChange} />
+                        <div className='modal-button-container'>
+                            <button className="modal-button" type="submit">Sign Up</button>
+                            <button className="modal-button" type="button" onClick={onClose}>Close</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );
