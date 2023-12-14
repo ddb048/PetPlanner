@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
+import com.cognixia.jump.model.User;
+import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.PetService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +28,9 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @RequestMapping("/api/pets")
 public class PetController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final PetService petService;
 
@@ -58,6 +64,9 @@ public class PetController {
     @PostMapping
     @Operation(summary = "Create a new pet", description = "Adds a new pet to the database")
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
+        User owner = userRepository.findById(pet.getOwner().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", pet.getOwner().getId().toString()));
+        pet.setOwner(owner);
         return new ResponseEntity<>(petService.createPet(pet), HttpStatus.CREATED);
     }
 
