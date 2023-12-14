@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CreateEventModal from '../CreateEventModal';
+import './index.css';
 
 const PetEvents = () => {
   const { id } = useParams();
@@ -9,6 +11,12 @@ const PetEvents = () => {
     date: '',
     description: '',
   });
+
+  const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+
+  const handleShowCreateEventModal = () => setShowCreateEventModal(true);
+  const handleCloseModal = () => setShowCreateEventModal(false);
+
 
   useEffect(() => {
     // Fetch detailed information about the selected pet
@@ -72,6 +80,7 @@ const PetEvents = () => {
 
   return (
     <div>
+  
       <h1>{pet.name}'s Details</h1>
       <img src={pet.image} alt={`Image of ${pet.name}`} />
 
@@ -80,7 +89,9 @@ const PetEvents = () => {
         <p>Description: {pet.description}</p>
       </div>
 
+     
       <h2> Events: </h2>
+      <button onClick={handleShowCreateEventModal}>Host an Event</button>
       <ul>
         {events.map((event) => (
           <li key={event.id}>
@@ -91,30 +102,10 @@ const PetEvents = () => {
         ))}
       </ul>
 
-      <h2>Create a New Event:</h2>
-      <form onSubmit={handleCreateEvent}>
-        <label>
-          Date:
-          <input
-            type="text"
-            name="date"
-            value={newEvent.date}
-            onChange={handleNewEventChange}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            type="text"
-            name="description"
-            value={newEvent.description}
-            onChange={handleNewEventChange}
-          />
-        </label>
-        <br />
-        <button type="submit">Create Event</button>
-      </form>
+   
+      {showCreateEventModal && (
+        <CreateEventModal onClose={handleCloseModal} onCreateEvent={handleCreateEvent} />
+      )}
     </div>
   );
 };
