@@ -11,8 +11,33 @@ const CreatePet = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add logic to handle form submission
-    console.log('Form submitted:', formData);
+
+    // Make a POST request to your API endpoint
+    fetch('http://localhost:8080/pet_planner/api/pets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the server (data may contain the created pet)
+        console.log('Pet created successfully:', data);
+
+        // Reset the form data
+        setFormData({
+          name: '',
+          birthday: '',
+          description: '',
+          species: '',
+          image: '',
+        });
+      })
+      .catch((error) => {
+        console.error('Error creating pet:', error);
+        // Handle errors if necessary
+      });
   };
 
   const handleChange = (event) => {
@@ -25,7 +50,7 @@ const CreatePet = () => {
 
   return (
     <div>
-      <h1>Let's talk about your Cute Pet! </h1>
+      <h1>Let's talk about your Pet! </h1>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -56,7 +81,7 @@ const CreatePet = () => {
 
         <label htmlFor="exampleFormControlFile1">
           <br />
-          Image URL:
+          Image URL: 
         </label>
         <br />
         <button type="submit">Create Pet</button>

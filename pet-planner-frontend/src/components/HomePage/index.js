@@ -16,6 +16,8 @@ function HomePage() {
             <div className="auth-links">
                 <button onClick={() => setShowSignup(true)}>Sign Up</button>
                 <button onClick={() => setShowLogin(true)}>Login</button>
+               
+               
                 <Link to="/display-pet">
                     <button>DisplayPet</button>
                 </Link>

@@ -9,16 +9,16 @@ const PetEvents = () => {
     date: '',
     description: '',
   });
-
+  
   useEffect(() => {
     // Fetch detailed information about the selected pet
-    fetch(`your-api-endpoint/pets/${id}`)
+    fetch(`http://localhost:8080/pet_planner/${id}`)
       .then((response) => response.json())
       .then((data) => setPet(data))
       .catch((error) => console.error('Error fetching pet details:', error));
 
     // Fetch events for the selected pet
-    fetch(`your-api-endpoint/pets/${id}/events`)
+    fetch(`http://localhost:8080/pet_planner/${id}`)
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching pet events:', error));
@@ -33,7 +33,7 @@ const PetEvents = () => {
     e.preventDefault();
 
     // Send a request to your API to create a new event
-    fetch(`your-api-endpoint/pets/${id}/events`, {
+    fetch(`http://localhost:8080/pet_planner/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,6 +54,18 @@ const PetEvents = () => {
       .catch((error) => console.error('Error creating event:', error));
   };
 
+  const handleDeleteEvent = (eventId) => {
+    // Send a request to your API to delete the event
+    fetch(`http://localhost:8080/pet_planner/api/pets${eventId}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        // Remove the deleted event from the state
+        setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
+      })
+      .catch((error) => console.error('Error deleting event:', error));
+  };
+
   if (!pet) {
     return <div>Loading...Meow... Still Looking </div>;
   }
@@ -68,12 +80,13 @@ const PetEvents = () => {
         <p>Description: {pet.description}</p>
       </div>
 
-
       <h2> Events: </h2>
       <ul>
         {events.map((event) => (
           <li key={event.id}>
+            <input type="checkbox" />
             <p>{event.date}: {event.description}</p>
+            <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
           </li>
         ))}
       </ul>
