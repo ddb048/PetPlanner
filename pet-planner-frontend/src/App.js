@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import DisplayPets from './components/DisplayPets';
 import HomePage from './components/HomePage';
 import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
-import SignupModal from './components/SignIn';
-
 import PetEvents from './components/PetsDetail';
 import CreatePet from './components/PetsDetail/CreatePet';
-import DisplayPets from './components/PetsDetail/DisplayPets';
+import SignupModal from './components/SignIn';
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);

@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 
 import { authenticate } from '../../auth';
 
+import { redirect } from 'react-router-dom';
 import './index.css';
 
 
 function LoginModal({ onClose }) {
-    
-    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const [error, setError] = useState('');
-
 
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modal-backdrop')) {
@@ -23,7 +20,7 @@ function LoginModal({ onClose }) {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        navigate('/pets');
+        redirect('/pets');
         // Implement login logic here
 
         setError(''); // Reset any previous errors

@@ -80,7 +80,7 @@ const PetEvents = () => {
 
   return (
     <div>
-  
+
       <h1>{pet.name}'s Details</h1>
       <img src={pet.image} alt={`Image of ${pet.name}`} />
 
@@ -89,24 +89,8 @@ const PetEvents = () => {
         <p>Description: {pet.description}</p>
       </div>
 
-     
+
       <h2> Events: </h2>
-
-      <button onClick={handleShowCreateEventModal}>Host an Event</button>
-      <ul>
-        {events.map((event) => (
-          <li key={event.id}>
-            <input type="checkbox" />
-            <p>{event.date}: {event.description}</p>
-            <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
-          </li>
-        ))}
-      </ul>
-
-   
-      {showCreateEventModal && (
-        <CreateEventModal onClose={handleCloseModal} onCreateEvent={handleCreateEvent} />
-      )}
 
       <EventsList
         events={events}
