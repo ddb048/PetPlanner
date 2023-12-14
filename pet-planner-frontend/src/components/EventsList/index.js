@@ -17,7 +17,7 @@ const EventsList = ({ events, onCreateEvent, onDeleteEvent, showCreateEventModal
                 ))}
             </ul>
 
-            {/* Show CreateEventModal */}
+        
             {showCreateEventModal && (
                 <CreateEventModal onClose={handleCloseModal} onCreateEvent={onCreateEvent} />
             )}
