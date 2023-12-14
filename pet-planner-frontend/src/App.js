@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
-import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import SignupModal from './components/SignIn';
 
+
+import DisplayPets from './components/PetsDetail/DisplayPets'; 
+import CreatePet from './components/PetsDetail/CreatePet'; 
+import PetEvents from './components/PetsDetail/PetEvents'; 
+
 function App() {
-  const [showSignup, setShowSignup] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
 
   return (
+
+
     <Router>
-      <Navbar onShowSignup={() => setShowSignup(true)} onShowLogin={() => setShowLogin(true)} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* ...other routes */}
+
+        <Route path="/pets" element={<DisplayPets />} />
+        <Route path="/create-pet" element={<CreatePet />} />
+        <Route path="/pet-events/:id" element={<PetEvents />} />
+        <Route path="/signup" element={<SignupModal />} />
       </Routes>
-      {showSignup && <SignupModal onClose={() => setShowSignup(false)} />}
-      {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     </Router>
   );
 }

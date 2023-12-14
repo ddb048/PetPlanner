@@ -5,7 +5,7 @@ import './index.css';
 
 import { isLoggedIn, logout } from '../../auth';
 
-function Navbar() {
+function Navbar({ onShowSignup, onShowLogin }) {
     return (
         <nav className="nav-bar">
             <div className='nav-bar-left'>
