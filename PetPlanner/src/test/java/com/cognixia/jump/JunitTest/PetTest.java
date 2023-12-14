@@ -73,7 +73,7 @@ class PetTest {
         String description = "Calm cat";
 
         pet.setId(id);
-        pet.setOwnerId(owner);
+        pet.setOwner(owner);
         pet.setSpecies(species);
         pet.setPetPicture(petPicture);
         pet.setBirthdate(birthdate);
@@ -82,7 +82,7 @@ class PetTest {
 
         // Assert
         assertEquals(id, pet.getId());
-        assertEquals(owner, pet.getOwnerId());
+        assertEquals(owner, pet.getOwner());
         assertEquals(species, pet.getSpecies());
         assertEquals(petPicture, pet.getPetPicture());
         assertEquals(birthdate, pet.getBirthdate());
