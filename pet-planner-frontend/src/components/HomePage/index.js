@@ -17,9 +17,7 @@ function HomePage({ onShowSignup, onShowLogin }) {
 
 
                 
-                <Link to="/display-pet" >
-                    <button>DisplayPet</button>
-                </Link> 
+            
 
 
             </div>

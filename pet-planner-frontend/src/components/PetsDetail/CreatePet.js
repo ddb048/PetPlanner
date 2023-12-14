@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const CreatePet = () => {
   const [formData, setFormData] = useState({
@@ -6,20 +7,21 @@ const CreatePet = () => {
     birthday: '',
     description: '',
     species: '',
-    image: null,
+    // Use your own default image URL here
+    image: 'https://media.istockphoto.com/id/1324471626/vector/dog-love-simple-logo.jpg?s=612x612&w=0&k=20&c=U7PzRbOpk9MVCVIfT3ONvnFbcOnpzmQM7eIAWGNy1ok=',
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make a POST request to your API endpoint
-    const userToken = localStorage.getItem('userToken');
-
+    // Make a POST request to your API endpoint without Authorization
     fetch('http://localhost:8080/api/pets', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`, 
       },
       body: JSON.stringify(formData),
     })
@@ -34,8 +36,12 @@ const CreatePet = () => {
           birthday: '',
           description: '',
           species: '',
-          image: '',
+          // Use your own default image URL for the next pet
+          image: 'https://media.istockphoto.com/id/1324471626/vector/dog-love-simple-logo.jpg?s=612x612&w=0&k=20&c=U7PzRbOpk9MVCVIfT3ONvnFbcOnpzmQM7eIAWGNy1ok=',
         });
+
+        // Use navigate to redirect to the display page with state
+        navigate('/display-pets', { state: { newPet: data } });
       })
       .catch((error) => {
         console.error('Error creating pet:', error);
@@ -72,19 +78,19 @@ const CreatePet = () => {
         <br />
         <label>
           Species:
-          <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={handleChange} name="species">
-            <option selected>Choose...</option>
+          <select className="custom-select mr-sm-2" onChange={handleChange} name="species" value={formData.species}>
+            <option value="">Choose...</option>
             <option value="1">Dog</option>
             <option value="2">Cat</option>
             <option value="3">Chinchilla</option>
-     
           </select>
         </label>
         <br />
 
+        {/* Display the default image URL, but prevent user input */}
         <label htmlFor="exampleFormControlFile1">
           Image URL:
-          <input type="text" name="image" value={formData.image} onChange={handleChange} />
+          <input type="text" name="image" value={formData.image} onChange={handleChange} readOnly />
         </label>
         <br />
         <button type="submit">Create Pet</button>
