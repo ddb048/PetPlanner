@@ -6,16 +6,16 @@ const DisplayPets = () => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    // Fetch pets from your API without Authorization
+    
     fetch('http://localhost:8080/api/pets')
       .then((response) => response.json())
       .then((data) => setPets(data))
       .catch((error) => console.error('Error fetching pets:', error));
   
-    // Check if there is new pet information in the state
+    
     const { state } = location;
     if (state && state.newPet) {
-      // Use the new pet information, you can add it to the pets list or display it differently
+      
       console.log('Newly created pet information:', state.newPet);
     }
   }, [location]);
@@ -33,7 +33,7 @@ const DisplayPets = () => {
   };
 
   const handleViewPetEvents = (petId) => {
-    // Use navigate to redirect to the pet's events page
+   
     navigate(`/pet/${petId}/events`);
   };
 
@@ -49,7 +49,7 @@ const DisplayPets = () => {
           <div key={pet.id} className="card">
             <Link to={`/pet/${pet.id}`}>
               <img
-                src={'https://media.istockphoto.com/id/1324471626/vector/dog-love-simple-logo.jpg?s=612x612&w=0&k=20&c=U7PzRbOpk9MVCVIfT3ONvnFbcOnpzmQM7eIAWGNy1ok='} // Make sure you have an 'image' property in your pet data
+                src={'https://media.istockphoto.com/id/1324471626/vector/dog-love-simple-logo.jpg?s=612x612&w=0&k=20&c=U7PzRbOpk9MVCVIfT3ONvnFbcOnpzmQM7eIAWGNy1ok='} 
                 alt={`Image of ${pet.name}`}
                 className="card-img-top"
               />

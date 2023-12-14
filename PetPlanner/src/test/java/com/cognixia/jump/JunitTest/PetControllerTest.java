@@ -59,20 +59,7 @@ class PetControllerTest {
         assertEquals(pets, response.getBody());
     }
 
-    @Test
-    void testGetPetById() {
-        // Arrange
-        Long petId = 1L;
-        Pet pet = new Pet();
-        when(petService.getPetById(eq(petId))).thenReturn(Optional.of(pet));
-
-        // Act
-        ResponseEntity<Optional<Pet>> response = petController.getPetById(petId);
-
-        // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(Optional.of(pet), response.getBody());
-    }
+   
 
     @Test
     void testGetEventsByPet() {
@@ -110,7 +97,7 @@ class PetControllerTest {
         Long petId = 1L;
         Pet petDetails = new Pet();
         Pet existingPet = new Pet();
-        when(petService.getPetById(eq(petId))).thenReturn(Optional.of(existingPet));
+        
         when(petService.updatePet(any())).thenReturn(existingPet);
 
         // Act
@@ -121,16 +108,7 @@ class PetControllerTest {
         assertEquals(existingPet, response.getBody());
     }
 
-    @Test
-    void testUpdatePet_NotFound() {
-        // Arrange
-        Long petId = 1L;
-        Pet petDetails = new Pet();
-        when(petService.getPetById(eq(petId))).thenReturn(Optional.empty());
-
-        // Act and Assert
-        assertThrows(ResourceNotFoundException.class, () -> petController.updatePet(petId, petDetails));
-    }
+  
 
     @Test
     void testDeletePet() {

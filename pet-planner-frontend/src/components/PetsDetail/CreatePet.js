@@ -17,7 +17,7 @@ const CreatePet = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make a POST request to your API endpoint without Authorization
+    // Make a POST request to your API endpoint
     fetch('http://localhost:8080/api/pets', {
       method: 'POST',
       headers: {
@@ -27,21 +27,21 @@ const CreatePet = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response from the server (data may contain the created pet)
+      
         console.log('Pet created successfully:', data);
 
-        // Reset the form data
+        
         setFormData({
           name: '',
           birthday: '',
           description: '',
           species: '',
-          // Use your own default image URL for the next pet
+        
           image: 'https://media.istockphoto.com/id/1324471626/vector/dog-love-simple-logo.jpg?s=612x612&w=0&k=20&c=U7PzRbOpk9MVCVIfT3ONvnFbcOnpzmQM7eIAWGNy1ok=',
         });
 
-        // Use navigate to redirect to the display page with state
-        navigate('/display-pets', { state: { newPet: data } });
+       
+        navigate('/pets', { state: { newPet: data } });
       })
       .catch((error) => {
         console.error('Error creating pet:', error);
