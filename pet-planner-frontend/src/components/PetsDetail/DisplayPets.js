@@ -6,7 +6,7 @@ const DisplayPets = () => {
 
   useEffect(() => {
     // Fetch pets from your API
-    fetch('your-api-endpoint/pets')
+    fetch('http://localhost:8080/pet_planner/api/pets')
       .then((response) => response.json())
       .then((data) => setPets(data))
       .catch((error) => console.error('Error fetching pets:', error));
@@ -24,7 +24,7 @@ const DisplayPets = () => {
           <Link key={pet.id} to={`/pet/${pet.id}`}>
             <div className="card">
               <img
-                src={pet.image}
+                src={'/Users/wendynavarro/Desktop/project2/pet-planner-frontend/src/assets/PetPlannerLogo.png'}
                 alt={`Image of ${pet.name}`}
                 className="card-img-top"
               />

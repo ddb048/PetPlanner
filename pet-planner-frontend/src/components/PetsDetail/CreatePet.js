@@ -1,20 +1,32 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 
 const CreatePet = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        birthday: '',
-        description: '',
-        species: '',
-        image: '',
-      });
+  const [formData, setFormData] = useState({
+    name: '',
+    birthday: '',
+    description: '',
+    species: '',
+    image: '',
+  });
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Add logic to handle form submission
+    console.log('Form submitted:', formData);
+  };
 
-    return (
-        <div>
-            <h1>Let's talk about your Cute Pet! </h1>
-    <form onSubmit={handleSubmit}>
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div>
+      <h1>Let's talk about your Cute Pet! </h1>
+      <form onSubmit={handleSubmit}>
         <label>
           Name:
           <input type="text" name="name" value={formData.name} onChange={handleChange} />
@@ -32,28 +44,25 @@ const CreatePet = () => {
         <br />
         <label>
           Species:
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-        <option selected>Choose...</option>
-        <option value="1">Dog</option>
-        <option value="2">Cat</option>
-        <option value="3">Chinchilla</option>
-        <option value="4">Fish</option>
-      </select>
+          <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={handleChange} name="species">
+            <option selected>Choose...</option>
+            <option value="1">Dog</option>
+            <option value="2">Cat</option>
+            <option value="3">Chinchilla</option>
+            <option value="4">Fish</option>
+          </select>
         </label>
         <br />
-       
-        <label for="exampleFormControlFile1">
-        <br />
-          Image URL:
-       
-            
 
+        <label htmlFor="exampleFormControlFile1">
+          <br />
+          Image URL:
         </label>
         <br />
         <button type="submit">Create Pet</button>
       </form>
-        </div>
-        );
+    </div>
+  );
 };
 
 export default CreatePet;

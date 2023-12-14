@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link
 import petPlannerImage from '../../assets/PetPlannerLogo.png';
 import LoginModal from '../Login';
 import SignupModal from '../SignIn';
@@ -15,7 +16,9 @@ function HomePage() {
             <div className="auth-links">
                 <button onClick={() => setShowSignup(true)}>Sign Up</button>
                 <button onClick={() => setShowLogin(true)}>Login</button>
-
+                <Link to="/display-pet">
+                    <button>DisplayPet</button>
+                </Link>
               
 
             </div>

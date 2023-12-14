@@ -3,19 +3,24 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
 import SignupModal from './components/SignIn';
-import PetDetails from './PetDetails';
-import PetEvents from './PetEvents';
-import DisplayPets from './DisplayPets';
+
+
+import DisplayPets from './components/PetsDetail/DisplayPets'; 
+import CreatePet from './components/PetsDetail/CreatePet'; 
+import PetEvents from './components/PetsDetail/PetEvents'; 
+
 function App() {
+
   return (
+
 
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/pets" element={<DisplayPet />} />
-        <Route path="/pet-detail/:id" element={<PetDetails />} />
+        <Route path="/pets" element={<DisplayPets />} />
+        <Route path="/create-pet" element={<CreatePet />} />
         <Route path="/pet-events/:id" element={<PetEvents />} />
         <Route path="/signup" element={<SignupModal />} />
       </Routes>
