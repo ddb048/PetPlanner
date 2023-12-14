@@ -6,7 +6,7 @@ const DisplayPets = () => {
 
   useEffect(() => {
     // Fetch pets from your API
-    fetch('http://localhost:8080/pet_planner/api/pets')
+    fetch('http://localhost:8080//api/pets')
       .then((response) => response.json())
       .then((data) => setPets(data))
       .catch((error) => console.error('Error fetching pets:', error));
@@ -14,7 +14,7 @@ const DisplayPets = () => {
 
   const handleDeletePet = (petId) => {
     // Send a request to your API to delete the pet
-    fetch(`http://localhost:8080/pet_planner/api/pets/${petId}`, {
+    fetch(`http://localhost:8080/api/pets/${petId}`, {
       method: 'DELETE',
     })
       .then(() => {

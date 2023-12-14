@@ -74,10 +74,10 @@ class EventControllerTest {
         assertEquals(event, responseBody.get());
     }
 
-<<<<<<< HEAD
+
    
 
 }
-=======
-}
->>>>>>> a360362e16dd158b2eb228aa4ca8c6ce35b8ced1
+
+
+

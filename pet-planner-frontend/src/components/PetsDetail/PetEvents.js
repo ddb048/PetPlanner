@@ -12,13 +12,13 @@ const PetEvents = () => {
   
   useEffect(() => {
     // Fetch detailed information about the selected pet
-    fetch(`http://localhost:8080/pet_planner/${id}`)
+    fetch(`http://localhost:8080/${id}`)
       .then((response) => response.json())
       .then((data) => setPet(data))
       .catch((error) => console.error('Error fetching pet details:', error));
 
     // Fetch events for the selected pet
-    fetch(`http://localhost:8080/pet_planner/${id}`)
+    fetch(`http://localhost:8080/${id}`)
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching pet events:', error));
@@ -33,7 +33,7 @@ const PetEvents = () => {
     e.preventDefault();
 
     // Send a request to your API to create a new event
-    fetch(`http://localhost:8080/pet_planner/${id}`, {
+    fetch(`http://localhost:8080/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const PetEvents = () => {
 
   const handleDeleteEvent = (eventId) => {
     // Send a request to your API to delete the event
-    fetch(`http://localhost:8080/pet_planner/api/pets${eventId}`, {
+    fetch(`http://localhost:8080/${eventId}`, {
       method: 'DELETE',
     })
       .then(() => {

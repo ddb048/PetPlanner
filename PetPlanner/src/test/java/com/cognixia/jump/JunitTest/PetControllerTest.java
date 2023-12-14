@@ -3,7 +3,7 @@ package com.cognixia.jump.JunitTest;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-<<<<<<< HEAD
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -153,9 +153,9 @@ class PetControllerTest {
         // Act and Assert
         assertThrows(ResourceNotFoundException.class, () -> petController.deletePet(petId));
     }
-=======
+
 @ExtendWith(MockitoExtension.class)
 class PetControllerTest {
 
->>>>>>> a360362e16dd158b2eb228aa4ca8c6ce35b8ced1
 }
+}}
