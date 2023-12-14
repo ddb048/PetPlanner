@@ -18,13 +18,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "users")
 @Schema(description = "Represents a user in the system")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,7 +70,6 @@ public class User implements Serializable {
     private String profilePic;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,6 +2,8 @@ package com.cognixia.jump.service;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,8 @@ import com.cognixia.jump.repository.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
+
+	private static final Logger log = LoggerFactory.getLogger(MyUserDetailsService.class);
 
 	@Autowired
 	UserRepository repo;
@@ -27,18 +31,20 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+		log.info("Loading user by username: " + username);
 		Optional<User> userFound = repo.findByUsername(username);
 
-		// if username doesn't exist in the table, throw an exception
-		if (userFound.isEmpty()) {
+		// Check if the user is found
+		if (userFound.isPresent()) {
+			User user = userFound.get();
+			log.info("Found user: " + user.getUsername() + " with roles: " + user.getRole());
+
+			// Return UserDetails
+			return new MyUserDetails(user);
+		} else {
+			// User not found, throw exception
 			throw new UsernameNotFoundException("No user with username = " + username);
 		}
-
-		// as long as we found the user, create a user details object with all the
-		// relevant info for security
-		// security will take this object and perform authorization & authentication
-		return new MyUserDetails(userFound.get());
 	}
 
 }
