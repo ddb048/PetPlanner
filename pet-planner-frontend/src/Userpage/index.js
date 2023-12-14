@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import DisplayPets from '../components/DisplayPets';
 const UserDisplay = () => {
   const [userData, setUserData] = useState(null);
 
@@ -20,10 +20,16 @@ const UserDisplay = () => {
       <h1>User Information:</h1>
       {userData ? (
         <div>
+        <div>
           <p>Username: {userData.username}</p>
           <p>Email: {userData.email}</p>
           
         </div>
+        <div> 
+           <DisplayPets/>
+        </div>
+    </div>
+
       ) : (
         <p>Loading user data...</p>
       )}

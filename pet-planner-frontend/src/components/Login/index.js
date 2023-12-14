@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { authenticate } from '../../auth';
 
 import './index.css';
 
@@ -9,7 +10,8 @@ function LoginModal({ onClose }) {
     
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+
+    const [error, setError] = useState('');
 
 
     const handleBackdropClick = (event) => {
@@ -18,11 +20,23 @@ function LoginModal({ onClose }) {
         }
     };
 
-
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
+
         navigate('/pets');
         // Implement login logic here
+
+        setError(''); // Reset any previous errors
+
+        const result = await authenticate(username, password);
+        if (result.success) {
+            // Close modal and possibly redirect or update UI
+            onClose();
+            // Implement any post-login logic, such as redirecting or updating UI
+        } else {
+            setError(result.message); // Show error message to the user
+        }
+
     };
 
     return (
@@ -47,6 +61,7 @@ function LoginModal({ onClose }) {
                             onChange={e => setPassword(e.target.value)}
                             required
                         />
+                        {error && <div className="error-message">{error}</div>}
                         <div className='modal-button-container'>
                             <button className="modal-button" type="submit">Login</button>
                             <button className="modal-button" type="button" onClick={onClose}>Close</button>

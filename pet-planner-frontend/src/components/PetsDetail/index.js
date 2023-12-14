@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CreateEventModal from '../CreateEventModal';
+import EventsList from '../EventsList';
 import './index.css';
 
 const PetEvents = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([])
   const [newEvent, setNewEvent] = useState({
     date: '',
     description: '',
@@ -91,6 +91,7 @@ const PetEvents = () => {
 
      
       <h2> Events: </h2>
+
       <button onClick={handleShowCreateEventModal}>Host an Event</button>
       <ul>
         {events.map((event) => (
@@ -106,6 +107,16 @@ const PetEvents = () => {
       {showCreateEventModal && (
         <CreateEventModal onClose={handleCloseModal} onCreateEvent={handleCreateEvent} />
       )}
+
+      <EventsList
+        events={events}
+        onCreateEvent={handleCreateEvent}
+        onDeleteEvent={handleDeleteEvent}
+        showCreateEventModal={showCreateEventModal}
+        handleShowCreateEventModal={handleShowCreateEventModal}
+        handleCloseModal={handleCloseModal}
+      />
+
     </div>
   );
 };
