@@ -5,9 +5,9 @@ import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import SignupModal from './components/SignIn';
 
+import PetEvents from './components/PetsDetail';
 import CreatePet from './components/PetsDetail/CreatePet';
 import DisplayPets from './components/PetsDetail/DisplayPets';
-import PetEvents from './components/PetsDetail/PetEvents';
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);
