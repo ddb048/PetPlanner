@@ -18,6 +18,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
@@ -66,6 +68,7 @@ public class User implements Serializable {
     private String profilePic;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -167,9 +170,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", email="
-                + email + ", enabled=" + enabled + ", profilePic=" + profilePic + ", pets=" + pets
-                + ", organizedEvents=" + organizedEvents + "]";
+        return "User [id=" + id + ", role=" + role + ", username=" + username +
+                ", password=" + password + ", email=" + email +
+                ", enabled=" + enabled + ", profilePic=" + profilePic + "]";
     }
 
 }

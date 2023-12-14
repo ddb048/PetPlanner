@@ -1,7 +1,6 @@
 package com.cognixia.jump.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +31,9 @@ public class PetService {
         return petRepository.findAll();
     }
 
-    public Optional<Pet> getPetById(Long id) {
-        return petRepository.findById(id);
+    public Pet getPetById(Long id) {
+        return petRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pet", "id", id.toString()));
     }
 
     public List<Pet> getPetsByOwner(User owner) {
@@ -49,7 +49,15 @@ public class PetService {
     // UPDATE
     public Pet updatePet(Pet pet) {
         return petRepository.findById(pet.getId())
-                .map(existingPet -> petRepository.save(pet))
+                .map(existingPet -> {
+                    existingPet.setSpecies(pet.getSpecies());
+                    existingPet.setPetPicture(pet.getPetPicture());
+                    existingPet.setBirthdate(pet.getBirthdate());
+                    existingPet.setTemparement(pet.getTemparement());
+                    existingPet.setDescription(pet.getDescription());
+                    existingPet.setOwnerId(pet.getOwnerId());
+                    return petRepository.save(existingPet);
+                })
                 .orElseThrow(() -> new ResourceNotFoundException("Pet", "id", pet.getId().toString()));
     }
 

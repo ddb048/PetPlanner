@@ -1,5 +1,5 @@
 
-/src/main/resources/application.properties
+application.properties
 
 # Compiled source #
 ###################
@@ -62,8 +62,7 @@ yarn-error.log*
 # Maven #
 #########
 target/
-!**/src/main/**
-!**/src/test/**
+
 
 /src/main/resources/application.properties
 # Gradle #
@@ -92,4 +91,3 @@ build/
 .vscode/
 /.metadata/
 .gitignore
-
