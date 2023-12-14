@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+
 import { authenticate } from '../../auth';
+
 import './index.css';
 
+
 function LoginModal({ onClose }) {
+    
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
     const [error, setError] = useState('');
+
 
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modal-backdrop')) {
@@ -15,6 +22,10 @@ function LoginModal({ onClose }) {
 
     const handleLogin = async (event) => {
         event.preventDefault();
+
+        navigate('/pets');
+        // Implement login logic here
+
         setError(''); // Reset any previous errors
 
         const result = await authenticate(username, password);
@@ -25,6 +36,7 @@ function LoginModal({ onClose }) {
         } else {
             setError(result.message); // Show error message to the user
         }
+
     };
 
     return (

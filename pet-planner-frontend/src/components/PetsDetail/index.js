@@ -11,20 +11,22 @@ const PetEvents = () => {
     date: '',
     description: '',
   });
+
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
 
   const handleShowCreateEventModal = () => setShowCreateEventModal(true);
   const handleCloseModal = () => setShowCreateEventModal(false);
 
+
   useEffect(() => {
     // Fetch detailed information about the selected pet
-    fetch(`http://localhost:8080/${id}`)
+    fetch(`http://localhost:8080/api/pets/${id}`)
       .then((response) => response.json())
       .then((data) => setPet(data))
       .catch((error) => console.error('Error fetching pet details:', error));
 
     // Fetch events for the selected pet
-    fetch(`http://localhost:8080/${id}`)
+    fetch(`http://localhost:8080/api/pets/${id}/events`)
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching pet events:', error));
@@ -39,7 +41,7 @@ const PetEvents = () => {
     e.preventDefault();
 
     // Send a request to your API to create a new event
-    fetch(`http://localhost:8080/${id}`, {
+    fetch(`http://localhost:8080/api/pets/${id}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ const PetEvents = () => {
 
   const handleDeleteEvent = (eventId) => {
     // Send a request to your API to delete the event
-    fetch(`http://localhost:8080/${eventId}`, {
+    fetch(`http://localhost:8080/api/pets/${id}/events/${eventId}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -78,7 +80,7 @@ const PetEvents = () => {
 
   return (
     <div>
-      {/* Pet Information Section */}
+  
       <h1>{pet.name}'s Details</h1>
       <img src={pet.image} alt={`Image of ${pet.name}`} />
 
@@ -87,8 +89,25 @@ const PetEvents = () => {
         <p>Description: {pet.description}</p>
       </div>
 
-      {/* Events Section */}
+     
       <h2> Events: </h2>
+
+      <button onClick={handleShowCreateEventModal}>Host an Event</button>
+      <ul>
+        {events.map((event) => (
+          <li key={event.id}>
+            <input type="checkbox" />
+            <p>{event.date}: {event.description}</p>
+            <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
+          </li>
+        ))}
+      </ul>
+
+   
+      {showCreateEventModal && (
+        <CreateEventModal onClose={handleCloseModal} onCreateEvent={handleCreateEvent} />
+      )}
+
       <EventsList
         events={events}
         onCreateEvent={handleCreateEvent}
@@ -97,6 +116,7 @@ const PetEvents = () => {
         handleShowCreateEventModal={handleShowCreateEventModal}
         handleCloseModal={handleCloseModal}
       />
+
     </div>
   );
 };
