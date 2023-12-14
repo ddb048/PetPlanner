@@ -1,6 +1,7 @@
 import React from 'react';
 import petPlannerImage from '../../assets/PetPlannerLogo.png';
 import './index.css';
+import { Link } from 'react-router-dom';
 
 function HomePage({ onShowSignup, onShowLogin }) {
 
@@ -15,9 +16,8 @@ function HomePage({ onShowSignup, onShowLogin }) {
                 <button onClick={onShowLogin}>Login</button>
 
 
-                {/* <Link to="/display-pet">
-                    <button>DisplayPet</button>
-                </Link> */}
+                
+            
 
 
             </div>

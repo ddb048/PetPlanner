@@ -37,8 +37,8 @@ function LoggedOutMenu({ onShowSignup, onShowLogin }) {
 function LoggedInMenu() {
     return (
         <div className='nav-button'>
-            <Link className="nav-text" to="/user-details">User Details</Link>
-            <Link className="nav-text" to="/create-event">Host an Event</Link>
+            <Link className="nav-text" to="/pets">User's Pets</Link>
+            <Link className="nav-text" to="/pet-events/:id">Host an Event</Link>
             <Link className="nav-text" to="/create-pet">Add a Pet</Link>
             <Link className="nav-text" onClick={logout}>Sign Out</Link>
         </div>
