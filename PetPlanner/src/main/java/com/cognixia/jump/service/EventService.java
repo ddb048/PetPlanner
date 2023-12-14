@@ -13,12 +13,16 @@ import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.EventRepository;
+import com.cognixia.jump.repository.UserRepository;
 
 @Service
 public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // CREATE
     public Event createEvent(Event event) {
@@ -65,7 +69,9 @@ public class EventService {
     }
 
     public List<Event> getAllEventsByUser(Long userId) {
-        return eventRepository.findByOrganizer(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
+        return eventRepository.findByOrganizer(user);
     }
 
 }
