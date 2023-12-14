@@ -5,8 +5,6 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -36,17 +34,15 @@ public class SecurityConfiguration {
 	JwtRequestFilter jwtRequestFilter;
 
 	@Bean
-	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept"));
+		configuration.setAllowedOrigins(Arrays.asList("*")); // Allow all origins
+		configuration.setAllowedMethods(Arrays.asList("*")); // Allow all methods
+		configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
 		configuration.setAllowCredentials(true);
-		configuration.addExposedHeader("Access-Control-Allow-Origin");
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
+		source.registerCorsConfiguration("/**", configuration); // Apply to all endpoints
 		return source;
 	}
 
