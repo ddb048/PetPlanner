@@ -3,9 +3,14 @@
     padding: 20px;
 }
 
+.home-page-image {
+    max-width: 75%;
+    max-height: 50%;
+}
+
 .pet-planner-image {
-    max-width: 100%;
-    height: auto;
+    max-width: 75%;
+    height: 50%;
 }
 
 .auth-links button {

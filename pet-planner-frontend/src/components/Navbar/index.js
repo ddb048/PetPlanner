@@ -28,8 +28,8 @@ function Navbar({ onShowSignup, onShowLogin }) {
 function LoggedOutMenu({ onShowSignup, onShowLogin }) {
     return (
         <div className='nav-button'>
-            <button className="nav-text" onClick={onShowLogin}>Login</button>
-            <button className="nav-text" onClick={onShowSignup}>Sign Up</button>
+            <Link className="nav-text" onClick={onShowLogin}>Login</Link>
+            <Link className="nav-text" onClick={onShowSignup}>Sign Up</Link>
         </div>
     );
 }
