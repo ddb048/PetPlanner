@@ -32,6 +32,7 @@ public class PetController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private final PetService petService;
 
     public PetController(PetService petService) {

@@ -71,7 +71,7 @@ public class User implements Serializable {
 
     @Schema(description = "Profile picture URL of the User")
     private String profilePic;
-
+    
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private Set<Pet> pets = new HashSet<>();
