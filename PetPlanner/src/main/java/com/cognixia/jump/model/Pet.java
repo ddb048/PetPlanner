@@ -89,7 +89,16 @@ public class Pet implements Serializable {
 		return owner;
 	}
 
-	public void setOwnerId(User owner) {
+	public void setOwnerId(Long ownerId) {
+		this.owner = new User();
+		this.owner.setId(ownerId);
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 

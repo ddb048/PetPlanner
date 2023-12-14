@@ -1,14 +1,20 @@
 .home-page {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    padding: 20px;
+    align-items: center;
 }
 
-.home-page-image {
-    max-width: 75%;
-    max-height: 50%;
+.home-page-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25%;
 }
+
 
 .pet-planner-image {
+    padding-top: 10%;
+    border-radius: 25%;
     max-width: 75%;
     height: 50%;
 }
@@ -18,4 +24,9 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    cursor: pointer;
+    background-color: rgb(246, 64, 96);
+    color: white;
+    border: none;
+    border-radius: 10px;
 }

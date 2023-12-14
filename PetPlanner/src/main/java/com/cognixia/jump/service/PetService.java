@@ -11,6 +11,7 @@ import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.EventRepository;
 import com.cognixia.jump.repository.PetRepository;
+import com.cognixia.jump.repository.UserRepository;
 
 @Service
 public class PetService {
@@ -20,6 +21,9 @@ public class PetService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // CREATE
     public Pet createPet(Pet pet) {
@@ -55,7 +59,12 @@ public class PetService {
                     existingPet.setBirthdate(pet.getBirthdate());
                     existingPet.setTemparement(pet.getTemparement());
                     existingPet.setDescription(pet.getDescription());
-                    existingPet.setOwnerId(pet.getOwnerId());
+
+                    User owner = userRepository.findById(pet.getOwner().getId())
+                            .orElseThrow(() -> new ResourceNotFoundException("User", "id",
+                                    pet.getOwner().getId().toString()));
+                    existingPet.setOwner(owner);
+
                     return petRepository.save(existingPet);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Pet", "id", pet.getId().toString()));

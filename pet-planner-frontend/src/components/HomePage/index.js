@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import petPlannerImage from '../../assets/PetPlannerLogo.png';
-import LoginModal from '../Login';
-import SignupModal from '../SignIn';
 import './index.css';
 
-function HomePage() {
-    const [showLogin, setShowLogin] = useState(false);
-    const [showSignup, setShowSignup] = useState(false);
+function HomePage({ onShowSignup, onShowLogin }) {
 
 
     return (
@@ -15,8 +11,8 @@ function HomePage() {
                 <img src={petPlannerImage} alt="PetPlanner" className="pet-planner-image" />
             </div>
             <div className="auth-links">
-                <button onClick={() => setShowSignup(true)}>Sign Up</button>
-                <button onClick={() => setShowLogin(true)}>Login</button>
+                <button onClick={onShowSignup}>Sign Up</button>
+                <button onClick={onShowLogin}>Login</button>
 
 
                 {/* <Link to="/display-pet">
@@ -25,8 +21,6 @@ function HomePage() {
 
 
             </div>
-            {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
-            {showSignup && <SignupModal onClose={() => setShowSignup(false)} />}
 
         </div>
     );
