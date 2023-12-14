@@ -1,10 +1,7 @@
 package com.cognixia.jump.JunitTest;
-import com.cognixia.jump.controller.EventController;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +9,19 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.cognixia.jump.controller.EventController;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.service.EventService;
 
-
-
+@ExtendWith(MockitoExtension.class)
 class EventControllerTest {
 
     @Mock
@@ -69,10 +68,16 @@ class EventControllerTest {
         // Assert
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody().isPresent());
-        assertEquals(event, response.getBody().get());
+        Optional<Event> responseBody = response.getBody();
+        assertNotNull(responseBody);
+        assertTrue(responseBody.isPresent());
+        assertEquals(event, responseBody.get());
     }
 
+<<<<<<< HEAD
    
 
 }
+=======
+}
+>>>>>>> a360362e16dd158b2eb228aa4ca8c6ce35b8ced1

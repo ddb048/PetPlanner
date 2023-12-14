@@ -13,7 +13,7 @@ const CreatePet = () => {
     event.preventDefault();
 
     // Make a POST request to your API endpoint
-    fetch('http://localhost:8080/pet_planner/api/pets', {
+    fetch('http://localhost:8080/api/pets', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

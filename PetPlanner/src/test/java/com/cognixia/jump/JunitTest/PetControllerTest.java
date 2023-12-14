@@ -1,24 +1,9 @@
 package com.cognixia.jump.JunitTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import com.cognixia.jump.controller.PetController;
-import com.cognixia.jump.exception.ResourceNotFoundException;
-import com.cognixia.jump.model.Event;
-import com.cognixia.jump.model.Pet;
-import com.cognixia.jump.service.PetService;
-
+<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -168,4 +153,9 @@ class PetControllerTest {
         // Act and Assert
         assertThrows(ResourceNotFoundException.class, () -> petController.deletePet(petId));
     }
+=======
+@ExtendWith(MockitoExtension.class)
+class PetControllerTest {
+
+>>>>>>> a360362e16dd158b2eb228aa4ca8c6ce35b8ced1
 }

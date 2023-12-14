@@ -68,10 +68,26 @@ public class SecurityConfiguration {
 				.antMatchers(HttpMethod.POST, "/api/users").permitAll() // anyone can create a user (user sign ups)
 				.antMatchers(HttpMethod.POST, "/api/pets/**").hasRole("USER") // any user can create a pet
 				.antMatchers(HttpMethod.POST, "/api/events/**").hasRole("USER") // don't want just anyone to be
-				.antMatchers(HttpMethod.GET, "/api/pets/**").hasRole("USER") // any user can view pets
+				.antMatchers(HttpMethod.GET, "/api/pets/**").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER") // any user can view pets
 				.antMatchers(HttpMethod.GET, "/api/events/**").hasRole("USER") // any user can view events
 				.antMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("USER") // any user can delete pets
-				.antMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("USER") // any user can delete events
+				.antMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("USER")
+				.antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("USER")
+				.antMatchers(HttpMethod.PUT, "/api/pets/**").hasRole("USER") // any user can delete pets
+				.antMatchers(HttpMethod.PUT, "/api/events/**").hasRole("USER")
+				.antMatchers(HttpMethod.PUT, "/api/users/**").hasRole("USER")
+				.antMatchers(HttpMethod.POST, "/api/pets/**").hasRole("ADMIN") // any user can create a pet
+				.antMatchers(HttpMethod.POST, "/api/events/**").hasRole("ADMIN") // don't want just anyone to be
+				.antMatchers(HttpMethod.GET, "/api/pets/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/**").hasRole("ADMIN") // any user can view pets
+				.antMatchers(HttpMethod.GET, "/api/events/**").hasRole("ADMIN") // any user can view events
+				.antMatchers(HttpMethod.DELETE, "/api/pets/**").hasRole("ADMIN") // any user can delete pets
+				.antMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/pets/**").hasRole("ADMIN") // any user can delete pets
+				.antMatchers(HttpMethod.PUT, "/api/events/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/users/**").hasRole("ADMIN") // any user can delete events
 				.anyRequest().authenticated() // if not specified, all other end points need a user login
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // tell spring security NOT

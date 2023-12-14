@@ -1,26 +1,30 @@
 package com.cognixia.jump.JunitTest;
 
-import com.cognixia.jump.service.UserService;
-import com.cognixia.jump.service.EventService;
-import com.cognixia.jump.model.User;
-import com.cognixia.jump.model.Pet;
-import com.cognixia.jump.model.Event;
-
-import com.cognixia.jump.controller.UserController;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import com.cognixia.jump.controller.UserController;
+import com.cognixia.jump.model.Event;
+import com.cognixia.jump.model.Pet;
+import com.cognixia.jump.model.User;
+import com.cognixia.jump.service.EventService;
+import com.cognixia.jump.service.UserService;
+
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
 
     @Mock
@@ -31,6 +35,11 @@ public class UserControllerTest {
 
     @InjectMocks
     private UserController userController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void testGetAllUsers() {
@@ -59,8 +68,10 @@ public class UserControllerTest {
 
         // Assert
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-        assertEquals(user, responseEntity.getBody().orElse(null));
+        Optional<User> body = responseEntity.getBody();
+        assertNotNull(body);
+        assertTrue(body.isPresent());
+        assertEquals(user, body.orElse(null));
     }
 
     @Test
@@ -133,12 +144,13 @@ public class UserControllerTest {
     public void testDeleteUser() {
         // Arrange
         Long userId = 1L;
-        doNothing().when(userService).deleteUser(userId);
+        when(userService.deleteUser(userId)).thenReturn(true); // Mock the behavior of deleteUser
 
         // Act
         ResponseEntity<?> responseEntity = userController.deleteUser(userId);
 
         // Assert
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        verify(userService).deleteUser(userId); // Verify that the method was called
     }
 }

@@ -1,7 +1,6 @@
 package com.cognixia.jump.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -40,10 +39,13 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get pet by ID", description = "Retrieves details of a pet by their ID")
-    public ResponseEntity<Optional<Pet>> getPetById(@PathVariable Long id) {
-        Optional<Pet> pet = petService.getPetById(id);
-        return ResponseEntity.ok(pet);
+    public ResponseEntity<Pet> getPetById(@PathVariable Long id) {
+        try {
+            Pet pet = petService.getPetById(id); // Directly get Pet object
+            return ResponseEntity.ok(pet);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping("/{petId}/events")
@@ -60,26 +62,26 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update a pet", description = "Updates the details of an existing pet")
     public ResponseEntity<Pet> updatePet(@PathVariable Long id, @Valid @RequestBody Pet petDetails) {
-        Pet pet = petService.getPetById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Pet", "id", id.toString()));
+        try {
+            Pet pet = petService.getPetById(id); // Directly get Pet object
 
-        pet.setSpecies(petDetails.getSpecies());
-        pet.setPetPicture(petDetails.getPetPicture());
-        pet.setBirthdate(petDetails.getBirthdate());
-        pet.setTemparement(petDetails.getTemparement());
-        pet.setDescription(petDetails.getDescription());
-        pet.setOwnerId(petDetails.getOwnerId());
-
-        Pet updatedPet = petService.updatePet(pet);
-        return ResponseEntity.ok(updatedPet);
+            pet.setSpecies(petDetails.getSpecies());
+            // ... other setters
+            Pet updatedPet = petService.updatePet(pet);
+            return ResponseEntity.ok(updatedPet);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a pet", description = "Deletes a pet from the database by their ID")
     public ResponseEntity<?> deletePet(@PathVariable Long id) {
-        petService.deletePet(id);
+        boolean isDeleted = petService.deletePet(id);
+        if (!isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.noContent().build();
     }
 }

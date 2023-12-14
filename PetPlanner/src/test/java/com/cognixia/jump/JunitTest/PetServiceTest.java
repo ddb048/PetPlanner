@@ -63,17 +63,14 @@ class PetServiceTest {
 
     @Test
     void testGetPetById() {
-        // Arrange
         Long petId = 1L;
         Pet existingPet = new Pet();
         when(petRepository.findById(petId)).thenReturn(Optional.of(existingPet));
 
-        // Act
-        Optional<Pet> retrievedPet = petService.getPetById(petId);
+        Pet retrievedPet = petService.getPetById(petId);
 
-        // Assert
-        assertTrue(retrievedPet.isPresent());
-        assertEquals(existingPet, retrievedPet.get());
+        assertNotNull(retrievedPet);
+        assertEquals(existingPet, retrievedPet);
     }
 
     @Test
@@ -130,7 +127,7 @@ class PetServiceTest {
         updatedPetData.setSpecies(Pet.Species.CAT);
 
         when(petRepository.findById(existingPet.getId())).thenReturn(Optional.of(existingPet));
-        when(petRepository.save(updatedPetData)).thenReturn(updatedPetData);
+        when(petRepository.save(existingPet)).thenReturn(existingPet);
 
         // Act
         Pet updatedPet = petService.updatePet(updatedPetData);

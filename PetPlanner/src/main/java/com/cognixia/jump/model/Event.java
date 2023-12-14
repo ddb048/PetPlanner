@@ -20,6 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "events")
 public class Event implements Serializable {
@@ -41,6 +44,7 @@ public class Event implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "OrganizerId")
+	@JsonBackReference // or @JsonIgnore
 	private User organizer;
 
 	@Column(length = 500)
@@ -48,6 +52,7 @@ public class Event implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "PetsEvents", joinColumns = @JoinColumn(name = "EventId"), inverseJoinColumns = @JoinColumn(name = "PetId"))
+	@JsonManagedReference
 	private Set<Pet> pets = new HashSet<>();
 
 	public Event() {
@@ -123,8 +128,8 @@ public class Event implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", date=" + date + ", duration=" + duration + ", address=" + address + ", organizer="
-				+ organizer + ", description=" + description + ", pets=" + pets + "]";
+		return "Event [id=" + id + ", date=" + date + ", duration=" + duration +
+				", address=" + address + ", description=" + description + "]";
 	}
 
 }

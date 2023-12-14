@@ -63,7 +63,11 @@ function SignupModal({ onClose }) {
                         required
                     />
 
-                    <input className="modal-input" type="file" onChange={handleProfilePicChange} />
+                    <input
+                        className="modal-input"
+                        type="file"
+                        placeholder="Upload a profile Picture"
+                        onChange={handleProfilePicChange} />
                     <div className='modal-button-container'>
                         <button className="modal-button" type="submit">Sign Up</button>
                         <button className="modal-button" type="button" onClick={onClose}>Close</button>

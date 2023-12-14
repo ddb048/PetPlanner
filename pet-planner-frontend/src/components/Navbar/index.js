@@ -18,10 +18,19 @@ function Navbar() {
                 {isLoggedIn() ? (
                     <LoggedInMenu />
                 ) : (
-                    <LoggedOutMenu />
+                    <LoggedOutMenu onShowSignup={onShowSignup} onShowLogin={onShowLogin} />
                 )}
             </div>
         </nav>
+    );
+}
+
+function LoggedOutMenu({ onShowSignup, onShowLogin }) {
+    return (
+        <div className='nav-button'>
+            <button className="nav-text" onClick={onShowLogin}>Login</button>
+            <button className="nav-text" onClick={onShowSignup}>Sign Up</button>
+        </div>
     );
 }
 
@@ -36,13 +45,5 @@ function LoggedInMenu() {
     );
 }
 
-function LoggedOutMenu() {
-    return (
-        <div className='nav-button'>
-            <Link className="nav-text" to="/login">Login</Link>
-            <Link className="nav-text" to="/signup">Sign Up</Link>
-        </div>
-    );
-}
 
 export default Navbar;

@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "pets")
 public class Pet implements Serializable {
@@ -33,6 +35,7 @@ public class Pet implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
+	@JsonBackReference
 	private User owner;
 
 	@NotBlank
@@ -137,9 +140,9 @@ public class Pet implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", ownerId=" + owner + ", species=" + species + ", petPicture=" + petPicture
-				+ ", birthdate=" + birthdate + ", temparement=" + temparement + ", description=" + description
-				+ ", events=" + events + "]";
+		return "Pet [id=" + id + ", species=" + species + ", petPicture=" + petPicture +
+				", birthdate=" + birthdate + ", temperament=" + temparement +
+				", description=" + description + "]";
 	}
 
 }

@@ -6,8 +6,10 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px lightgray;
-    max-width: 50%;
+    box-shadow: 0px 0px 10px rgb(175, 174, 174);
+    max-width: 22%;
+    margin-left: 35%;
+    margin-top: 5%;
 }
 
 .modal-content {
@@ -19,9 +21,13 @@
 }
 
 .modal-input {
-    width: 350px;
-    height: 25px;
-    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5%;
+    width: 80%;
+    height: 5%;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid rgb(211, 211, 211);
@@ -40,11 +46,13 @@
 .modal-button-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .modal-button {
-    width: 350px;
-    padding: 10px;
+    margin: 5%;
+    width: 90%;
+    height: 30px;
     margin-top: 10px;
     border-radius: 10px;
     border: none;
