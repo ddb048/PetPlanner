@@ -1,3 +1,6 @@
+
+application.properties
+
 # Compiled source #
 ###################
 *.com
@@ -59,9 +62,9 @@ yarn-error.log*
 # Maven #
 #########
 target/
-!**/src/main/**
-!**/src/test/**
 
+
+/src/main/resources/application.properties
 # Gradle #
 ##########
 build/
