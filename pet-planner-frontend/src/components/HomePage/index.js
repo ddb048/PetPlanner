@@ -3,6 +3,7 @@ import petPlannerImage from '../../assets/PetPlannerLogo.png';
 import LoginModal from '../Login';
 import SignupModal from '../SignIn';
 import './index.css';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     const [showLogin, setShowLogin] = useState(false);
@@ -19,9 +20,10 @@ function HomePage() {
                 <button onClick={() => setShowLogin(true)}>Login</button>
 
 
-                {/* <Link to="/display-pet">
+                
+                <Link to="/display-pet" >
                     <button>DisplayPet</button>
-                </Link> */}
+                </Link> 
 
 
             </div>

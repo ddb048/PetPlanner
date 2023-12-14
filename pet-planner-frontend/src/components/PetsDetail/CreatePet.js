@@ -6,17 +6,20 @@ const CreatePet = () => {
     birthday: '',
     description: '',
     species: '',
-    image: '',
+    image: null,
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Make a POST request to your API endpoint
+    const userToken = localStorage.getItem('userToken');
+
     fetch('http://localhost:8080/api/pets', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`, 
       },
       body: JSON.stringify(formData),
     })
@@ -74,14 +77,14 @@ const CreatePet = () => {
             <option value="1">Dog</option>
             <option value="2">Cat</option>
             <option value="3">Chinchilla</option>
-            <option value="4">Fish</option>
+     
           </select>
         </label>
         <br />
 
         <label htmlFor="exampleFormControlFile1">
-          <br />
-          Image URL: 
+          Image URL:
+          <input type="text" name="image" value={formData.image} onChange={handleChange} />
         </label>
         <br />
         <button type="submit">Create Pet</button>

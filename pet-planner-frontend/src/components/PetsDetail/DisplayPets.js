@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { isLoggedIn } from '../../auth';
 
 const DisplayPets = () => {
   const [pets, setPets] = useState([]);
 
   useEffect(() => {
-    // Fetch pets from your API
-    fetch('http://localhost:8080//api/pets')
-      .then((response) => response.json())
-      .then((data) => setPets(data))
-      .catch((error) => console.error('Error fetching pets:', error));
+    if (isLoggedIn()) {
+      const userToken = localStorage.getItem('userToken');
+
+      // Fetch pets for the logged-in user from your API
+      fetch('http://localhost:8080/api/pets', {
+        headers: {
+          Authorization: `Bearer ${userToken}`, // Include the user token in the headers
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setPets(data))
+        .catch((error) => console.error('Error fetching pets:', error));
+    }
   }, []);
 
   const handleDeletePet = (petId) => {
     // Send a request to your API to delete the pet
     fetch(`http://localhost:8080/api/pets/${petId}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
     })
       .then(() => {
         // Remove the deleted pet from the state
@@ -30,7 +42,8 @@ const DisplayPets = () => {
       <h2>Click on your pet to see What events they have: </h2>
 
       {pets.length === 0 ? (
-        <p>Your PetPlanner is empty. <Link to="/create-pet">Let's Create Your Pet's Profile!</Link></p>
+        <p>Your PetPlanner is empty.
+           <Link to="/create-pet">Let's Create Your Pet's Profile!</Link></p>
       ) : (
         pets.map((pet) => (
           <div key={pet.id} className="card">

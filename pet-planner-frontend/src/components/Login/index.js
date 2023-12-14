@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginModal({ onClose }) {
+    
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
+        navigate('/pets');
         // Implement login logic here
     };
 

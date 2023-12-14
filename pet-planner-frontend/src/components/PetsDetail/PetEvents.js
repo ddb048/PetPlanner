@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { isLoggedIn } from '../../auth';
 
 const PetEvents = () => {
   const { id } = useParams();
@@ -9,19 +10,31 @@ const PetEvents = () => {
     date: '',
     description: '',
   });
-  
-  useEffect(() => {
-    // Fetch detailed information about the selected pet
-    fetch(`http://localhost:8080/${id}`)
-      .then((response) => response.json())
-      .then((data) => setPet(data))
-      .catch((error) => console.error('Error fetching pet details:', error));
 
-    // Fetch events for the selected pet
-    fetch(`http://localhost:8080/${id}`)
-      .then((response) => response.json())
-      .then((data) => setEvents(data))
-      .catch((error) => console.error('Error fetching pet events:', error));
+  useEffect(() => {
+    if (isLoggedIn()) {
+      const userToken = localStorage.getItem('userToken');
+
+      // Fetch detailed information about the selected pet
+      fetch(`http://localhost:8080/api/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setPet(data))
+        .catch((error) => console.error('Error fetching pet details:', error));
+
+      // Fetch events for the selected pet
+      fetch(`http://localhost:8080/api/pets/${id}/events`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setEvents(data))
+        .catch((error) => console.error('Error fetching pet events:', error));
+    }
   }, [id]);
 
   const handleNewEventChange = (e) => {
@@ -33,10 +46,11 @@ const PetEvents = () => {
     e.preventDefault();
 
     // Send a request to your API to create a new event
-    fetch(`http://localhost:8080/${id}`, {
+    fetch(`http://localhost:8080/api/pets/${id}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
       },
       body: JSON.stringify(newEvent),
     })
@@ -56,8 +70,11 @@ const PetEvents = () => {
 
   const handleDeleteEvent = (eventId) => {
     // Send a request to your API to delete the event
-    fetch(`http://localhost:8080/${eventId}`, {
+    fetch(`http://localhost:8080/api/pets/${id}/events/${eventId}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
     })
       .then(() => {
         // Remove the deleted event from the state
