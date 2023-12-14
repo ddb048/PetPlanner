@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -70,7 +71,7 @@ public class User implements Serializable {
 
     @Schema(description = "Profile picture URL of the User")
     private String profilePic;
-
+    
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Pet> pets = new HashSet<>();
 
