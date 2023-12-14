@@ -66,6 +66,7 @@ public class SecurityConfiguration {
 				.and()
 				.csrf().disable()
 				.authorizeHttpRequests()// anyone can ATTEMPT to create a JWT
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers("/authenticate").permitAll()
 				.antMatchers("/api/all").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/users").permitAll() // anyone can create a user (user sign ups)
