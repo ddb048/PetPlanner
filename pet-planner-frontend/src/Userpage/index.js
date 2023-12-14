@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DisplayPets from '../components/DisplayPets';
+import EventsList from '../components/EventsList';
 const UserDisplay = () => {
   const [userData, setUserData] = useState(null);
 
@@ -27,6 +28,9 @@ const UserDisplay = () => {
         </div>
         <div> 
            <DisplayPets/>
+        </div>
+        <div> 
+           <EventsList/>
         </div>
     </div>
 
