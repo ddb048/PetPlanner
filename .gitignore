@@ -59,8 +59,8 @@ yarn-error.log*
 # Maven #
 #########
 target/
-!**/src/main/**
-!**/src/test/**
+
+
 /src/main/resources/application.properties
 # Gradle #
 ##########
@@ -87,3 +87,7 @@ build/
 ###########
 .vscode/
 /.metadata/
+<<<<<<< HEAD
+=======
+.gitignore
+>>>>>>> d81abbe3289ef66ee4f608148b866571938a72a7

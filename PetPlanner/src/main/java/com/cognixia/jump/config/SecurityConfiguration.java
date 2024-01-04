@@ -1,5 +1,7 @@
 package com.cognixia.jump.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,66 +17,94 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.cognixia.jump.filter.JwtRequestFilter;
 
 @Configuration
 public class SecurityConfiguration {
-	
+
 	// this user details service will manage users in an actual DB
 	@Autowired
 	UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	JwtRequestFilter jwtRequestFilter;
-	
-	
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*")); // Allow all origins
+		configuration.setAllowedMethods(Arrays.asList("*")); // Allow all methods
+		configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration); // Apply to all endpoints
+		return source;
+	}
+
 	// Authentication -> who are you?
 	@Bean
 	protected UserDetailsService userDetailsService() {
-		
+
 		return userDetailsService;
 	}
 
-	
 	// Authorization - what do you want? (what can a user access?)
 	@Bean
-	protected SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
-		
-		http.csrf().disable()
-				.authorizeHttpRequests()
-				.antMatchers("/api/admin").hasRole("ADMIN")
-				.antMatchers("/api/all").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/customer").permitAll() // anyone can create a user (user sign ups)
-				.antMatchers(HttpMethod.POST, "/api/account").permitAll() // anyone can create an account
-				.antMatchers(HttpMethod.PATCH, "/api/account/**").permitAll() // anyone can update an account
-				.antMatchers(HttpMethod.GET, "/api/customer/**").hasRole("ADMIN") // don't want just anyone to be able to get user info
-				.antMatchers("/authenticate").permitAll() // anyone can ATTEMPT to create a JWT
-				.anyRequest().authenticated()						   // if not specified, all other end points need a user login
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http
+				.cors().configurationSource(corsConfigurationSource())
 				.and()
-				.sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ); // tell spring security NOT to create sessions
-		
-		// this request will go through many filters, make sure that the FIRST filter that is checked is
-		// the filter for jwts, in order to make sure of that, the filter has to be checked before you check the 
+				.csrf().disable()
+				.authorizeHttpRequests()// anyone can ATTEMPT to create a JWT
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.antMatchers("/authenticate").permitAll()
+				.antMatchers("/api/all").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/users").permitAll() // anyone can create a user (user sign ups)
+				.antMatchers(HttpMethod.POST, "/api/pets/**").permitAll() // any user can create a pet
+				.antMatchers(HttpMethod.POST, "/api/events/**").permitAll() // don't want just anyone to
+				.antMatchers(HttpMethod.GET, "/api/pets/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/users/**").permitAll() // any user can view pets
+				.antMatchers(HttpMethod.GET, "/api/events/**").permitAll() // any user can view events
+				.antMatchers(HttpMethod.DELETE, "/api/pets/**").permitAll() // any user can delete pets
+				.antMatchers(HttpMethod.DELETE, "/api/events/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/pets/**").permitAll() // any user can delete pets
+				.antMatchers(HttpMethod.PUT, "/api/events/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/users/**").permitAll()// any user can delete events
+				.anyRequest().authenticated() // if not specified, all other end points need a user login
+				.and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // tell spring security NOT
+																								// to create sessions
+
+		// this request will go through many filters, make sure that the FIRST filter
+		// that is checked is
+		// the filter for jwts, in order to make sure of that, the filter has to be
+		// checked before you check the
 		// username & password (filter)
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-				
-		
+
 		return http.build();
-	} 
-	
+	}
+
 	// Encoder -> method that will be used to encode/decode user passwords
 	@Bean
 	protected PasswordEncoder encoder() {
-		
+
 		// plain text encoder -> won't do any actual encoding
 		return NoOpPasswordEncoder.getInstance();
-		
-		//return new BCryptPasswordEncoder();
-		
+
+		// return new BCryptPasswordEncoder();
+
 	}
-	
-	// load the encoder & user details service that are needed for spring security to do authentication
+
+	// load the encoder & user details service that are needed for spring security
+	// to do authentication
 	@Bean
 	protected DaoAuthenticationProvider authenticationProvider() {
 
@@ -85,12 +115,12 @@ public class SecurityConfiguration {
 
 		return authProvider;
 	}
-	
-	// can autowire and access the authentication manager (manages authentication (login) of our project)
+
+	// can autowire and access the authentication manager (manages authentication
+	// (login) of our project)
 	@Bean
 	protected AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
-	
 }
