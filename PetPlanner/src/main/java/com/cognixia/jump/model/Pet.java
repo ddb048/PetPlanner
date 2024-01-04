@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -49,7 +50,7 @@ public class Pet implements Serializable {
 	//@JsonManagedReference
 	private User owner;
 
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Species species;
 
@@ -58,7 +59,7 @@ public class Pet implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Temperament temparement;
 
