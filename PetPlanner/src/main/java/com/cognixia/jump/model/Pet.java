@@ -32,7 +32,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Pet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public enum Species {
+		DOG, CAT, BIRD, FISH, REPTILE, OTHER
+	}
 
+	public enum Temperament {
+		FRIENDLY, RESERVED, AGGRESSIVE, PLAYFUL, CALM
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -144,13 +150,7 @@ public class Pet implements Serializable {
 		this.description = description;
 	}
 
-	public enum Species {
-		DOG, CAT, BIRD, FISH, REPTILE, OTHER
-	}
-
-	public enum Temperament {
-		FRIENDLY, RESERVED, AGGRESSIVE, PLAYFUL, CALM
-	}
+	
 
 	@Override
 	public String toString() {
