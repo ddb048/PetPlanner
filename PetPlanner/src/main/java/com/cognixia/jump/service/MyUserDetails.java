@@ -18,7 +18,7 @@ public class MyUserDetails implements UserDetails {
 
 	private String username;
 	private String password;
-	private boolean enabled;
+	private boolean enabled = false;
 	private List<GrantedAuthority> authorities;
 
 	public MyUserDetails(User user) {
