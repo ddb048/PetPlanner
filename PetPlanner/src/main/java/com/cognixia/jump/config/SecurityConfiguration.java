@@ -69,11 +69,9 @@ public class SecurityConfiguration {
 				.antMatchers(HttpMethod.POST, "/api/pets/**").permitAll() // any user can create a pet
 				.antMatchers(HttpMethod.POST, "/api/events/**").permitAll() // don't want just anyone to
 				.antMatchers(HttpMethod.GET, "/api/pets/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/users/**").permitAll() // any user can view pets
 				.antMatchers(HttpMethod.GET, "/api/events/**").permitAll() // any user can view events
 				.antMatchers(HttpMethod.DELETE, "/api/pets/**").permitAll() // any user can delete pets
 				.antMatchers(HttpMethod.DELETE, "/api/events/**").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
 				.antMatchers(HttpMethod.PUT, "/api/pets/**").permitAll() // any user can delete pets
 				.antMatchers(HttpMethod.PUT, "/api/events/**").permitAll()
 				.antMatchers(HttpMethod.PUT, "/api/users/**").permitAll()// any user can delete events
