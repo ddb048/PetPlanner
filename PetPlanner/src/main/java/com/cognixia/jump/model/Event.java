@@ -37,8 +37,8 @@ public class Event implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	@Temporal(TemporalType.TIME)
-	private Date duration;
+	
+	private Integer duration;
 
 	@NotNull
 	private String address;
@@ -58,7 +58,7 @@ public class Event implements Serializable {
 
 	}
 
-	public Event(Long id, Date date, Date duration, String address, User organizer, String description, Set<Pet> pets) {
+	public Event(Long id, Date date, Integer duration, String address, User organizer, String description, Set<Pet> pets) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -85,11 +85,11 @@ public class Event implements Serializable {
 		this.date = date;
 	}
 
-	public Date getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Date duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
