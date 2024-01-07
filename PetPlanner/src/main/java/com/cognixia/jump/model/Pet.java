@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -44,10 +46,9 @@ public class Pet implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ownerId")
-	//@JsonManagedReference
+	@JsonIgnore
+	@JoinColumn(name = "ownerId", referencedColumnName="id")
 	private User owner;
 
 	@NotNull
@@ -66,6 +67,7 @@ public class Pet implements Serializable {
 	@Column(length = 500)
 	private String description;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "pets")
 	private Set<Event> events = new HashSet<>();
 
@@ -73,11 +75,11 @@ public class Pet implements Serializable {
 
 	}
 
-	public Pet(Long id, User ownerId, @NotBlank Species species, String petPicture, Date birthdate,
+	public Pet(Long id, User owner, @NotBlank Species species, String petPicture, Date birthdate,
 			@NotBlank Temperament temparement, String description, Set<Event> events) {
 		super();
 		this.id = id;
-		this.owner = ownerId;
+		this.owner = owner;
 		this.species = species;
 		this.petPicture = petPicture;
 		this.birthdate = birthdate;
@@ -92,15 +94,6 @@ public class Pet implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public User getOwnerId() {
-		return owner;
-	}
-
-	public void setOwnerId(Long ownerId) {
-		this.owner = new User();
-		this.owner.setId(ownerId);
 	}
 
 	public User getOwner() {

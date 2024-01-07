@@ -73,7 +73,6 @@ public class User implements Serializable {
     private String profilePic;
     
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
