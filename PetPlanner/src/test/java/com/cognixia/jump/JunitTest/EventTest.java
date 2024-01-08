@@ -19,7 +19,7 @@ class EventTest {
         // Arrange
         Long id = 1L;
         Date date = new Date();
-        Date duration = new Date();
+        Integer duration = 1;
         String address = "123 Main St";
         User organizer = new User();
         String description = "Test event";
@@ -61,7 +61,7 @@ class EventTest {
         Event event = new Event();
         Long id = 1L;
         Date date = new Date();
-        Date duration = new Date();
+        Integer duration = 1;
         String address = "123 Main St";
         User organizer = new User();
         String description = "Test event";

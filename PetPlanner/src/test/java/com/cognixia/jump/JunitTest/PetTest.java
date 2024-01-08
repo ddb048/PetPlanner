@@ -32,7 +32,7 @@ class PetTest {
         // Assert
         assertNotNull(pet);
         assertEquals(id, pet.getId());
-        assertEquals(owner, pet.getOwnerId());
+        assertEquals(owner, pet.getOwner());
         assertEquals(species, pet.getSpecies());
         assertEquals(petPicture, pet.getPetPicture());
         assertEquals(birthdate, pet.getBirthdate());
@@ -49,7 +49,7 @@ class PetTest {
         // Assert
         assertNotNull(pet);
         assertNull(pet.getId());
-        assertNull(pet.getOwnerId());
+        assertNull(pet.getOwner());
         assertNull(pet.getSpecies());
         assertNull(pet.getPetPicture());
         assertNull(pet.getBirthdate());
