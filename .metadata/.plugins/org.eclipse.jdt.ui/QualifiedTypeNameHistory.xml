@@ -6,4 +6,6 @@
     <fullyQualifiedTypeName name="com.cognixia.jump.model.User"/>
     <fullyQualifiedTypeName name="com.cognixia.jump.model.Pet"/>
     <fullyQualifiedTypeName name="com.cognixia.jump.service.PetService"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.extension.ExtendWith"/>
 </qualifiedTypeNameHistroy>
