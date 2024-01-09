@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="jakarta.servlet.ServletException"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletResponse"/>
-    <fullyQualifiedTypeName name="com.cognixia.jump.model.User"/>
-    <fullyQualifiedTypeName name="com.cognixia.jump.model.Pet"/>
-    <fullyQualifiedTypeName name="com.cognixia.jump.service.PetService"/>
-    <fullyQualifiedTypeName name="java.util.HashSet"/>
-    <fullyQualifiedTypeName name="org.junit.jupiter.api.extension.ExtendWith"/>
+    <fullyQualifiedTypeName name="com.cognixia.jump.filter.JwtRequestFilter"/>
+    <fullyQualifiedTypeName name="com.cognixia.jump.exception.ResourceNotFoundException"/>
 </qualifiedTypeNameHistroy>
