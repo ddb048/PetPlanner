@@ -28,7 +28,7 @@ function App() {
         <Route path="/" element={<HomePage onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
 
         <Route path="/pets" element={<DisplayPets />} />
-        <Route path="/create-pet" element={<CreatePet />} />
+        <Route path="/pets/new" element={<CreatePet />} />
         <Route path="/pet-events/:id" element={<PetEvents />} />
         <Route path="/signup" element={<SignupModal />} />
       </Routes>

@@ -36,13 +36,13 @@ public class SecurityConfiguration {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*")); // Allow all origins
-		configuration.setAllowedMethods(Arrays.asList("*")); // Allow all methods
-		configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // Specify the allowed origin
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration); // Apply to all endpoints
+		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 
