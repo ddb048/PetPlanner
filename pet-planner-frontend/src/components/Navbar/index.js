@@ -74,7 +74,7 @@ function LoggedInMenu() {
             </div>
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
                 <Link className="dropdown-item" to="/pets">User's Pets</Link>
-                <Link className="dropdown-item" to="/pet-events/:id">Host an Event</Link>
+                <Link className="dropdown-item" to="/events/new">Host an Event</Link>
                 <Link className="dropdown-item" to="/pets/new">Add a Pet</Link>
                 <div className="dropdown-item" onClick={logout}>Sign Out</div>
             </div>
