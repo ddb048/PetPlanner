@@ -77,7 +77,11 @@ public class PetController {
             Pet pet = petService.getPetById(id); // Directly get Pet object
 
             pet.setSpecies(petDetails.getSpecies());
-            // ... other setters
+            pet.setBirthdate(petDetails.getBirthdate());
+            pet.setDescription(petDetails.getDescription());
+            pet.setPetPicture(petDetails.getPetPicture());
+            pet.setTemparement(petDetails.getTemparement());
+            
             Pet updatedPet = petService.updatePet(pet);
             return ResponseEntity.ok(updatedPet);
         } catch (ResourceNotFoundException e) {
