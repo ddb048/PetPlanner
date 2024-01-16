@@ -98,7 +98,6 @@ class PetControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
-
     @Test
     void createPet() throws Exception {
         // Arrange
@@ -106,19 +105,30 @@ class PetControllerTest {
         owner.setId(1L);
 
         Pet pet = new Pet();
+        pet.setSpecies(Pet.Species.DOG); // Use the appropriate enum constant
+
+        // Ensure the owner is set
         pet.setOwner(owner);
 
-        when(userRepository.findById(owner.getId())).thenReturn(Optional.of(owner));
-        when(petService.createPet(any(Pet.class))).thenReturn(pet);
+        when(userRepository.findById(owner.getId())).thenReturn(Optional.ofNullable(owner));
+        when(petService.createPet(any(Pet.class))).thenAnswer(invocation -> {
+            Pet createdPet = invocation.getArgument(0);
+            // Simulate the behavior of creating a new pet and setting an ID
+            createdPet.setId(1L);
+            return createdPet;
+        });
 
         // Act & Assert
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(pet)))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists()); // Ensure the response has an ID
     }
 
+
+    
     @Test
     void updatePet() throws Exception {
         // Arrange

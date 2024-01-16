@@ -15,22 +15,28 @@ import org.junit.jupiter.api.Test;
 class EventTest {
 
     @Test
-    void testCreateEvent() {
+    void testEventConstructorAndGetters() {
         // Arrange
-        Long id = 1L;
+        Long eventId = 1L;
         Date date = new Date();
-        Integer duration = 1;
-        String address = "123 Main St";
+        Integer duration = 2;
+        String address = "123 Park Ave";
         User organizer = new User();
-        String description = "Test event";
+        String description = "Dog meet-up in the park";
+
+        // Create a set of pets for testing
         Set<Pet> pets = new HashSet<>();
+        Pet pet1 = new Pet();
+        Pet pet2 = new Pet();
+        pets.add(pet1);
+        pets.add(pet2);
 
         // Act
-        Event event = new Event(id, date, duration, address, organizer, description, pets);
+        Event event = new Event(eventId, date, duration, address, organizer, description, pets);
 
         // Assert
         assertNotNull(event);
-        assertEquals(id, event.getId());
+        assertEquals(eventId, event.getId());
         assertEquals(date, event.getDate());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
@@ -40,7 +46,7 @@ class EventTest {
     }
 
     @Test
-    void testDefaultConstructor() {
+    void testEventDefaultConstructor() {
         // Act
         Event event = new Event();
 
@@ -56,19 +62,25 @@ class EventTest {
     }
 
     @Test
-    void testGettersAndSetters() {
+    void testEventSetters() {
         // Arrange
         Event event = new Event();
-        Long id = 1L;
+        Long eventId = 1L;
         Date date = new Date();
-        Integer duration = 1;
+        Integer duration = 2;
         String address = "123 Main St";
         User organizer = new User();
-        String description = "Test event";
+        String description = "Test Event Description";
+
+        // Create a set of pets for testing
         Set<Pet> pets = new HashSet<>();
+        Pet pet1 = new Pet();
+        Pet pet2 = new Pet();
+        pets.add(pet1);
+        pets.add(pet2);
 
         // Act
-        event.setId(id);
+        event.setId(eventId);
         event.setDate(date);
         event.setDuration(duration);
         event.setAddress(address);
@@ -77,13 +89,12 @@ class EventTest {
         event.setPets(pets);
 
         // Assert
-        assertEquals(id, event.getId());
+        assertEquals(eventId, event.getId());
         assertEquals(date, event.getDate());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
         assertEquals(organizer, event.getOrganizer());
         assertEquals(description, event.getDescription());
         assertEquals(pets, event.getPets());
-    }}
-    
-   
+    }
+}

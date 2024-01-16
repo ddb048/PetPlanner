@@ -1,4 +1,6 @@
 package com.cognixia.jump.JunitTest;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -114,7 +116,8 @@ class EventServiceTest {
         Event event = new Event();
 
         // Assuming setPets method in Event class takes a Set<Pet>
-        event.setPets(new HashSet<>()); // import java.util.HashSet
+        HashSet<Pet> expectedPetsSet = new HashSet<>(); // import java.util.HashSet
+        event.setPets(expectedPetsSet);
 
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
 
@@ -123,8 +126,9 @@ class EventServiceTest {
 
         // Assert
         verify(eventRepository, times(1)).findById(eventId);
-        // Modify this assertion based on your Event class structure
-        assertSame(new ArrayList<>(event.getPets()), result);
+
+        // Use AssertJ for a more convenient comparison of collections
+        assertThat(result).containsExactlyInAnyOrderElementsOf(expectedPetsSet);
     }
 
     @Test

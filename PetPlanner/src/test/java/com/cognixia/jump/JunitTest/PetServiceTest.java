@@ -1,5 +1,4 @@
 package com.cognixia.jump.JunitTest;
-
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
