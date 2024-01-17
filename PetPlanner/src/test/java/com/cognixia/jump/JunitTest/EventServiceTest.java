@@ -82,15 +82,15 @@ class EventServiceTest {
     @Test
     void getEventsByOrganizer() {
         // Arrange
-        User organizer = new User();
+        User user = new User();
         List<Event> events = new ArrayList<>();
-        when(eventRepository.findByOrganizer(organizer)).thenReturn(events);
+        when(eventRepository.findByUser(user)).thenReturn(events);
 
         // Act
-        List<Event> result = eventService.getEventsByOrganizer(organizer);
+        List<Event> result = eventService.getEventsByUser(user);
 
         // Assert
-        verify(eventRepository, times(1)).findByOrganizer(organizer);
+        verify(eventRepository, times(1)).findByUser(user);
         assertSame(events, result);
     }
 
@@ -182,14 +182,14 @@ class EventServiceTest {
         User user = new User();
         List<Event> events = new ArrayList<>();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(eventRepository.findByOrganizer(user)).thenReturn(events);
+        when(eventRepository.findByUser(user)).thenReturn(events);
 
         // Act
         List<Event> result = eventService.getAllEventsByUser(userId);
 
         // Assert
         verify(userRepository, times(1)).findById(userId);
-        verify(eventRepository, times(1)).findByOrganizer(user);
+        verify(eventRepository, times(1)).findByUser(user);
         assertSame(events, result);
     
     }}

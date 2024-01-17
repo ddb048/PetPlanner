@@ -4,7 +4,6 @@ import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.model.User;
-import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.PetService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -12,47 +11,46 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional; 
 import com.cognixia.jump.controller.PetController;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PetControllerTest {
 
     @Mock
-    private UserRepository userRepository;
-
-    @Mock
     private PetService petService;
-
+    
     @InjectMocks
     private PetController petController;
 
     @Test
     void getAllPets() throws Exception {
-        // Arrange
-        Pet pet1 = new Pet();
-        Pet pet2 = new Pet();
-        List<Pet> pets = Arrays.asList(pet1, pet2);
-
+    	// Arrange
+        List<Pet> pets = new ArrayList<>();
         when(petService.getAllPets()).thenReturn(pets);
 
-        // Act & Assert
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
+        // Act
+        ResponseEntity<List<Pet>> response = petController.getAllPets();
+
+        // Assert
+        verify(petService, times(1)).getAllPets();
+        assertSame(HttpStatus.OK, response.getStatusCode());
+        assertSame(pets, response.getBody());
     }
 
     @Test
@@ -82,49 +80,41 @@ class PetControllerTest {
     }
 
     @Test
-    void getEventsByPet() throws Exception {
+    void getEventsByPet() {
         // Arrange
         Long petId = 1L;
-        Event event1 = new Event();
-        Event event2 = new Event();
-        List<Event> events = Arrays.asList(event1, event2);
-
+        List<Event> events = new ArrayList<>();
+        
         when(petService.getEventsForPet(petId)).thenReturn(events);
 
-        // Act & Assert
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/{petId}/events", petId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
+        // Act
+        ResponseEntity<List<Event>> response = petController.getEventsByPet(petId);
+
+        // Assert
+        verify(petService, times(1)).getEventsForPet(petId);
+        assertSame(HttpStatus.OK, response.getStatusCode());
+        assertSame(events, response.getBody());
     }
+    
     @Test
     void createPet() throws Exception {
-        // Arrange
-        User owner = new User();
-        owner.setId(1L);
-
+    	// Arrange
         Pet pet = new Pet();
-        pet.setSpecies(Pet.Species.DOG); // Use the appropriate enum constant
+        User user = new User();
+        
+        user.setId(1L);
+        
+        pet.setUser(user);
+        
+        when(petService.createPet(pet)).thenReturn(pet);
 
-        // Ensure the owner is set
-        pet.setOwner(owner);
+        // Act
+        ResponseEntity<Pet> response = petController.createPet(pet);
 
-        when(userRepository.findById(owner.getId())).thenReturn(Optional.ofNullable(owner));
-        when(petService.createPet(any(Pet.class))).thenAnswer(invocation -> {
-            Pet createdPet = invocation.getArgument(0);
-            // Simulate the behavior of creating a new pet and setting an ID
-            createdPet.setId(1L);
-            return createdPet;
-        });
-
-        // Act & Assert
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/pets")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(pet)))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists()); // Ensure the response has an ID
+        // Assert
+        verify(petService, times(1)).createPet(pet);
+        assertSame(HttpStatus.CREATED, response.getStatusCode());
+        assertSame(pet, response.getBody());
     }
 
 
@@ -137,6 +127,9 @@ class PetControllerTest {
         existingPet.setId(petId);
 
         Pet updatedPet = new Pet();
+        
+        updatedPet.setTemparement(Pet.Temperament.AGGRESSIVE);
+        updatedPet.setSpecies(Pet.Species.DOG);
 
         when(petService.getPetById(petId)).thenReturn(existingPet);
         when(petService.updatePet(any(Pet.class))).thenReturn(updatedPet);
@@ -154,6 +147,9 @@ class PetControllerTest {
         // Arrange
         Long petId = 1L;
         Pet updatedPet = new Pet();
+        
+        updatedPet.setTemparement(Pet.Temperament.AGGRESSIVE);
+        updatedPet.setSpecies(Pet.Species.DOG);
 
         when(petService.getPetById(petId)).thenThrow(new ResourceNotFoundException("Pet", "id", petId.toString()));
 

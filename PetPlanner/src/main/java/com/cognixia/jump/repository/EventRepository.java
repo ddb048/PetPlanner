@@ -13,11 +13,11 @@ import com.cognixia.jump.model.User;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    List<Event> findByOrganizer(User organizer);
+    List<Event> findByUser(User user);
 
     List<Event> findByDate(Date date);
 
     List<Event> findByPets(Pet pet);
 
-    List<Event> findByOrganizer(Long userId);
+
 }

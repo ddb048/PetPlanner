@@ -38,8 +38,8 @@ public class EventService {
         return eventRepository.findById(id);
     }
 
-    public List<Event> getEventsByOrganizer(User organizer) {
-        return eventRepository.findByOrganizer(organizer);
+    public List<Event> getEventsByUser(User user) {
+        return eventRepository.findByUser(user);
     }
 
     public List<Event> getEventsByDate(Date date) {
@@ -71,7 +71,7 @@ public class EventService {
     public List<Event> getAllEventsByUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
-        return eventRepository.findByOrganizer(user);
+        return eventRepository.findByUser(user);
     }
 
 }

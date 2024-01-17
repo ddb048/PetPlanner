@@ -1,9 +1,8 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,17 +17,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Schema(description = "Represents a user in the system")
 public class User implements Serializable {
 
@@ -72,35 +67,39 @@ public class User implements Serializable {
     @Schema(description = "Profile picture URL of the User")
     private String profilePic;
     
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Pet> pets = new HashSet<>();
-
-    @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Schema(description = "Events organized by the User")
-    private Set<Event> organizedEvents = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+	private List<Pet> pets;
+	
+	
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+   	private List<Event> events;
 
     public User() {
 
     }
 
     public User(Long id, Role role,
-            @NotBlank(message = "Username is required") @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters") String username,
-            @NotBlank(message = "Password is required") @Size(min = 6, message = "Password must have at least 6 characters") String password,
-            @NotBlank(message = "Email is required") @Email(message = "Email should be valid") String email,
-            boolean enabled, String profilePic, Set<Pet> pets, Set<Event> organizedEvents) {
-        super();
-        this.id = id;
-        this.role = role;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.enabled = enabled;
-        this.profilePic = profilePic;
-        this.pets = pets;
-        this.organizedEvents = organizedEvents;
-    }
+			@NotBlank(message = "Username is required") @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters") String username,
+			@NotBlank(message = "Password is required") @Size(min = 6, message = "Password must have at least 6 characters") String password,
+			@NotBlank(message = "Email is required") @Email(message = "Email should be valid") String email,
+			boolean enabled, String profilePic, List<Pet> pets, List<Event> events) {
+		super();
+		this.id = id;
+		this.role = role;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.profilePic = profilePic;
+		this.pets = pets;
+		this.events = events;
+	}
 
-    public Long getId() {
+
+
+	public Long getId() {
         return id;
     }
 
@@ -140,23 +139,31 @@ public class User implements Serializable {
         this.profilePic = profilePic;
     }
 
-    public Set<Pet> getPets() {
-        return pets;
-    }
+    public List<Pet> getPets() {
+		return pets;
+	}
 
-    public void setPets(Set<Pet> pets) {
-        this.pets = pets;
-    }
 
-    public Set<Event> getOrganizedEvents() {
-        return organizedEvents;
-    }
 
-    public void setOrganizedEvents(Set<Event> organizedEvents) {
-        this.organizedEvents = organizedEvents;
-    }
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
+	}
 
-    public Role getRole() {
+
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+
+
+
+	public Role getRole() {
         return this.role;
     }
 
@@ -172,11 +179,14 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", role=" + role + ", username=" + username +
-                ", password=" + password + ", email=" + email +
-                ", enabled=" + enabled + ", profilePic=" + profilePic + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", role=" + role + ", username=" + username + ", password=" + password + ", email="
+				+ email + ", enabled=" + enabled + ", profilePic=" + profilePic + ", pets=" + pets + ", events="
+				+ events + "]";
+	}
+    
+    
 
 }

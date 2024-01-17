@@ -40,7 +40,7 @@ class EventTest {
         assertEquals(date, event.getDate());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
-        assertEquals(organizer, event.getOrganizer());
+        assertEquals(organizer, event.getUser());
         assertEquals(description, event.getDescription());
         assertEquals(pets, event.getPets());
     }
@@ -56,7 +56,7 @@ class EventTest {
         assertNull(event.getDate());
         assertNull(event.getDuration());
         assertNull(event.getAddress());
-        assertNull(event.getOrganizer());
+        assertNull(event.getUser());
         assertNull(event.getDescription());
         assertNotNull(event.getPets());
     }
@@ -84,7 +84,7 @@ class EventTest {
         event.setDate(date);
         event.setDuration(duration);
         event.setAddress(address);
-        event.setOrganizer(organizer);
+        event.setUser(organizer);
         event.setDescription(description);
         event.setPets(pets);
 
@@ -93,7 +93,7 @@ class EventTest {
         assertEquals(date, event.getDate());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
-        assertEquals(organizer, event.getOrganizer());
+        assertEquals(organizer, event.getUser());
         assertEquals(description, event.getDescription());
         assertEquals(pets, event.getPets());
     }
