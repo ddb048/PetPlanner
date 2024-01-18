@@ -81,4 +81,30 @@ public class PetService {
         }
         return false;
     }
+    
+    public void addPetToEvent(Long petId, Long eventId) {
+        Pet pet = petRepository.findById(petId).orElse(null);
+        Event event = eventRepository.findById(eventId).orElse(null);
+
+        if (pet != null && event != null) {
+            event.getPets().add(pet);
+            pet.getEvents().add(event);
+
+            eventRepository.save(event);
+            petRepository.save(pet);
+        }
+    }
+    
+    public void deletePetFromEvent(Long petId, Long eventId) {
+        Pet pet = petRepository.findById(petId).orElse(null);
+        Event event = eventRepository.findById(eventId).orElse(null);
+
+        if (pet != null && event != null) {
+            event.getPets().remove(pet);
+            pet.getEvents().remove(event);
+
+            eventRepository.save(event);
+            petRepository.save(pet);
+        }
+    }
 }
