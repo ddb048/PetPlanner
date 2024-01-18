@@ -66,7 +66,7 @@ public class EventController {
         event.setDate(eventDetails.getDate());
         event.setDuration(eventDetails.getDuration());
         event.setAddress(eventDetails.getAddress());
-        event.setOrganizer(eventDetails.getOrganizer());
+        event.setUser(eventDetails.getUser());
         event.setDescription(eventDetails.getDescription());
         event.setPets(eventDetails.getPets());
 

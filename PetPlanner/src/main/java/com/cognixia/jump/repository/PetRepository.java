@@ -12,7 +12,7 @@ import com.cognixia.jump.model.User;
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
-    List<Pet> findByOwner(User owner);
+    List<Pet> findByUser(User user);
 
     List<Pet> findBySpecies(Pet.Species species);
 

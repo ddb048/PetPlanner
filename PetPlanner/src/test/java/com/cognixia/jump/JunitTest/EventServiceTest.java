@@ -1,4 +1,6 @@
 package com.cognixia.jump.JunitTest;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -80,15 +82,15 @@ class EventServiceTest {
     @Test
     void getEventsByOrganizer() {
         // Arrange
-        User organizer = new User();
+        User user = new User();
         List<Event> events = new ArrayList<>();
-        when(eventRepository.findByOrganizer(organizer)).thenReturn(events);
+        when(eventRepository.findByUser(user)).thenReturn(events);
 
         // Act
-        List<Event> result = eventService.getEventsByOrganizer(organizer);
+        List<Event> result = eventService.getEventsByUser(user);
 
         // Assert
-        verify(eventRepository, times(1)).findByOrganizer(organizer);
+        verify(eventRepository, times(1)).findByUser(user);
         assertSame(events, result);
     }
 
@@ -114,7 +116,8 @@ class EventServiceTest {
         Event event = new Event();
 
         // Assuming setPets method in Event class takes a Set<Pet>
-        event.setPets(new HashSet<>()); // import java.util.HashSet
+        HashSet<Pet> expectedPetsSet = new HashSet<>(); // import java.util.HashSet
+        event.setPets(expectedPetsSet);
 
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
 
@@ -123,8 +126,9 @@ class EventServiceTest {
 
         // Assert
         verify(eventRepository, times(1)).findById(eventId);
-        // Modify this assertion based on your Event class structure
-        assertSame(new ArrayList<>(event.getPets()), result);
+
+        // Use AssertJ for a more convenient comparison of collections
+        assertThat(result).containsExactlyInAnyOrderElementsOf(expectedPetsSet);
     }
 
     @Test
@@ -178,14 +182,14 @@ class EventServiceTest {
         User user = new User();
         List<Event> events = new ArrayList<>();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(eventRepository.findByOrganizer(user)).thenReturn(events);
+        when(eventRepository.findByUser(user)).thenReturn(events);
 
         // Act
         List<Event> result = eventService.getAllEventsByUser(userId);
 
         // Assert
         verify(userRepository, times(1)).findById(userId);
-        verify(eventRepository, times(1)).findByOrganizer(user);
+        verify(eventRepository, times(1)).findByUser(user);
         assertSame(events, result);
     
     }}

@@ -44,10 +44,9 @@ public class Event implements Serializable {
 	@NotNull
 	private String address;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OrganizerId")
-	private User organizer;
+	@ManyToOne
+	@JoinColumn( name = "user_id", referencedColumnName = "id" ) // can add nullable = false to make sure dorm id is given for each account (won't b/c we may have commuter students)
+	private User user;
 
 	@Column(length = 500)
 	private String description;
@@ -60,16 +59,19 @@ public class Event implements Serializable {
 
 	}
 
-	public Event(Long id, Date date, Integer duration, String address, User organizer, String description, Set<Pet> pets) {
+	public Event(Long id, Date date, Integer duration, @NotNull String address, User user, String description,
+			Set<Pet> pets) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.duration = duration;
 		this.address = address;
-		this.organizer = organizer;
+		this.user = user;
 		this.description = description;
 		this.pets = pets;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -102,13 +104,13 @@ public class Event implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public User getOrganizer() {
-		return organizer;
+	
+	public User getUser() {
+		return user;
 	}
 
-	public void setOrganizer(User organizer) {
-		this.organizer = organizer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getDescription() {
@@ -129,8 +131,10 @@ public class Event implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", date=" + date + ", duration=" + duration +
-				", address=" + address + ", description=" + description + "]";
+		return "Event [id=" + id + ", date=" + date + ", duration=" + duration + ", address=" + address + ", user="
+				+ user + ", description=" + description + ", pets=" + pets + "]";
 	}
+
+	
 
 }

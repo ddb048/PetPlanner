@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,19 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-//import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "pets")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,10 +38,10 @@ public class Pet implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
-	@JoinColumn(name = "ownerId", referencedColumnName="id")
-	private User owner;
+	@ManyToOne
+	
+	@JoinColumn( name = "user_id", referencedColumnName = "id" ) // can add nullable = false to make sure dorm id is given for each account (won't b/c we may have commuter students)
+	private User user;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -75,11 +67,11 @@ public class Pet implements Serializable {
 
 	}
 
-	public Pet(Long id, User owner, @NotBlank Species species, String petPicture, Date birthdate,
-			@NotBlank Temperament temparement, String description, Set<Event> events) {
+	public Pet(Long id, User user, @NotNull Species species, String petPicture, Date birthdate,
+			@NotNull Temperament temparement, String description, Set<Event> events) {
 		super();
 		this.id = id;
-		this.owner = owner;
+		this.user = user;
 		this.species = species;
 		this.petPicture = petPicture;
 		this.birthdate = birthdate;
@@ -87,6 +79,8 @@ public class Pet implements Serializable {
 		this.description = description;
 		this.events = events;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -96,12 +90,20 @@ public class Pet implements Serializable {
 		this.id = id;
 	}
 
-	public User getOwner() {
-		return owner;
+	public User getUser() {
+		return user;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
 	}
 
 	public Species getSpecies() {
@@ -144,13 +146,13 @@ public class Pet implements Serializable {
 		this.description = description;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", species=" + species + ", petPicture=" + petPicture +
-				", birthdate=" + birthdate + ", temperament=" + temparement +
-				", description=" + description + "]";
+		return "Pet [id=" + id + ", user=" + user + ", species=" + species + ", petPicture=" + petPicture
+				+ ", birthdate=" + birthdate + ", temparement=" + temparement + ", description=" + description
+				+ ", events=" + events + "]";
 	}
+
+	
 
 }

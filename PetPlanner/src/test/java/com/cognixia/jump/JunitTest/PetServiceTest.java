@@ -1,5 +1,4 @@
 package com.cognixia.jump.JunitTest;
-
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
@@ -103,14 +102,14 @@ class PetServiceTest {
         Pet pet2 = new Pet();
         List<Pet> pets = Arrays.asList(pet1, pet2);
 
-        when(petRepository.findByOwner(owner)).thenReturn(pets);
+        when(petRepository.findByUser(owner)).thenReturn(pets);
 
         // Act
-        List<Pet> petsByOwner = petService.getPetsByOwner(owner);
+        List<Pet> petsByOwner = petService.getPetsByUser(owner);
 
         // Assert
         assertEquals(2, petsByOwner.size());
-        verify(petRepository, times(1)).findByOwner(owner);
+        verify(petRepository, times(1)).findByUser(owner);
     }
 
     // Add similar tests for getEventsForPet, updatePet, and deletePet methods
