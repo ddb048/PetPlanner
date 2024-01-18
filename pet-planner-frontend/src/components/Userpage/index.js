@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import DisplayPets from '../components/DisplayPets';
-import EventsList from '../components/EventsList';
+import React, { useEffect, useState } from 'react';
+import EventsList from '../EventsList';
+import DisplayPets from '../PetsList';
 const UserDisplay = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    
+
     fetch('http://localhost:8080/api/user', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('userToken')}`,
@@ -21,18 +21,18 @@ const UserDisplay = () => {
       <h1>User Information:</h1>
       {userData ? (
         <div>
-        <div>
-          <p>Username: {userData.username}</p>
-          <p>Email: {userData.email}</p>
-          
+          <div>
+            <p>Username: {userData.username}</p>
+            <p>Email: {userData.email}</p>
+
+          </div>
+          <div>
+            <DisplayPets />
+          </div>
+          <div>
+            <EventsList />
+          </div>
         </div>
-        <div> 
-           <DisplayPets/>
-        </div>
-        <div> 
-           <EventsList/>
-        </div>
-    </div>
 
       ) : (
         <p>Loading user data...</p>

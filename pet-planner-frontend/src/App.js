@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import DisplayPets from './components/DisplayPets';
+import CreateEvent from './components/CreateEventModal';
+import CreatePet from './components/CreatePetModal';
 import HomePage from './components/HomePage';
 import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import PetEvents from './components/PetsDetail';
-import CreatePet from './components/PetsDetail/CreatePet';
+import DisplayPets from './components/PetsList';
 import SignupModal from './components/SignIn';
 
 function App() {
@@ -28,8 +29,9 @@ function App() {
         <Route path="/" element={<HomePage onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
 
         <Route path="/pets" element={<DisplayPets />} />
-        <Route path="/create-pet" element={<CreatePet />} />
-        <Route path="/pet-events/:id" element={<PetEvents />} />
+        <Route path="/pets/new" element={<CreatePet />} />
+        <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
+        <Route path="/events/:EventId" element={<PetEvents />} />
         <Route path="/signup" element={<SignupModal />} />
       </Routes>
       {showSignup && <SignupModal onClose={handleCloseModal} />}
