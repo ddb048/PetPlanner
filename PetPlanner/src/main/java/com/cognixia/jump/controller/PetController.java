@@ -93,4 +93,16 @@ public class PetController {
         }
         return ResponseEntity.noContent().build();
     }
+    
+    @PostMapping("/{petId}/{eventId}")
+    public ResponseEntity<String> addPetToEvent(@PathVariable Long petId, @PathVariable Long eventId) {
+        petService.addPetToEvent(petId, eventId);
+        return ResponseEntity.ok("Pet added to event successfully");
+    }
+    
+    @DeleteMapping("/{petId}/{eventId}")
+    public ResponseEntity<String> deletePetFromEvent(@PathVariable Long petId, @PathVariable Long eventId) {
+        petService.deletePetFromEvent(petId, eventId);
+        return ResponseEntity.ok("Pet removed from event successfully");
+    }
 }
