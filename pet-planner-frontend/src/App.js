@@ -30,7 +30,7 @@ function App() {
 
         <Route path="/pets" element={<DisplayPets />} />
         <Route path="/pets/new" element={<CreatePet />} />
-        <Route path="events/new" element={<CreateEvent />} />
+        <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
         <Route path="/events/:EventId" element={<PetEvents />} />
         <Route path="/signup" element={<SignupModal />} />
       </Routes>
