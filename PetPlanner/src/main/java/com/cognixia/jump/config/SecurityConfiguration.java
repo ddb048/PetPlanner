@@ -65,6 +65,9 @@ public class SecurityConfiguration {
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers("/authenticate").permitAll()
 				.antMatchers("/api/all").permitAll()
+				.antMatchers("/openapi.html").permitAll()
+				.antMatchers("/swagger-ui/**").permitAll()
+				.antMatchers("/v3/api-docs/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/users").permitAll() // anyone can create a user (user sign ups)
 				.antMatchers(HttpMethod.POST, "/api/pets/**").permitAll() // any user can create a pet
 				.antMatchers(HttpMethod.POST, "/api/events/**").permitAll() // don't want just anyone to
