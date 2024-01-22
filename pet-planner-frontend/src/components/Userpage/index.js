@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import EventsList from '../EventsList';
+
 import DisplayPets from '../PetsList';
 import { getPets } from '../../store/pets'; 
 import { getEvents } from '../../store/events';
+
 
 const UserDisplay = () => {
   

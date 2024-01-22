@@ -1,16 +1,18 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import { eventsReducer } from './events';
-import { petsReducer } from './pets';
+import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, compose } from 'redux';
+import { thunk } from 'redux-thunk';
+import attendancesReducer from './attendances';
+import eventsReducer from './events';
+import petsReducer from './pets';
 import sessionReducer from './session';
 
 
-const rootReducer = combineReducers({
+const reducer = {
     session: sessionReducer,
     pets: petsReducer,
     events: eventsReducer,
     attendances: attendancesReducer,
-});
+};
 
 let enhancer;
 
@@ -22,8 +24,9 @@ if (process.env.NODE_ENV === 'production') {
     enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
-const configureStore = (preloadedState) => {
-    return createStore(rootReducer, preloadedState, enhancer);
-};
+const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+});
 
-export default configureStore;
+export default store;

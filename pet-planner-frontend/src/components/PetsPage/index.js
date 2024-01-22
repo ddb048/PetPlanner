@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const DisplayPets = ({ pets }) => {
+const PetsPage = ({ pets }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,13 +29,13 @@ const DisplayPets = ({ pets }) => {
       <h1>Welcome!!! Here are your PetPals!!!</h1>
       <h2>Click on your pet to see what events they have: </h2>
 
-    
-        <p>Your PetPlanner is empty. <Link to="/create-pet">Let's Create Your Pet's Profile!</Link></p>
-     
-       
-      
+
+      <p>Your PetPlanner is empty. <Link to="/create-pet">Let's Create Your Pet's Profile!</Link></p>
+
+
+
     </div>
   );
 };
 
-export default DisplayPets;
+export default PetsPage;

@@ -97,7 +97,7 @@ const initialState = {
     OneEvent: {}
 };
 
-export const eventsReducer = (state = initialState, action) => {
+const eventsReducer = (state = initialState, action) => {
     let newState = {};
     switch (action.type) {
         case LOAD_EVENTS:
@@ -127,3 +127,5 @@ export const eventsReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+export default eventsReducer;
