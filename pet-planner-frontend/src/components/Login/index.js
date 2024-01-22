@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch as UseDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/session';
 
 import './index.css';
@@ -12,7 +12,7 @@ function LoginModal({ onClose }) {
     const errors = useSelector(state => state.session.errors);
 
     const dispatch = UseDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
 
     const handleBackdropClick = (event) => {
@@ -28,7 +28,7 @@ function LoginModal({ onClose }) {
         const error = await dispatch(login(user));
         if (!error) {
             onClose();
-            history.push('/UsersPage');
+            navigate('/UsersPage');
         } else {
             const errorMessage = error.map((error) => error + ' ');
             alert(errorMessage);
