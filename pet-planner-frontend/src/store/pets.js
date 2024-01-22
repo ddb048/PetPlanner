@@ -100,7 +100,7 @@ const initialState = {
     OnePet: {}
 };
 
-export const petsReducer = (state = initialState, action) => {
+const petsReducer = (state = initialState, action) => {
     let newState = {};
     switch (action.type) {
         case LOAD_PETS:
@@ -131,3 +131,5 @@ export const petsReducer = (state = initialState, action) => {
 
     }
 };
+
+export default petsReducer;
