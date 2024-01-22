@@ -56,13 +56,17 @@ export const login = (user) => async (dispatch) => {
             }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error);
+            throw new Error(data.error);
         }
 
-        const data = await response.json();
-        dispatch(setUser(data.user));
+        // Store the JWT token in local storage
+        localStorage.setItem('jwt', data.jwt);
+
+        // Dispatch the setUser action with the JWT token
+        dispatch(setUser(data.jwt));
     } catch (error) {
         dispatch(setError(error.message));
     }
