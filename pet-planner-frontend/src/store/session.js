@@ -56,16 +56,15 @@ export const login = (user) => async (dispatch) => {
             }),
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('jwt', data.jwt);
-            dispatch(setUser(data.user));
-            return response;
-        } else {
-            throw new Error('Login failed.');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error);
         }
-    } catch (err) {
-        dispatch(setError(err.message));
+
+        const data = await response.json();
+        dispatch(setUser(data.user));
+    } catch (error) {
+        dispatch(setError(error.message));
     }
 };
 

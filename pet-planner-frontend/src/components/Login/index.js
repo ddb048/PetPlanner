@@ -9,7 +9,8 @@ import './index.css';
 function LoginModal({ onClose }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const errors = useSelector(state => state.session.errors);
+    const errors = useSelector(state => state.session.errors); // Access the errors state from the Redux store
+    const error = useSelector(state => state.session.error); // Access the error state from the Redux store
 
     const dispatch = UseDispatch();
     const navigate = useNavigate();
@@ -24,16 +25,16 @@ function LoginModal({ onClose }) {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        const user = { username, password };
-        const error = await dispatch(login(user));
+        const user = { credential: username, password };
+        await dispatch(login(user));
+
+
         if (!error) {
             onClose();
-            navigate('/UsersPage');
+            navigate('/UserPage');
         } else {
-            const errorMessage = error.map((error) => error + ' ');
-            alert(errorMessage);
+            alert(error);
         }
-
     };
 
     return (

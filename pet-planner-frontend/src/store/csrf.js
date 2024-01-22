@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 
-export async function csrfFetch(url, options = {}) {
+export async function csrfFetch(endpoint, options = {}) {
+    const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
     // Set options.method to 'GET' if there is no method
     options.method = options.method || 'GET';
     // Set options.headers to an empty object if there are no headers
@@ -21,7 +22,7 @@ export async function csrfFetch(url, options = {}) {
     }
 
     // Call the default window's fetch with the url and the options passed in
-    const res = await window.fetch(url, options);
+    const res = await window.fetch(`${BASE_URL}${endpoint}`, options);
 
     // Throw an error if the response status is 400 or higher
     if (res.status >= 400) {
