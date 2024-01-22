@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import EventsList from '../EventsList';
 import './index.css';
 
-const PetEvents = () => {
+const PetDetailsPage = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
   const [events, setEvents] = useState([])
@@ -105,4 +105,4 @@ const PetEvents = () => {
   );
 };
 
-export default PetEvents;
+export default PetDetailsPage;

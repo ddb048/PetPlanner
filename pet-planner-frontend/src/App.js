@@ -6,8 +6,8 @@ import HomePage from './components/HomePage';
 import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import PetEvents from './components/PetsDetail';
-import DisplayPets from './components/PetsList';
-import SignupModal from './components/SignIn';
+import PetsPage from './components/PetsPage';
+import SignupModal from './components/SignUp';
 import UserPage from './components/UserPage';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
         <Route path="/UserPage" element={<UserPage />} />
-        <Route path="/pets" element={<DisplayPets />} />
+        <Route path="/pets" element={<PetsPage />} />
         <Route path="/pets/new" element={<CreatePet />} />
         <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
         <Route path="/events/:EventId" element={<PetEvents />} />

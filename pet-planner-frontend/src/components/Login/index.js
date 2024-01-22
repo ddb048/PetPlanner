@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { login } from '../../store/session';
 
-import { authenticate } from '../../auth';
-
-import { redirect } from 'react-router-dom';
 import './index.css';
 
 
 function LoginModal({ onClose }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const errors = useSelector(state => state.session.errors);
+
+    const dispatch = UseDispatch();
+    const history = useHistory();
+
 
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modal-backdrop')) {
@@ -20,18 +24,14 @@ function LoginModal({ onClose }) {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        redirect('/pets');
-        // Implement login logic here
-
-        setError(''); // Reset any previous errors
-
-        const result = await authenticate(username, password);
-        if (result.success) {
-            // Close modal and possibly redirect or update UI
+        const user = { username, password };
+        const error = await dispatch(login(user));
+        if (!error) {
             onClose();
-            // Implement any post-login logic, such as redirecting or updating UI
+            history.push('/UsersPage');
         } else {
-            setError(result.message); // Show error message to the user
+            const errorMessage = error.map((error) => error + ' ');
+            alert(errorMessage);
         }
 
     };
@@ -40,6 +40,10 @@ function LoginModal({ onClose }) {
         <div className='modal-backdrop' onClick={handleBackdropClick}>
             <div className="modal">
                 <div className="modal-content">
+
+                    {errors && errors.map((error, index) => (
+                        <div key={index} className='error-message'>{error}</div>
+                    ))}
                     <div className="modal-title">Login</div>
                     <form onSubmit={handleLogin}>
                         <input
@@ -58,7 +62,7 @@ function LoginModal({ onClose }) {
                             onChange={e => setPassword(e.target.value)}
                             required
                         />
-                        {error && <div className="error-message">{error}</div>}
+
                         <div className='modal-button-container'>
                             <button className="modal-button" type="submit">Login</button>
                             <button className="modal-button" type="button" onClick={onClose}>Close</button>
