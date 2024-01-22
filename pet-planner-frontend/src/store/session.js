@@ -24,6 +24,8 @@ const removeUser = () => {
     };
 };
 
+
+//UPDATE a USER
 const updateUser = (user) => {
     return {
         type: UPDATE_USER,

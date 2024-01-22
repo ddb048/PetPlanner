@@ -116,7 +116,7 @@ export const petsReducer = (state = initialState, action) => {
             return newState;
         case ADD_PET:
             newState = { ...state };
-            newState.pets[action.pet.id] = action.payload;
+            newState.pets[action.pet.id] = action.pet;
             return newState;
         case EDIT_PET:
             newState = { ...state };

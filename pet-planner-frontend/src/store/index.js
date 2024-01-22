@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { eventsReducer } from './events';
 import { petsReducer } from './pets';
 import sessionReducer from './session';
 
@@ -7,6 +8,8 @@ import sessionReducer from './session';
 const rootReducer = combineReducers({
     session: sessionReducer,
     pets: petsReducer,
+    events: eventsReducer,
+    attendances: attendancesReducer,
 });
 
 let enhancer;
