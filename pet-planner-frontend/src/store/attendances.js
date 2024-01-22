@@ -64,7 +64,7 @@ export const deleteOneAttendance = (petId, event) => async (dispatch) => {
 //*******************REDUCER*********************/
 const initialState = {};
 
-export const attendancesReducer = (state = initialState, action) => {
+const attendancesReducer = (state = initialState, action) => {
     let newState = {};
     switch (action.type) {
         case LOAD_ATTENDANCES:
@@ -83,5 +83,9 @@ export const attendancesReducer = (state = initialState, action) => {
             delete newState.petsEvents[action.event.id];
             delete newState.events[action.event.id].pets[action.petId]
             return newState;
+        default:
+            return state;
     }
 }
+
+export default attendancesReducer;
