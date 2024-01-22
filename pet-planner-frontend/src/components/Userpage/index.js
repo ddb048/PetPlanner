@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventsList from '../EventsList';
-import DisplayPets from '../PetsList';
+import DisplayPets from '../PetsPage';
 const UserDisplay = () => {
   const [userData, setUserData] = useState(null);
 
