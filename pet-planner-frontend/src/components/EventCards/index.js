@@ -68,6 +68,6 @@ function EventCards({ event }) {
             </div>
         </Link>
     )
-
-
 }
+
+export default EventCards
