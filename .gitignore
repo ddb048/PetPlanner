@@ -87,7 +87,3 @@ build/
 ###########
 .vscode/
 /.metadata/
-<<<<<<< HEAD
-=======
-.gitignore
->>>>>>> d81abbe3289ef66ee4f608148b866571938a72a7
