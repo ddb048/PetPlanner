@@ -50,17 +50,17 @@ CREATE TABLE pets_events (
 
 INSERT INTO Users (Username, Password, Email, profile_pic, Role, Enabled)
 VALUES
-('joser', 'password123', 'joser@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'ROLE_USER', True),
-('wendyn', 'password321', 'wendyn@gmail.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'ROLE_USER', True ),
-('alexg', 'pass456', 'alexg@example.com', 'https://example.com/profiles/alexg.jpg', 'ROLE_USER', True),
-('mariak', 'pass789', 'mariak@example.com', 'https://example.com/profiles/mariak.jpg', 'ROLE_ADMIN', True);
+('joser', 'password123', 'joser@gmail.com', 'https://i.pinimg.com/736x/c5/77/99/c5779904a839e55c9592426d0c9ce5ca.jpg', 'ROLE_USER', True),
+('wendyn', 'password321', 'wendyn@gmail.com', 'https://e1.pxfuel.com/desktop-wallpaper/643/772/desktop-wallpaper-%E2%98%AE%EF%B8%8E-cute-aesthetic-pfp.jpg, 'ROLE_USER', True ),
+('alexg', 'pass456', 'alexg@example.com', 'https://img.freepik.com/premium-vector/cute-boy-cartoon-character-vector-illustration-design-mascot-design-concept_648861-692.jpg', 'ROLE_USER', True),
+('mariak', 'pass789', 'mariak@example.com', 'https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg', 'ROLE_ADMIN', True);
 
 INSERT INTO Pets (owner_id, Species, pet_picture, birthdate, temparement, description)
 VALUES
-(1, 'DOG', 'https://example.com/pets/dog1.jpg', '2019-06-15', 'PLAYFUL', 'A playful golden retriever.'),
-(2, 'CAT', 'https://example.com/pets/cat1.jpg', '2018-08-21', 'CALM', 'A calm and affectionate tabby cat.'),
-(3, 'BIRD', 'https://example.com/pets/bird1.jpg', '2020-05-30', 'FRIENDLY', 'A friendly parrot with vibrant feathers.'),
-(4, 'REPTILE', 'https://example.com/pets/reptile1.jpg', '2021-01-10', 'RESERVED', 'A reserved but curious gecko.');
+(1, 'DOG', 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2016/11/12132103/Golden-Retriever-laying-in-the-grass-feeling-sad.jpg', '2019-06-15', 'PLAYFUL', 'A playful golden retriever.'),
+(2, 'CAT', 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/a-cute-little-tabby-cat-sitting-on-a-stone-wall-stefan-rotter.jpg', '2018-08-21', 'CALM', 'A calm and affectionate tabby cat.'),
+(3, 'BIRD', 'https://i.pinimg.com/736x/5c/c8/c9/5cc8c929f48cd3db39c9112e016ea071.jpg', '2020-05-30', 'FRIENDLY', 'A friendly parrot with vibrant feathers.'),
+(4, 'REPTILE', 'https://i.pinimg.com/736x/de/4c/ef/de4cefddf85064ab645e7788722cfd97.jpg', '2021-01-10', 'RESERVED', 'A reserved but curious gecko.');
 
 INSERT INTO Events (date, duration, address, organizer_id, description)
 VALUES
