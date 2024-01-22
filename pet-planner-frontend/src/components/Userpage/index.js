@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import EventsList from '../EventsList';
-
-import DisplayPets from '../PetsList';
 import { getPets } from '../../store/pets'; 
 import { getEvents } from '../../store/events';
 
+// import DisplayPets from '../PetsList';
 
-const UserDisplay = () => {
+
+const UserPage = () => {
   
   //State-related
   const [  userData, setUserData  ] = useState(null);
@@ -76,7 +76,7 @@ const UserDisplay = () => {
 
           </div>
           <div>
-            <DisplayPets />
+            Placeholder: Display Pets
           </div>
           <div>
             <EventsList />
@@ -90,4 +90,4 @@ const UserDisplay = () => {
   );
 };
 
-export default UserDisplay;
+export default UserPage;
