@@ -15,14 +15,18 @@ export async function csrfFetch(endpoint, options = {}) {
     // Set the "XSRF-TOKEN" header from the cookie
     options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
 
-    // Include JWT in headers for authenticated requests
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-        options.headers['Authorization'] = `Bearer ${jwt}`;
+    // Include JWT in headers for authenticated requests, but not when authenticating
+    if (endpoint !== '/authenticate') {
+        const jwt = localStorage.getItem('userToken');
+        if (jwt) {
+            options.headers['Authorization'] = `Bearer ${jwt}`;
+        }
     }
 
     // Call the default window's fetch with the url and the options passed in
     const res = await window.fetch(`${BASE_URL}${endpoint}`, options);
+
+    console.log('res', res);
 
     // Throw an error if the response status is 400 or higher
     if (res.status >= 400) {

@@ -1,4 +1,11 @@
+import { jwtDecode } from 'jwt-decode';
 import { csrfFetch } from './csrf';
+
+// Function to save the token after successful login
+export function saveToken(token) {
+    localStorage.setItem('userToken', token);
+}
+
 //TYPES
 
 const SET_USER = 'session/setUser';
@@ -46,6 +53,7 @@ const setError = (error) => {
 //LOGIN a USER
 export const login = (user) => async (dispatch) => {
     const { username, password } = user;
+    localStorage.removeItem('userToken');  // Clear JWT token
     try {
         const response = await csrfFetch('/authenticate', {
             method: 'POST',
@@ -57,24 +65,39 @@ export const login = (user) => async (dispatch) => {
         });
 
         const data = await response.json();
+        if (response.ok) {
 
-        if (!response.ok) {
-            throw new Error(data.error);
+            console.log('jwt', data.jwt);
+            saveToken(data.jwt);
+
+            console.log("response ok and data", data);
+
+            const decodedToken = jwtDecode(data.jwt);
+
+            console.log('decodedToken', decodedToken)
+            const userId = decodedToken.userId;
+
+            console.log('userId', userId);
+
+            const userResponse = await csrfFetch(`/api/users/${userId}`);
+            const userData = await userResponse.json();
+
+
+            console.log('userData', userData);
+
+            dispatch(setUser(userData));
+        } else {
+            return { success: false, message: data.message || 'Authentication failed' };
         }
-
-        // Store the JWT token in local storage
-        localStorage.setItem('jwt', data.jwt);
-
-        // Dispatch the setUser action with the JWT token
-        dispatch(setUser(data.jwt));
     } catch (error) {
-        dispatch(setError(error.message));
+        return { success: false, message: error.message || 'Failed to authenticate' };
     }
+
 };
 
 //LOGOUT a USER
 export const logout = () => async (dispatch) => {
-    localStorage.removeItem('jwt');  // Clear JWT token
+    localStorage.removeItem('userToken');  // Clear JWT token
     dispatch(removeUser());
 };
 

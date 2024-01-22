@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import EventCards from '../EventCards';
-import { getPets } from '../../store/pets'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { getEvents } from '../../store/events';
+import { getPets } from '../../store/pets';
+import EventCards from '../EventCards';
 
 // import DisplayPets from '../PetsList';
 
 
 const UserPage = () => {
-  
+
   //State-related
-  const [  userData, setUserData  ] = useState(null);
+  const [userData, setUserData] = useState(null);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -21,13 +21,13 @@ const UserPage = () => {
   //Pet-Data related (if petsObj is already an array, remove pets)
   const petsObj = useSelector(state => state.pets.pets || []);
   const pets = Object.values(petsObj);
-  
+
   //Event-Data and date filtering for display (if eventsObj is already an array, remove events)
-  const eventsObj= useSelector(state => state.events.events || []);
+  const eventsObj = useSelector(state => state.events.events || []);
   const events = Object.values(eventsObj);
   const futureEvents = events.filter(event => event.date >= new Date().toISOString());
   const pastEvents = events.filter(event => event.date < new Date().toISOString());
-  
+
   //Date-related variables we need to initialize
   let futureEventDisplay;
   let pastEventDisplay;
