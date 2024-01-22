@@ -26,6 +26,7 @@ import java.util.List;
 import com.cognixia.jump.controller.PetController;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
@@ -185,5 +186,40 @@ class PetControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/{id}", petId))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+    
+    @Test
+    void AddPetToEvent() {
+        // Arrange
+        Long petId = 1L;
+        Long eventId = 2L;
+        
+        
+
+        // Act
+        ResponseEntity<String> response = petController.addPetToEvent(petId, eventId);
+
+        // Assert
+        assertEquals(ResponseEntity.ok("Pet added to event successfully"), response);
+
+        // Verify that petService.addPetToEvent was called with the correct arguments
+        verify(petService, times(1)).addPetToEvent(petId, eventId);
+    }
+
+    @Test
+    void DeletePetFromEvent() {
+        // Arrange
+        Long petId = 1L;
+        Long eventId = 2L;
+
+
+        // Act
+        ResponseEntity<String> response = petController.deletePetFromEvent(petId, eventId);
+
+        // Assert
+        assertEquals(ResponseEntity.ok("Pet removed from event successfully"), response);
+
+        // Verify that petService.deletePetFromEvent was called with the correct arguments
+        verify(petService, times(1)).deletePetFromEvent(petId, eventId);
     }
 }
