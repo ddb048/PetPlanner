@@ -5,6 +5,9 @@ import './index.css'
 
 function PetCards({ pet }) {
 
+    //Data-related
+    const allPets = useSelector(state => state.pets.pets)
+
     //State-related
     const [ loading, setLoading ] = useState(true);
 
@@ -14,8 +17,11 @@ function PetCards({ pet }) {
         }
     }, [allPets]);
 
-    //Data-related
-    const allPets = useSelector(state => state.pets.pets)
+
+    // Loading check
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     //Link route below may be wrong.
 
@@ -31,7 +37,7 @@ function PetCards({ pet }) {
 
                     <div className='pet-card__name'>   
                         {/* {pet.name} */}
-                        Placeholder: After names have been added -- remove this line and comment in the one above.
+                        Placeholder for Pet names. They are currently not in the model.
                     </div>
 
                     <div className='pet-card__species'>
