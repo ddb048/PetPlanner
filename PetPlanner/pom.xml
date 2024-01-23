@@ -20,6 +20,12 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			 <!-- Use the appropriate version -->
+			<scope>test</scope>
+		</dependency>
 		<!-- help us with creating & validating jwts (json web tokens) -->
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>

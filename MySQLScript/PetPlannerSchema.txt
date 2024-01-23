@@ -55,19 +55,19 @@ VALUES
 ('alexg', 'pass456', 'alexg@example.com', 'https://example.com/profiles/alexg.jpg', 'ROLE_USER', True),
 ('mariak', 'pass789', 'mariak@example.com', 'https://example.com/profiles/mariak.jpg', 'ROLE_ADMIN', True);
 
-INSERT INTO Pets (owner_id, Species, pet_picture, birthdate, temparement, description)
+INSERT INTO Pets (user_id, Species, pet_picture, birthdate, temparement, description)
 VALUES
 (1, 'DOG', 'https://example.com/pets/dog1.jpg', '2019-06-15', 'PLAYFUL', 'A playful golden retriever.'),
 (2, 'CAT', 'https://example.com/pets/cat1.jpg', '2018-08-21', 'CALM', 'A calm and affectionate tabby cat.'),
 (3, 'BIRD', 'https://example.com/pets/bird1.jpg', '2020-05-30', 'FRIENDLY', 'A friendly parrot with vibrant feathers.'),
 (4, 'REPTILE', 'https://example.com/pets/reptile1.jpg', '2021-01-10', 'RESERVED', 'A reserved but curious gecko.');
 
-INSERT INTO Events (date, duration, address, organizer_id, description)
+INSERT INTO Events (date, duration, address, user_id, description)
 VALUES
-('2023-12-20 15:00:00', '02:00:00', '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
-('2023-12-22 10:00:00', '03:00:00', '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
-('2023-12-25 17:00:00', '01:30:00', '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
-('2023-12-28 20:00:00', '02:00:00', '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
+('2023-12-20 15:00:00', 120, '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
+('2023-12-22 10:00:00', 180, '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
+('2023-12-25 17:00:00', 150, '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
+('2023-12-28 20:00:00', 120, '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
 
 INSERT INTO Pets_Events (pet_id, event_id)
 VALUES
