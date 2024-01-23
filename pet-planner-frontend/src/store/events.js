@@ -44,11 +44,12 @@ const loadOneEvent = (event) => {
 }
 
 //*******************THUNKS*********************/
-//GET all events
-export const getEvents = () => async (dispatch) => {
-    const response = await csrfFetch('/api/events');
+//GET all Users events
+export const getEvents = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}/events`);
     const data = await response.json();
-    dispatch(loadEvents(data.events));
+    console.log("data from getEvents thunk", data);
+    dispatch(loadEvents(data));
     return response;
 };
 

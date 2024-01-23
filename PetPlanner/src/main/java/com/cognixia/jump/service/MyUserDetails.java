@@ -20,16 +20,22 @@ public class MyUserDetails implements UserDetails {
 	private String password;
 	private boolean enabled = false;
 	private List<GrantedAuthority> authorities;
+	private Long userId;
 
 	public MyUserDetails(User user) {
 
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.enabled = user.isEnabled();
+		this.userId = user.getId();
 
 		// Granted Authorities -> permissions as a user (which endpoints can we access)
 		// -> can find our GA based on what the user's roles are
 		this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+	}
+
+	public Long getUserId() {
+		return userId;
 	}
 
 	@Override

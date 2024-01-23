@@ -1,93 +1,129 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import EventsList from '../EventsList';
-
-import DisplayPets from '../PetsList';
-import { getPets } from '../../store/pets'; 
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getEvents } from '../../store/events';
+import { getPets } from '../../store/pets';
+import EventCards from '../EventCards';
+import PetCards from '../PetCards';
+import './index.css';
 
+const UserPage = () => {
 
-const UserDisplay = () => {
-  
   //State-related
-  const [  userData, setUserData  ] = useState(null);
   const dispatch = useDispatch()
+  const user = useSelector(state => state.session.user);
 
   useEffect(() => {
-    dispatch(getPets())
-    dispatch(getEvents())
+    dispatch(getPets(user.id))
+    dispatch(getEvents(user.id))
   }, [dispatch]);
 
-    //Pet-Data related (if petsObj is already an array, remove pets)
-    const petsObj = useSelector(state => state.pets.pets || []);
-    const pets = Object.values(petsObj);
-    
-    //Event-Data and date filtering for display (if eventsObj is already an array, remove events)
-    const eventsObj= useSelector(state => state.events.events || []);
-    const events = Object.values(eventsObj);
-    const futureEvents = events.filter(event => event.date >= new Date().toISOString());
-    const pastEvents = events.filter(event => event.date < new Date().toISOString());
+  // Event-Data and date filtering for display Related
+  const eventsObj = useSelector(state => state.events.events || []);
+  const events = Object.values(eventsObj);
+  const futureEvents = events.filter(event => event.date >= new Date().toISOString());
+  const pastEvents = events.filter(event => event.date < new Date().toISOString());
 
-    //To-do
+  //Date-related variables we need to initialize for events (Events logic)
+  let futureEventDisplay;
+  let pastEventDisplay;
 
-    // 1 --- Create an EventDetails component that accepts a single Event (we will map to this)
+  if (futureEvents.length > 0) {
+    futureEventDisplay = (
+      futureEvents.map(event => (
+        <EventCards key={event.id} event={event} />
+      ))
+    )
+  } else {
+    futureEventDisplay = (
+      <>
+        <div className='no-events__container'>
+          <div className='no-events__text'> There are current no upcoming events for you. </div>
+        </div>
+      </>
+    )
+  };
 
-      // We will use this as a placeholder for the UTC time: 
-      // May want to consider other options
-
-      //   function splitDateTime(dateTimeString) {
-      //     const [date, fullTime] = dateTimeString.split('T');
-      //     const time = fullTime.split('.')[0]
-      //     return { date, time };
-      // }
-
-      // function convertToAMPM(timeString) {
-      //     const [hour, minute] = timeString.split(':');
-      //     let amOrPm = 'AM';
-      //     let adjustedHour = parseInt(hour, 10);
-      
-      //     if (adjustedHour >= 12) {
-      //         amOrPm = 'PM';
-      //         if (adjustedHour > 12) {
-      //             adjustedHour -= 12;
-      //         }
-      //     }
-      
-      //     return `${adjustedHour}:${minute} ${amOrPm}`;
-      // }    
-
-      // const { date, time } = splitDateTime(event.date)
-      // const formattedTime = convertToAMPM(time)
+  if (pastEvents.length > 0) {
+    pastEventDisplay = (
+      pastEvents.map(event => (
+        <EventCards key={event.id} event={event} />
+      ))
+    )
+  } else {
+    pastEventDisplay = (
+      <>
+        <div className='no-events__container'>
+          <div className='no-events__text'> There are no attended events in your history. </div>
+        </div>
+      </>
+    )
+  }
 
 
-    // 2 --- Create a PetDetails component that accepts a single Pet (we will map to this)
+  // Pet Card Related
+  const petsObj = useSelector(state => state.pets.pets || []);
+  const pets = Object.values(petsObj);
 
-    
-
+  // Pets Display Logic
+  let petDisplay;
+  if (pets.length > 0) {
+    petDisplay = pets.map(pet => (
+      <PetCards key={pet.id} pet={pet} />
+    ));
+  } else {
+    petDisplay = (
+      <div className='no-pets__container'>
+        <div className='no-pets__text'>
+          No pets found.
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div>s
-      <h1>User Information:</h1>
-      {userData ? (
-        <div>
-          <div>
-            <p>Username: {userData.username}</p>
-            <p>Email: {userData.email}</p>
+    <div className='userpage-content__container'>
 
+      {user ? (
+        <div className='userpage__content'>
+          {user.username && (
+            <div className='userpage__username'>
+              Username: {user.username}
+            </div>
+          )}
+
+          {user.email && (
+            <div className='userpage__email'>
+              Email: {user.email}
+            </div>
+          )}
+
+          {pets.length > 0 && (
+            <div className='userpage__pets'>
+              {petDisplay}
+            </div>
+          )}
+
+          <div className='userpage__events-section'>
+            <div className='userpage__future-events'>
+              Upcoming Events:
+              {futureEventDisplay}
+            </div>
+
+            <div className='userpage__past-events'>
+              Past Events:
+              {pastEventDisplay}
+            </div>
           </div>
-          <div>
-            <DisplayPets />
-          </div>
-          <div>
-            <EventsList />
-          </div>
+
+
         </div>
-
       ) : (
-        <p>Loading user data...</p>
+        <div className='userpage__loading'>
+          Loading user data...
+        </div>
       )}
     </div>
   );
 };
 
-export default UserDisplay;
+export default UserPage;

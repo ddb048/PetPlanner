@@ -25,7 +25,7 @@ function LoginModal({ onClose }) {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        const user = { credential: username, password };
+        const user = { username, password };
         await dispatch(login(user));
 
 

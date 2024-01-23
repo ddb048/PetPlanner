@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PetPlannerLogo from '../../assets/PetPlannerLogo.png';
 import arrow from '../../assets/arrow.svg';
 import caret from '../../assets/caret.svg';
 import userProfilePic from '../../assets/profile.png';
+import { logout } from '../../store/session';
 import './index.css';
 
-import { isLoggedIn, logout } from '../../auth';
 
 function Navbar({ onShowSignup, onShowLogin }) {
-
-
+    const user = useSelector(state => state.session.user);
 
     return (
         <nav className="nav-bar">
@@ -21,7 +21,7 @@ function Navbar({ onShowSignup, onShowLogin }) {
                 </Link>
             </div>
             <div className="nav-bar-right">
-                {isLoggedIn() ? (
+                {user ? (
                     <LoggedInMenu />
                 ) : (
                     <LoggedOutMenu onShowSignup={onShowSignup} onShowLogin={onShowLogin} />
@@ -67,9 +67,10 @@ function LoggedInMenu() {
                 <img
                     src={userProfilePic}
                     className="navbar-profile-pic"
+                    alt="User Profile Pic"
                 />
                 <div className="icon" onClick={toggleDropdown}>
-                    {isOpen ? <img src={arrow} /> : <img src={caret} />}
+                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret"/>}
                 </div>
             </div>
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
