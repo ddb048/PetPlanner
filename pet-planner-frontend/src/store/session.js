@@ -1,4 +1,4 @@
-
+import { csrfFetch } from './csrf';
 //TYPES
 
 const SET_USER = 'session/setUser';
@@ -56,18 +56,16 @@ export const login = (user) => async (dispatch) => {
             }),
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('jwt', data.jwt);
-            dispatch(setUser(data.user));
-        } else {
-            throw new Error('Login failed.');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error);
         }
-    } catch (err) {
-        dispatch(setError(err.message));
-    }
 
-    return response;
+        const data = await response.json();
+        dispatch(setUser(data.user));
+    } catch (error) {
+        dispatch(setError(error.message));
+    }
 };
 
 //LOGOUT a USER
@@ -104,13 +102,14 @@ export const signup = (user) => async (dispatch) => {
             const data = await response.json();
             localStorage.setItem('jwt', data.jwt);
             dispatch(setUser(data.user));
+            return response;
         } else {
             throw new Error('Signup failed.');
         }
     } catch (err) {
         dispatch(setError(err.message));
     }
-    return response;
+
 };
 
 //UPDATE a USER
@@ -131,13 +130,14 @@ export const update = (user) => async (dispatch) => {
         if (response.ok) {
             const data = await response.json();
             dispatch(updateUser(data.user));
+            return response;
         } else {
             throw new Error('Update failed.');
         }
     } catch (err) {
         dispatch(setError(err.message));
     }
-    return response;
+
 };
 
 //INITIAL STATE OBJECT
@@ -163,3 +163,5 @@ const sessionReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default sessionReducer;
