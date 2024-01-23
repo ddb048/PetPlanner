@@ -19,26 +19,35 @@ class PetTest {
         // Arrange
         Long id = 1L;
         User user = new User();
+       
         Pet.Species species = Pet.Species.DOG;
         String petPicture = "dog.jpg";
+       
         Date birthdate = new Date();
+      
         Pet.Temperament temperament = Pet.Temperament.FRIENDLY;
+      
         String description = "Friendly dog";
+       
         Set<Event> events = new HashSet<>();
+        
+        String petName  = "Nena" ;
+        
 
         // Act
-        Pet pet = new Pet(id, user, species, petPicture, birthdate, temperament, description, events);
+        Pet pet = new Pet(id,petName, user, species, petPicture, birthdate, temperament, description, events);
 
         // Assert
         assertNotNull(pet);
         assertEquals(id, pet.getId());
+        assertEquals(petName, pet.getPetName());
         assertEquals(user, pet.getUser());
         assertEquals(species, pet.getSpecies());
         assertEquals(petPicture, pet.getPetPicture());
         assertEquals(birthdate, pet.getBirthdate());
         assertEquals(temperament, pet.getTemparement());
         assertEquals(description, pet.getDescription());
-
+        
     }
 
     @Test
@@ -49,6 +58,7 @@ class PetTest {
         // Assert
         assertNotNull(pet);
         assertNull(pet.getId());
+        assertNull(pet.getPetName());
         assertNull(pet.getUser());
         assertNull(pet.getSpecies());
         assertNull(pet.getPetPicture());
@@ -65,6 +75,7 @@ class PetTest {
 
         // Act
         Long id = 2L;
+        String petName  = "Nena" ;
         User user = new User();
         Pet.Species species = Pet.Species.CAT;
         String petPicture = "cat.jpg";
@@ -73,6 +84,7 @@ class PetTest {
         String description = "Calm cat";
 
         pet.setId(id);
+        pet.setPetName(petName);
         pet.setUser(user);
         pet.setSpecies(species);
         pet.setPetPicture(petPicture);
@@ -82,6 +94,7 @@ class PetTest {
 
         // Assert
         assertEquals(id, pet.getId());
+        assertEquals(petName, pet.getPetName());
         assertEquals(user, pet.getUser());
         assertEquals(species, pet.getSpecies());
         assertEquals(petPicture, pet.getPetPicture());
@@ -95,6 +108,7 @@ class PetTest {
     void testToString() {
         // Arrange
         Long id = 3L;
+        String petName  = "Nena" ;
         User user = new User();
         Pet.Species species = Pet.Species.BIRD;
         String petPicture = "bird.jpg";
@@ -102,8 +116,9 @@ class PetTest {
         Pet.Temperament temperament = Pet.Temperament.PLAYFUL;
         String description = "Playful bird";
         Set<Event> events = new HashSet<>();
+      
 
-        Pet pet = new Pet(id, user, species, petPicture, birthdate, temperament, description, events);
+        Pet pet = new Pet(id,petName, user, species, petPicture, birthdate, temperament, description, events);
 
         // Act
         String petString = pet.toString();
@@ -111,11 +126,13 @@ class PetTest {
         // Assert
         assertNotNull(petString);
         assertTrue(petString.contains("id=" + id));
+        assertTrue(petString.contains("petName=" + petName));
         assertTrue(petString.contains("species=" + species));
         assertTrue(petString.contains("petPicture=" + petPicture));
         assertTrue(petString.contains("birthdate=" + birthdate));
         assertTrue(petString.contains("temparement=" + temperament)); // corrected the typo here
         assertTrue(petString.contains("description=" + description));
+   
     }
 
 }
