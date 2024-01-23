@@ -45,11 +45,12 @@ const loadOnePet = (pet) => {
 }
 
 //*******************THUNKS*********************/
-//GET all pets
-export const getPets = () => async (dispatch) => {
-    const response = await csrfFetch('/api/pets');
+//GET all Users pets
+export const getPets = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}/pets`);
     const data = await response.json();
-    dispatch(loadPets(data.pets));
+    console.log("data from getPets thunk", data)
+    dispatch(loadPets(data));
     return response;
 };
 

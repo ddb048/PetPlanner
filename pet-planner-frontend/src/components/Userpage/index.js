@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEvents } from '../../store/events';
 import { getPets } from '../../store/pets';
@@ -9,12 +9,14 @@ import PetCards from '../PetCards';
 const UserPage = () => {
 
   //State-related
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const dispatch = useDispatch()
+  const userId = useSelector(state => state.session.user.id);
+
 
   useEffect(() => {
-    dispatch(getPets())
-    dispatch(getEvents())
+    dispatch(getPets(userId))
+    dispatch(getEvents(userId))
   }, [dispatch]);
 
   // Event-Data and date filtering for display Related
@@ -70,7 +72,7 @@ const UserPage = () => {
   let petDisplay;
   if (pets.length > 0) {
     petDisplay = pets.map(pet => (
-      <PetCards key={pet.id} pet={pet}/>
+      <PetCards key={pet.id} pet={pet} />
     ));
   } else {
     petDisplay = (
@@ -84,7 +86,7 @@ const UserPage = () => {
 
   return (
     <div className='userpage-content__container'>
-      {userData ? (
+      {userId ? (
         <div className='userpage__content'>
           {userData.username && (
             <div className='userpage__username'>
