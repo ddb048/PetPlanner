@@ -37,9 +37,11 @@ public class Pet implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
+	private String petName;
 
 	@ManyToOne
-	
 	@JoinColumn( name = "user_id", referencedColumnName = "id" ) // can add nullable = false to make sure dorm id is given for each account (won't b/c we may have commuter students)
 	private User user;
 
@@ -66,11 +68,12 @@ public class Pet implements Serializable {
 	public Pet() {
 
 	}
-
-	public Pet(Long id, User user, @NotNull Species species, String petPicture, Date birthdate,
+	
+	public Pet(Long id, @NotNull String petName, User user, @NotNull Species species, String petPicture, Date birthdate,
 			@NotNull Temperament temparement, String description, Set<Event> events) {
 		super();
 		this.id = id;
+		this.petName = petName;
 		this.user = user;
 		this.species = species;
 		this.petPicture = petPicture;
@@ -79,7 +82,6 @@ public class Pet implements Serializable {
 		this.description = description;
 		this.events = events;
 	}
-
 
 
 	public Long getId() {
@@ -145,14 +147,21 @@ public class Pet implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", user=" + user + ", species=" + species + ", petPicture=" + petPicture
-				+ ", birthdate=" + birthdate + ", temparement=" + temparement + ", description=" + description
-				+ ", events=" + events + "]";
+		return "Pet [id=" + id + ", petName=" + petName + ", user=" + user + ", species=" + species + ", petPicture="
+				+ petPicture + ", birthdate=" + birthdate + ", temparement=" + temparement + ", description="
+				+ description + ", events=" + events + "]";
 	}
-
 	
 
 }
