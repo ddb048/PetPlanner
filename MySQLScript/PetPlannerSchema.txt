@@ -55,19 +55,19 @@ VALUES
 ('alexg', 'pass456', 'alexg@example.com', 'https://img.freepik.com/premium-vector/cute-boy-cartoon-character-vector-illustration-design-mascot-design-concept_648861-692.jpg', 'ROLE_USER', True),
 ('mariak', 'pass789', 'mariak@example.com', 'https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg', 'ROLE_ADMIN', True);
 
-INSERT INTO Pets (owner_id, Species, pet_picture, birthdate, temparement, description)
+INSERT INTO Pets (user_id, Species, pet_picture, birthdate, temparement, description)
 VALUES
 (1, 'DOG', 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2016/11/12132103/Golden-Retriever-laying-in-the-grass-feeling-sad.jpg', '2019-06-15', 'PLAYFUL', 'A playful golden retriever.'),
 (2, 'CAT', 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/a-cute-little-tabby-cat-sitting-on-a-stone-wall-stefan-rotter.jpg', '2018-08-21', 'CALM', 'A calm and affectionate tabby cat.'),
 (3, 'BIRD', 'https://i.pinimg.com/736x/5c/c8/c9/5cc8c929f48cd3db39c9112e016ea071.jpg', '2020-05-30', 'FRIENDLY', 'A friendly parrot with vibrant feathers.'),
 (4, 'REPTILE', 'https://i.pinimg.com/736x/de/4c/ef/de4cefddf85064ab645e7788722cfd97.jpg', '2021-01-10', 'RESERVED', 'A reserved but curious gecko.');
 
-INSERT INTO Events (date, duration, address, organizer_id, description)
+INSERT INTO Events (date, duration, address, user_id, description)
 VALUES
-('2023-12-20 15:00:00', '02:00:00', '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
-('2023-12-22 10:00:00', '03:00:00', '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
-('2023-12-25 17:00:00', '01:30:00', '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
-('2023-12-28 20:00:00', '02:00:00', '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
+('2023-12-20 15:00:00', 120, '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
+('2023-12-22 10:00:00', 180, '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
+('2023-12-25 17:00:00', 150, '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
+('2023-12-28 20:00:00', 120, '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
 
 INSERT INTO Pets_Events (pet_id, event_id)
 VALUES
