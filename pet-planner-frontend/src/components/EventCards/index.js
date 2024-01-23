@@ -5,6 +5,9 @@ import './index.css'
 
 function EventCards({ event }) {
 
+    //Data-related
+    const allEvents = useSelector(state => state.events.events);
+
     //State-related
     const [ loading, setLoading ] = useState(true);
     
@@ -14,8 +17,6 @@ function EventCards({ event }) {
         }
     }, [allEvents]);
 
-    //Data-related
-    const allEvents = useSelector(state => state.events.events);
 
     // Date & Time Helper Functions
     function splitDateTime(dateTimeString) {
@@ -41,6 +42,11 @@ function EventCards({ event }) {
 
     const { date, time } = splitDateTime(event.date)
     const formattedTime = convertToAMPM(time)
+
+    // Loading check
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Link className="event-card__link-container" to={`/events/${event.id}`}>
