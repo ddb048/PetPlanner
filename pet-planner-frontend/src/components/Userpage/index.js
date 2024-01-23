@@ -4,7 +4,7 @@ import { getEvents } from '../../store/events';
 import { getPets } from '../../store/pets';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
-
+import './index.css';
 
 const UserPage = () => {
 
@@ -115,7 +115,7 @@ const UserPage = () => {
             </div>
           </div>
 
-          
+
         </div>
       ) : (
         <div className='userpage__loading'>
