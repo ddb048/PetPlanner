@@ -9,14 +9,12 @@ import PetCards from '../PetCards';
 const UserPage = () => {
 
   //State-related
-  // const [userData, setUserData] = useState(null);
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.session.user.id);
-
+  const user = useSelector(state => state.session.user);
 
   useEffect(() => {
-    dispatch(getPets(userId))
-    dispatch(getEvents(userId))
+    dispatch(getPets(user.id))
+    dispatch(getEvents(user.id))
   }, [dispatch]);
 
   // Event-Data and date filtering for display Related
@@ -86,17 +84,17 @@ const UserPage = () => {
 
   return (
     <div className='userpage-content__container'>
-      {userId ? (
+      {user ? (
         <div className='userpage__content'>
-          {userData.username && (
+          {user.username && (
             <div className='userpage__username'>
-              Username: {userData.username}
+              Username: {user.username}
             </div>
           )}
 
-          {userData.email && (
+          {user.email && (
             <div className='userpage__email'>
-              Email: {userData.email}
+              Email: {user.email}
             </div>
           )}
 

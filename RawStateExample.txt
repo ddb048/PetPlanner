@@ -1,0 +1,76 @@
+{
+  session: {
+    user: {
+      id: 3,
+      role: 'ROLE_USER',
+      username: 'alexg',
+      password: 'pass456',
+      email: 'alexg@example.com',
+      enabled: true,
+      profilePic: 'https://example.com/profiles/alexg.jpg'
+    }
+  },
+  pets: {
+    pets: {
+      '3': {
+        id: 3,
+        user: {
+          id: 3,
+          role: 'ROLE_USER',
+          username: 'alexg',
+          password: 'pass456',
+          email: 'alexg@example.com',
+          enabled: true,
+          profilePic: 'https://example.com/profiles/alexg.jpg'
+        },
+        species: 'BIRD',
+        petPicture: 'https://example.com/pets/bird1.jpg',
+        birthdate: '2020-05-30',
+        temparement: 'FRIENDLY',
+        description: 'A friendly parrot with vibrant feathers.'
+      }
+    },
+    OnePet: {}
+  },
+  events: {
+    events: {
+      '3': {
+        id: 3,
+        date: '2023-12-26T01:00:00.000+00:00',
+        duration: 150,
+        address: '789 Forest Ln, Greenfield',
+        user: {
+          id: 3,
+          role: 'ROLE_USER',
+          username: 'alexg',
+          password: 'pass456',
+          email: 'alexg@example.com',
+          enabled: true,
+          profilePic: 'https://example.com/profiles/alexg.jpg'
+        },
+        description: 'Bird watching event.',
+        pets: [
+          {
+            id: 3,
+            user: {
+              id: 3,
+              role: 'ROLE_USER',
+              username: 'alexg',
+              password: 'pass456',
+              email: 'alexg@example.com',
+              enabled: true,
+              profilePic: 'https://example.com/profiles/alexg.jpg'
+            },
+            species: 'BIRD',
+            petPicture: 'https://example.com/pets/bird1.jpg',
+            birthdate: '2020-05-30',
+            temparement: 'FRIENDLY',
+            description: 'A friendly parrot with vibrant feathers.'
+          }
+        ]
+      }
+    },
+    OneEvent: {}
+  },
+  attendances: {}
+}
