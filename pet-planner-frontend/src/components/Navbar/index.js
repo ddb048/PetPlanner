@@ -12,8 +12,6 @@ import './index.css';
 function Navbar({ onShowSignup, onShowLogin }) {
     const user = useSelector(state => state.session.user);
 
-
-
     return (
         <nav className="nav-bar">
             <div className='nav-bar-left'>
@@ -69,9 +67,10 @@ function LoggedInMenu() {
                 <img
                     src={userProfilePic}
                     className="navbar-profile-pic"
+                    alt="User Profile Pic"
                 />
                 <div className="icon" onClick={toggleDropdown}>
-                    {isOpen ? <img src={arrow} /> : <img src={caret} />}
+                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret"/>}
                 </div>
             </div>
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
