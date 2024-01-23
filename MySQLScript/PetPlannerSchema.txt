@@ -62,12 +62,31 @@ VALUES
 (3, 'Sunny','BIRD', 'https://i.pinimg.com/736x/5c/c8/c9/5cc8c929f48cd3db39c9112e016ea071.jpg', '2020-05-30', 'FRIENDLY', 'A friendly parrot with vibrant feathers.'),
 (4, 'Rex','REPTILE', 'https://i.pinimg.com/736x/de/4c/ef/de4cefddf85064ab645e7788722cfd97.jpg', '2021-01-10', 'RESERVED', 'A reserved but curious gecko.');
 
+
+
 INSERT INTO Events (date, duration, address, user_id, description)
 VALUES
 ('2023-12-20 15:00:00', 120, '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
 ('2023-12-22 10:00:00', 180, '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
 ('2023-12-25 17:00:00', 150, '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
-('2023-12-28 20:00:00', 120, '321 Jungle St, Rainforest', 4, 'Reptile showcase.');
+('2023-12-28 20:00:00', 120, '321 Jungle St, Rainforest', 4, 'Reptile showcase.')
+('2024-12-24 15:30:00', 120, '1525 Forest Ave, Staten Island',5, 'Take a Pet Picture with Santa Clause.'),
+('2024-1-20  14:00:00', 120, '310 Land Ave, Staten Island', 6,'Sip N Paint with your Dog'),
+('2024-2-14  13:00:00', 120, '12 Broad St, Staten Island', 7,'Valentines Pet Photography Day '),
+('2024-7-29  13:00:00', 120, '234 Madison Rd, BloomField', 8,'Show Your Pets Talent Day'),
+('2024-10-29 15:00:00', 120, '97 Sunfield St, Edison', 9,'Train Your Reptile Day'),
+('2024-8-13  20:00:00', 120, '898 main St, Newark ', 10,'Bird Dance Party'),
+('2024-11-28 19:00:00', 120, '873 Bay Ave, Elizabeth', 11,'Thanksgiving Dog Day'),
+('2024-11-27 19:00:00', 120, '120 Crossway Ln, SeaShore', 12,'Thanksgiving Cat Day'),
+('2024-10-28 19:00:00', 120, '59 Lake Rd, Richmond', 13,'Halloween Dog Costume Contest'),
+('2024-10-29 19:00:00', 120, '59 Lake Rd, Richmond', 14,'Halloween Cat Costume Contest'),
+('2024-10-26 19:00:00', 120, '59 Lake Rd, Richmond', 15,'Halloween Reptile Costume Contest'),
+('2024-08-19 17:00:00', 120, '320 Marmaid Ln, Richmond', 16,'Show Your Bird Feather Contest'),
+('2024-10-26 12:00:00', 120, '5901 Park Rd, Richmond', 17,'Pet Appreciation Party Day'),
+('2024-09-03 13:00:00', 120, '1203 Willow Rd, Richmond', 18,'A Cat Tea Party'),
+('2024-03-31 14:00:00', 120, '123 Sunset Ave, Richmond', 19,' Pet Easter Bunny Photography Day '),
+('2024-06-10 11:00:00', 120, '1345 River St, Richmond', 20,'Yoga With Dog')
+;
 
 INSERT INTO Pets_Events (pet_id, event_id)
 VALUES
@@ -75,5 +94,21 @@ VALUES
 (2, 2), -- Cat goes to the beach day
 (3, 3), -- Bird goes to bird watching
 (4, 4); -- Reptile goes to the reptile showcase
+(1, 5), -- Any Pet can go take picture with Santa Clause
+(2, 6), -- Sip N Paint with your Dog
+(3, 7),	-- Valentines Pet Photography Day
+(4, 8), -- Show Your Pets Talent Day
+(1, 9), -- Train Your Reptile Day
+(2, 10),-- Bird Dance Party
+(3, 11),-- Thanksgiving Dog Day
+(4, 12),-- Thanksgiving Cat Day
+(1, 13),-- Halloween Dog Costume Contest
+(2, 14),-- Halloween Cat Costume Contest
+(3, 15),-- Halloween Reptile Costume Contest
+(4, 16),-- Show Your Bird Feather Contest
+(1, 17),-- Pet Appreciation Party Day
+(2, 18),-- A Cat Tea Party
+(3, 19),-- Pet Easter Bunny Photography Day
+(4, 20); -- Yoga With Dog
 
 SELECT * FROM Users;

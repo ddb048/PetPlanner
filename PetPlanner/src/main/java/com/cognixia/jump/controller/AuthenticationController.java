@@ -58,4 +58,32 @@ public class AuthenticationController {
 
 	}
 
+	// reauthenticate a user with a token at http://localhost:8080/reauthenticate
+	@PostMapping("/reauthenticate")
+	public ResponseEntity<?> reauthenticate(@RequestBody String token) throws Exception {
+
+		// try to catch the exception for bad JWT, just so we can set our own
+		// message when this doesn't work
+		try {
+			// validate the token
+			if (!jwtUtil.validateToken(token)) {
+
+				throw new Exception("Invalid token or expired token" + token);
+			}
+
+			// extract the username from the token
+			String username = jwtUtil.extractUsername(token);
+
+			// load user details from the username
+			final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+			return ResponseEntity.status(201).body(userDetails);
+
+		} catch (BadCredentialsException e) {
+			// provide our own message on why login didn't work
+			throw new Exception("Access not Granted.  Please log back in.");
+		}
+
+	}
+
 }
