@@ -1,0 +1,23 @@
+.userpage-content__container{
+    border: 1px solid black;
+}
+
+.userpage__content{
+    border: 1px solid black;
+}
+
+.userpage__pets{
+    border: 1px solid black;
+}
+
+.userpage__events-section {
+    border: 1px solid black;
+}
+
+.userpage__future-events{
+    border: 1px solid black;
+}
+
+.userpage__past-events{
+    border: 1px solid black;
+}

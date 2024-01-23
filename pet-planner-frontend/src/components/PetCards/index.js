@@ -17,7 +17,6 @@ function PetCards({ pet }) {
         }
     }, [allPets]);
 
-
     // Loading check
     if (loading) {
         return <div>Loading...</div>;

@@ -18,7 +18,6 @@ const UserPage = () => {
   }, [dispatch]);
 
   // Event-Data and date filtering for display Related
-  // Note: (if eventsObj is already an array, remove events and adjust this)
   const eventsObj = useSelector(state => state.events.events || []);
   const events = Object.values(eventsObj);
   const futureEvents = events.filter(event => event.date >= new Date().toISOString());
@@ -62,7 +61,6 @@ const UserPage = () => {
 
 
   // Pet Card Related
-  // Note: (if petsObj is already an array, remove pets and adjust this)
   const petsObj = useSelector(state => state.pets.pets || []);
   const pets = Object.values(petsObj);
 
@@ -84,6 +82,7 @@ const UserPage = () => {
 
   return (
     <div className='userpage-content__container'>
+
       {user ? (
         <div className='userpage__content'>
           {user.username && (
@@ -115,6 +114,8 @@ const UserPage = () => {
               {pastEventDisplay}
             </div>
           </div>
+
+          
         </div>
       ) : (
         <div className='userpage__loading'>
