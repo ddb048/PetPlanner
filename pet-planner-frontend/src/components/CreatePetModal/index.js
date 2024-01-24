@@ -47,16 +47,16 @@ const CreatePet = () => {
 
   useEffect(() => {
 
-    if (!user) {
-      // const userToken = localStorage.getItem('userToken');
-      // if (userToken) {
+    // if (!user) {
+    //   // const userToken = localStorage.getItem('userToken');
+    //   // if (userToken) {
 
-      //   dispatch(restoreUser(userToken));
+    //   //   dispatch(restoreUser(userToken));
 
-      // } else {
-      navigate('/');
+    //   // } else {
+    //   navigate('/');
 
-    }
+    // }
 
     //name error handling
     if (!name.length) {
