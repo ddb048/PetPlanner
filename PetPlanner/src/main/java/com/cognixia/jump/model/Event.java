@@ -38,6 +38,12 @@ public class Event implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
+	@NotNull
+	private String eventName;
+	
+	@NotNull
+	private String eventPictureUrl;
+	
 	
 	private Integer duration;
 
@@ -59,11 +65,15 @@ public class Event implements Serializable {
 
 	}
 
-	public Event(Long id, Date date, Integer duration, @NotNull String address, User user, String description,
-			Set<Pet> pets) {
+	
+
+	public Event(Long id, Date date, @NotNull String eventName, @NotNull String eventPictureUrl, Integer duration,
+			@NotNull String address, User user, String description, Set<Pet> pets) {
 		super();
 		this.id = id;
 		this.date = date;
+		this.eventName = eventName;
+		this.eventPictureUrl = eventPictureUrl;
 		this.duration = duration;
 		this.address = address;
 		this.user = user;
@@ -129,11 +139,40 @@ public class Event implements Serializable {
 		this.pets = pets;
 	}
 
+	
+
+	public String getEventName() {
+		return eventName;
+	}
+
+
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+
+
+	public String getEventPictureUrl() {
+		return eventPictureUrl;
+	}
+
+
+
+	public void setEventPictureUrl(String eventPictureUrl) {
+		this.eventPictureUrl = eventPictureUrl;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", date=" + date + ", duration=" + duration + ", address=" + address + ", user="
-				+ user + ", description=" + description + ", pets=" + pets + "]";
+		return "Event [id=" + id + ", date=" + date + ", eventName=" + eventName + ", eventPictureUrl="
+				+ eventPictureUrl + ", duration=" + duration + ", address=" + address + ", user=" + user
+				+ ", description=" + description + ", pets=" + pets + "]";
 	}
+
+	
 
 	
 
