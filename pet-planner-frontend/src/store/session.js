@@ -102,11 +102,23 @@ export const logout = () => async (dispatch) => {
 };
 
 //RESTORE User thunk action
-export const restoreUser = () => async (dispatch) => {
-    const response = await csrfFetch('/authenticate');
+export const restoreUser = (token) => async (dispatch) => {
+    const { userToken, JWT } = token;
+    console.log('userToken before being sent to backend within thunk', token, userToken, JWT);
+
+    const response = await fetch('http://localhost:8080/reauthenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: token,
+    });
     const data = await response.json();
-    localStorage.setItem('jwt', data.jwt);
-    dispatch(setUser(data.user));
+
+    console.log('data from restoreUser thunk', data);
+
+    if (response.ok) {
+        dispatch(setUser(data));
+    }
+
     return response;
 };
 

@@ -86,6 +86,17 @@ public class JwtUtil {
 				.compact();
 	}
 
+	// Overloaded validateToken method - for token only
+	public Boolean validateToken(String token) {
+		try {
+			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			return !isTokenExpired(token);
+		} catch (Exception e) {
+			// Log the exception or handle it as required
+			return false;
+		}
+	}
+
 	// will validate the token and check if the current token is for the right user
 	// requesting it and that the token isn't expired
 	public Boolean validateToken(String token, UserDetails userDetails) {

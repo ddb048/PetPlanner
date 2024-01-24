@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { getEvents } from '../../store/events';
 import { getPets } from '../../store/pets';
+import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
@@ -10,11 +12,37 @@ const UserPage = () => {
 
   //State-related
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const user = useSelector(state => state.session.user);
+  const [loading, setLoading] = useState(true);
+
+
+  if (!user) {
+    navigate('/');
+  }
 
   useEffect(() => {
-    dispatch(getPets(user.id))
-    dispatch(getEvents(user.id))
+
+    if (!user) {
+      const userToken = localStorage.getItem('userToken');
+
+      if (userToken) {
+
+        dispatch(restoreUser(userToken));
+        if (user) {
+          dispatch(getPets(user.id))
+          dispatch(getEvents(user.id))
+        }
+
+      } else {
+        navigate('/');
+      }
+    } else {
+      dispatch(getPets(user.id))
+      dispatch(getEvents(user.id))
+    };
+
+
   }, [dispatch]);
 
   // Event-Data and date filtering for display Related
@@ -85,6 +113,12 @@ const UserPage = () => {
 
       {user ? (
         <div className='userpage__content'>
+          {user.profilePic && (
+            <div className='userpage__profile-pic'>
+              <img className='userpage__profile-pic-img' alt='User Profile Pic' src={user.profilePic} />
+            </div>
+          )}
+
           {user.username && (
             <div className='userpage__username'>
               Username: {user.username}
@@ -97,6 +131,10 @@ const UserPage = () => {
             </div>
           )}
 
+          <div className='userpage__pets-header'>
+            Your Pets:
+          </div>
+          <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
           {pets.length > 0 && (
             <div className='userpage__pets'>
               {petDisplay}

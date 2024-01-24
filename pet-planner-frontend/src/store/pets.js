@@ -58,7 +58,7 @@ export const getPets = (userId) => async (dispatch) => {
 export const getOnePet = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}`);
     const data = await response.json();
-    dispatch(loadOnePet(data.pet));
+    dispatch(loadOnePet(data));
     return response;
 };
 
@@ -70,7 +70,7 @@ export const createPet = (pet) => async (dispatch) => {
         body: JSON.stringify(pet),
     });
     const data = await response.json();
-    dispatch(addPet(data.pet));
+    dispatch(addPet(data));
     return response;
 }
 
@@ -82,7 +82,7 @@ export const updatePet = (pet) => async (dispatch) => {
         body: JSON.stringify(pet),
     });
     const data = await response.json();
-    dispatch(editPet(data.pet));
+    dispatch(editPet(data));
     return response;
 }
 

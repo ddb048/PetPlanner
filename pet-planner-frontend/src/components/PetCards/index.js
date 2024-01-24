@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './index.css'
+import { Link } from 'react-router-dom';
+import './index.css';
 
 function PetCards({ pet }) {
 
@@ -9,7 +9,7 @@ function PetCards({ pet }) {
     const allPets = useSelector(state => state.pets.pets)
 
     //State-related
-    const [ loading, setLoading ] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (allPets) {
@@ -27,22 +27,21 @@ function PetCards({ pet }) {
     return (
         <Link className="pet-card__link-container" to={`/pets/${pet.id}`}>
             <div className='pet-card__container'>
-                
+
                 <div className="pet-card__img-container">
                     <img className='pet-card__img' alt="Pet Image" src={pet.petPicture} />
                 </div>
 
                 <div className='pet-card__details'>
 
-                    <div className='pet-card__name'>   
-                        {/* {pet.name} */}
-                        Placeholder for Pet names. They are currently not in the model.
+                    <div className='pet-card__name'>
+                        Name: {pet.petName}
                     </div>
 
                     <div className='pet-card__species'>
                         Species: {pet.species}
                     </div>
-                    
+
                     <div className='pet-card__birthdate'>
                         Birthday: {pet.birthdate}
                     </div>
@@ -50,7 +49,7 @@ function PetCards({ pet }) {
                     <div className='pet-card__temparement'>
                         {pet.temparement}
                     </div>
-                    
+
                     <div className='pet-card__description'>
                         {pet.description}
                     </div>

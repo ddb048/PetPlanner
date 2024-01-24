@@ -64,6 +64,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests()// anyone can ATTEMPT to create a JWT
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers("/authenticate").permitAll()
+				.antMatchers("/reauthenticate").permitAll()
 				.antMatchers("/api/all").permitAll()
 				.antMatchers("/openapi.html").permitAll()
 				.antMatchers("/swagger-ui/**").permitAll()
