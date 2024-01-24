@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getEvents } from '../../store/events';
 import { getPets } from '../../store/pets';
 import { restoreUser } from '../../store/session';
@@ -14,6 +14,8 @@ const UserPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const user = useSelector(state => state.session.user);
+  const [loading, setLoading] = useState(true);
+
 
   if (!user) {
     navigate('/');
@@ -129,6 +131,10 @@ const UserPage = () => {
             </div>
           )}
 
+          <div className='userpage__pets-header'>
+            Your Pets:
+          </div>
+          <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
           {pets.length > 0 && (
             <div className='userpage__pets'>
               {petDisplay}
