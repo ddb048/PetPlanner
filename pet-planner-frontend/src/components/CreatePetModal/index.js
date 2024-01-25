@@ -47,16 +47,16 @@ const CreatePet = () => {
 
   useEffect(() => {
 
-    if (!user) {
-      // const userToken = localStorage.getItem('userToken');
-      // if (userToken) {
+    // if (!user) {
+    //   // const userToken = localStorage.getItem('userToken');
+    //   // if (userToken) {
 
-      //   dispatch(restoreUser(userToken));
+    //   //   dispatch(restoreUser(userToken));
 
-      // } else {
-      navigate('/');
+    //   // } else {
+    //   navigate('/');
 
-    }
+    // }
 
     //name error handling
     if (!name.length) {
@@ -145,111 +145,124 @@ const CreatePet = () => {
           navigate('/pets');
         });
     }
-
-    return (
-      <div>
-        <h1>Let's talk about your Pet! </h1>
-
-        <div className='errors__container'>{backendErrors}</div>
-
-        <form onSubmit={handleSubmit}>
-          <div className='create_pet_form_div'>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className='errors__container'>
-            {!!renderErr && nameError.length > 0 && nameError}
-          </div>
-          <div className='create_pet_form_div'>
-            Birthday:
-            <input
-              type="text"
-              name="birthday"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-            />
-          </div>
-          <div className='errors__container'>
-            {!!renderErr && birthdateError.length > 0 && birthdateError}
-          </div >
-
-          <div className='create_pet_form_div'>
-            Description:
-            <input
-              type="text"
-              name="description"
-              max="500"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div className='errors__container'>
-            {!!renderErr && descriptionError.length > 0 && descriptionError}
-          </div>
-
-          <div className='create_pet_form_div'>
-            Species:
-            <select
-              className="custom-select mr-sm-2"
-              name="species"
-              onChange={(e) => setSpecies(e.target.value)}
-              value={species}>
-              <option value="">Select Pet Species</option>
-              <option value="1">DOG</option>
-              <option value="2">CAT</option>
-              <option value="3">BIRD</option>
-              <option value="3">REPTILE</option>
-              <option value="3">FISH</option>
-              <option value="3">OTHER</option>
-            </select>
-          </div>
-          <div className='errors__container'>
-            {!!renderErr && speciesError.length > 0 && speciesError}
-          </div>
-
-          <div className='create_pet_form_div'>
-            temparement:
-            <select
-              className="custom-select mr-sm-2"
-              onChange={(e) => setTemparement(e.target.value)}
-              name="temparement"
-              value={temparement}>
-              <option value="">Hows your pets temparement?</option>
-              <option value="1">FRIENDLY</option>
-              <option value="2">RESERVED</option>
-              <option value="3">AGRESSIVE</option>
-              <option value="3">PLAYFUL</option>
-              <option value="3">CALM</option>
-            </select>
-          </div>
-          <div className='errors__container'>
-            {!!renderErr && temparementError.length > 0 && temparementError}
-          </div>
-
-
-          {/* Display the default image URL, but prevent user input */}
-          <div className='create_pet_form_div'>
-            Image URL:
-            <input
-              type="text"
-              name="image"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              readOnly />
-          </div>
-          <br />
-          <button
-            type="submit"
-            disabled={backendErrors.length}
-          >Create Pet</button>
-        </form>
-      </div>
-    );
   };
+
+  //*************************Render************************* */
+
+  return (
+    <div className='modal-backdrop'>
+      <div className="create-event-modal">
+        <div className='modal-content'>
+          <div className='modal-title'>Let's talk about your Pet! </div>
+          <div className='modal-main'>
+            <div className='errors__container'>{backendErrors}</div>
+
+            <form className='create-event-form' onSubmit={handleSubmit}>
+              <div className='create_pet_form_div'>
+                Name:
+                <input
+                  className='modal-input'
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className='errors__container'>
+                {!!renderErr && nameError.length > 0 && nameError}
+              </div>
+              <div className='create_pet_form_div'>
+                Birthday:
+                <input
+                  className='modal-input'
+                  type="text"
+                  name="birthday"
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                />
+              </div>
+              <div className='errors__container'>
+                {!!renderErr && birthdateError.length > 0 && birthdateError}
+              </div >
+
+              <div className='create_pet_form_div'>
+                Description:
+                <input
+                  className='modal-input'
+                  type="text"
+                  name="description"
+                  max="500"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <div className='errors__container'>
+                {!!renderErr && descriptionError.length > 0 && descriptionError}
+              </div>
+
+              <div className='create_pet_form_div'>
+                Species:
+                <select
+                  className="custom-select mr-sm-2"
+                  name="species"
+                  onChange={(e) => setSpecies(e.target.value)}
+                  value={species}>
+                  <option value="">Select Pet Species</option>
+                  <option value="1">DOG</option>
+                  <option value="2">CAT</option>
+                  <option value="3">BIRD</option>
+                  <option value="3">REPTILE</option>
+                  <option value="3">FISH</option>
+                  <option value="3">OTHER</option>
+                </select>
+              </div>
+              <div className='errors__container'>
+                {!!renderErr && speciesError.length > 0 && speciesError}
+              </div>
+
+              <div className='create_pet_form_div'>
+                temparement:
+                <select
+                  className="custom-select mr-sm-2"
+                  onChange={(e) => setTemparement(e.target.value)}
+                  name="temparement"
+                  value={temparement}>
+                  <option value="">Hows your pets temparement?</option>
+                  <option value="1">FRIENDLY</option>
+                  <option value="2">RESERVED</option>
+                  <option value="3">AGRESSIVE</option>
+                  <option value="3">PLAYFUL</option>
+                  <option value="3">CALM</option>
+                </select>
+              </div>
+              <div className='errors__container'>
+                {!!renderErr && temparementError.length > 0 && temparementError}
+              </div>
+
+
+              {/* Display the default image URL, but prevent user input */}
+              <div className='create_pet_form_div'>
+                Image URL:
+                <input
+                  className='modal-input'
+                  type="text"
+                  name="image"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  readOnly />
+              </div>
+              <br />
+              <button
+                className="modal-button"
+                type="submit"
+                disabled={backendErrors.length}
+              >Create Pet</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
+
 export default CreatePet;
