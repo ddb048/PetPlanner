@@ -1,0 +1,28 @@
+.pet-card__img-container {
+    width: 200px; 
+    height: 250px; 
+    overflow: hidden;
+    margin-right: 16px;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+ .pet-card__img{
+  width: 100%; 
+  height: 100%;
+  object-fit: cover;
+
+  }
+  
+  .pet-card__name,
+  .pet-card__species,
+  .pet-card__birthdate,
+  .pet-card__temparement, 
+  .pet-card__description
+  {
+    font-style: italic;
+    margin-left: 15px;
+   }
+  
+   
+  
+  

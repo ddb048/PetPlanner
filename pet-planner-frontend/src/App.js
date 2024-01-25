@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import PetEvents from './components/PetsDetail';
 import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
-import UserPage from './components/UserPage';
+import UserPage from './components/Userpage/index.js';
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);

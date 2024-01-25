@@ -54,8 +54,16 @@ function EventCards({ event }) {
                 
                 <div className='event-card__details'>
 
+                <div className="event-card__img-container">
+                    <img className='event-card__img' alt="Pet Image" src={event.eventPictureUrl} />
+                </div>
+
+                <div className='event-card__name'>
+                         {event.eventName}
+                    </div>
+
                     <div className='event-card__datetime'>   
-                        {date} &middot; {formattedTime}
+                       Time:  {date} &middot; {formattedTime}
                     </div>
 
                     <div className='event-card__duration'>
@@ -67,7 +75,8 @@ function EventCards({ event }) {
                     </div>
                     
                     <div className='event-card__description'>
-                        {event.description}
+                      Description:  
+                      {event.description}
                     </div>
 
                 </div>
