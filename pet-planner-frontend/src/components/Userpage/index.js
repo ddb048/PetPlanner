@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getEvents } from '../../store/events';
-import { getPets } from '../../store/pets';
-import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
@@ -17,35 +14,35 @@ const UserPage = () => {
   const [loading, setLoading] = useState(true);
 
 
-  if (!user) {
-    navigate('/');
-  }
+  // if (!user) {
+  //   navigate('/');
+  // }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (!user) {
-      const userToken = localStorage.getItem('userToken');
+  //   if (!user) {
+  //     const userToken = localStorage.getItem('userToken');
 
-      if (userToken) {
+  //     if (userToken) {
 
-        dispatch(restoreUser(userToken));
-        if (user) {
-          dispatch(getPets(user.id))
-          dispatch(getEvents(user.id))
-        }
+  //       dispatch(restoreUser(userToken));
+  //       if (user) {
+  //         dispatch(getPets(user.id))
+  //         dispatch(getEvents(user.id))
+  //       }
 
-      } else {
-        navigate('/');
-      }
-    } else {
-      dispatch(getPets(user.id))
-      dispatch(getEvents(user.id))
-    };
+  //     } else {
+  //       navigate('/');
+  //     }
+  //   } else {
+  //     dispatch(getPets(user.id))
+  //     dispatch(getEvents(user.id))
+  //   };
 
 
-  }, [dispatch]);
+  // }, [dispatch]);
 
-  // Event-Data and date filtering for display Related
+  // Event-Data and date filtering for display
   const eventsObj = useSelector(state => state.events.events || []);
   const events = Object.values(eventsObj);
   const futureEvents = events.filter(event => event.date >= new Date().toISOString());
@@ -113,11 +110,11 @@ const UserPage = () => {
 
       {user ? (
         <div className='userpage__content'>
-          {user.profilePic && (
+          {/* {user.profilePic && (
             <div className='userpage__profile-pic'>
               <img className='userpage__profile-pic-img' alt='User Profile Pic' src={user.profilePic} />
             </div>
-          )}
+          )} */}
 
           {user.username && (
             <div className='userpage__username'>

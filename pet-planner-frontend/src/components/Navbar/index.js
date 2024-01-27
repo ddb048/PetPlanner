@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PetPlannerLogo from '../../assets/PetPlannerLogo.png';
 import arrow from '../../assets/arrow.svg';
@@ -42,10 +42,15 @@ function LoggedOutMenu({ onShowSignup, onShowLogin }) {
 
 function LoggedInMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const toggleDropdown = () => {
         console.log("Toggling Dropdown. Current state:", isOpen);
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
     };
 
 
@@ -70,14 +75,14 @@ function LoggedInMenu() {
                     alt="User Profile Pic"
                 />
                 <div className="icon" onClick={toggleDropdown}>
-                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret"/>}
+                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret" />}
                 </div>
             </div>
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
                 <Link className="dropdown-item" to="/pets">User's Pets</Link>
                 <Link className="dropdown-item" to="/events/new">Host an Event</Link>
                 <Link className="dropdown-item" to="/pets/new">Add a Pet</Link>
-                <div className="dropdown-item" onClick={logout}>Sign Out</div>
+                <div className="dropdown-item" onClick={handleLogout}>Sign Out</div>
             </div>
         </div>
     );
