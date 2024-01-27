@@ -97,6 +97,7 @@ export const login = (user) => async (dispatch) => {
 
 //LOGOUT a USER
 export const logout = () => async (dispatch) => {
+    console.log("logout thunk hit")
     localStorage.removeItem('userToken');  // Clear JWT token
     dispatch(removeUser());
 };
