@@ -7,6 +7,7 @@ const ADD_PET = 'pets/ADD_PET';
 const EDIT_PET = 'pets/EDIT_PET';
 const DELETE_PET = 'pets/DELETE_PET';
 const LOAD_ONE_PET = 'pets/LOAD_ONE_PET';
+const LOAD_PET_EVENTS = 'pets/LOAD_PET_EVENTS';
 
 //*******************ACTION CREATORS*********************/
 const loadPets = (pets) => {
@@ -41,6 +42,13 @@ const loadOnePet = (pet) => {
     return {
         type: LOAD_ONE_PET,
         pet,
+    };
+}
+
+const loadPetEvents = (events) => {
+    return {
+        type: LOAD_PET_EVENTS,
+        events,
     };
 }
 
@@ -94,6 +102,14 @@ export const removePet = (petId) => async (dispatch) => {
     return response;
 }
 
+//GET all events for a pet
+export const getPetEvents = (petId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/pets/${petId}/events`);
+    const data = await response.json();
+    dispatch(loadPetEvents(data));
+    return response;
+}
+
 //*******************REDUCER*********************/
 const initialState = {
     pets: {},
@@ -107,24 +123,41 @@ const petsReducer = (state = initialState, action) => {
             newState = { ...state }
             newState.pets = {};
             action.pets.forEach((pet) => {
-                newState.pets[pet.id] = pet;
+                newState.pets[+pet.id] = pet;
             });
             return newState;
         case LOAD_ONE_PET:
-            newState.pets = { ...state.pets, [action.pet.id]: action.pet };
+            newState.pets = { ...state.pets, [+action.pet.id]: action.pet };
             newState.OnePet = { ...action.pet };
             return newState;
         case ADD_PET:
             newState = { ...state };
-            newState.pets[action.pet.id] = action.pet;
+            newState.pets[+action.pet.id] = action.pet;
             return newState;
         case EDIT_PET:
-            newState = { ...state };
-            newState.pets[action.pet.id] = action.pet;
-            return newState;
+            return {
+                ...state,
+                pets: {
+                    ...state.pets,
+                    pets: {
+                        ...state.pets.pets,
+                        [action.pet.id]: action.pet
+                    }
+                }
+            };
         case DELETE_PET:
             newState = { ...state };
-            delete newState.pets[action.petId];
+            delete newState.pets[+action.petId];
+            return newState;
+
+        case LOAD_PET_EVENTS:
+            newState = { ...state };
+            newState.pets = { ...state.pets };
+            newState.OnePet = { ...state.OnePet };
+            newState.OnePet.events = {};
+            action.events.forEach((event) => {
+                newState.OnePet.events[+event.id] = event;
+            });
             return newState;
         default:
             return state;

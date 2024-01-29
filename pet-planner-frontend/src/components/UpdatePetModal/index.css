@@ -1,0 +1,71 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.create-event-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.modal-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-main>div {
+    flex: 1;
+    /* Each child takes up equal space */
+    margin: 10px;
+    /* Adds margin around the content for spacing */
+}
+
+.create-event-form {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    width: 40%;
+    /* Additional styling */
+}
+
+.tips-for-a-great-event {
+    flex: 1;
+    /* Allows both children to take equal space */
+    margin: 10px;
+    max-width: 50%;
+    /* Adds margin around the content for spacing */
+}
+
+.tips-for-a-great-event {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    /* Additional styling */
+}
+
+.modal-button-container {
+    display: flex;
+    justify-content: space-between;
+    /* Space buttons side by side */
+    margin-top: 10px;
+    /* Add a margin on top for spacing */
+}
+
+.modal-button {
+    flex: 1;
+    /* Each button takes up half the space of the container */
+    margin: 0 5px;
+    /* Add a small margin between the buttons */
+}
