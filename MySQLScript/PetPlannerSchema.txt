@@ -72,46 +72,23 @@ VALUES
 ('2024-12-22 10:00:00', 180, '456 Beach Rd,	Seaside',	 	2, 'Beach day for cats and their owners.', 'Meow Beach','https://img.freepik.com/premium-photo/funny-cat-sunglasses-hat-sea-beach-ginger-pet-relaxes-vacation-generative-ai_788189-5975.jpg'),
 ('2024-12-25 17:00:00', 150, '789 Forest Ln, Greenfield', 	3, 'Bird watching event.','Fly Watch', 'https://www.clker.com/cliparts/2/2/a/4/15148172331831985514bird-watching-clipart.med.png'),
 ('2024-12-28 18:00:00', 120, '321 Jungle St, Rainforest', 	4, 'Reptile showcase.', 'Ultimate Reptile Show', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqak2590zgxO3hEx4oCMlyXBe5VW-vx2wocg&usqp=CAU'),
-('2024-12-24 15:30:00', 120, '1525 Forest Ave, Staten Island',5, 'Take a Pet Picture with Santa Clause.','Paw with Clause','https://lexingtonhumanesociety.org/wp-content/uploads/2023/11/Santa.jpg'),
-('2024-05-11  14:00:00', 120, '310 Land Ave, Staten Island', 6,'Bring your Dog and make a Painting with them ', 'Paint N Bark!' ,'https://14d14a1b70be1f7f7d4a-0863ae42a3340022d3e557e78745c047.ssl.cf5.rackcdn.com/18811_w.jpg'),
-('2024-2-14  13:00:00', 120, '12 Broad St, Staten Island', 7,'Be your Pets Valentines and take a picture with them ', 'Valentines Pet Photography Day !','https://i.etsystatic.com/18798297/r/il/e6fefb/5590408841/il_fullxfull.5590408841_7a7t.jpg'),
-('2024-7-29  13:00:00', 120, '234 Madison Rd, BloomField', 8,'Now is the time to bring your Pet and show their talent','Show Your Pets Talent Day','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzey8AvtOdKCtY_qxtGKuRtogfH4hUEcwatw&usqp=CAU'),
-('2024-10-29 15:00:00', 120, '97 Sunfield St, Edison', 9,'Bring your reptile and we can train them to do trick','Train Your Reptile Day','https://live.staticflickr.com/2728/4087069361_af27644398_b.jpg'),
-('2024-8-13  20:00:00', 120, '898 main St, Newark ', 10,'Bring your Bird and come dance with them and other friendly birds.','Bird Dance Party','https://pbs.twimg.com/media/Cwi0DNiXAAEgMNH.jpg'),
-('2024-11-28 19:00:00', 120, '873 Bay Ave, Elizabeth', 11,'Bring your Dog and Enjoy a Thanksgiving Dinner with them.','Thanksgiving Dog Day','https://media1.tenor.com/m/empfM8ECCyYAAAAC/happy-thanksgiving-dogs.gif'),
-('2024-11-27 19:00:00', 120, '120 Crossway Ln, SeaShore', 12,'Bring your Cat and Enjoy a Thanksgiving Dinner with them.','Thanksgiving Cat Day','https://i.ytimg.com/vi/8gZ86flqw1U/maxresdefault.jpg'),
-('2024-10-28 19:00:00', 120, '59 Lake Rd, Richmond', 13,'Bring your Dog in Costume to see who is more scary for this Halloween.','Halloween Dog Costume Contest','https://i.fbcd.co/products/resized/resized-750-500/spooky-season-1-d940c74e82a310c822100bd5609411643c399721a980c38a5b2d81089d9f0fa7.jpg'),
-('2024-10-29 19:00:00', 120, '59 Lake Rd, Richmond', 14,'Bring your Cat in Costume to see who is more scary for this Halloween.','Halloween Cat Costume Contest','https://t4.ftcdn.net/jpg/06/46/56/91/360_F_646569188_veAYeASiVLLd829st5KE5ZwrRrqUmXt5.jpg'),
-('2024-10-26 19:00:00', 120, '59 Lake Rd, Richmond', 15,'Bring your Reptile in Costume to see who is more scary for this Halloween.','Halloween Reptile Costume Contest','https://m.media-amazon.com/images/I/61FOY0SIiXL.jpg'),
-('2024-08-19 17:00:00', 120, '320 Marmaid Ln, Richmond', 16,'Show Your Bird Feather Contest', 'Feather Contest!', 'https://img.freepik.com/premium-vector/cartoon-birds-collection-set_29190-3004.jpg'),
-('2024-10-26 12:00:00', 120, '5901 Park Rd, Richmond', 17,'Come with your pet to celebrate Pet Appreciation','Pet Appreciation Party Day','https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/9408/92872/0237527001545676647.jpg'),
-('2024-09-03 13:00:00', 120, '1203 Willow Rd, Richmond', 18,'Bring you Cat and Drink Tea  them ',' Tea Meow Party','https://thumbs.dreamstime.com/b/print-186500438.jpg'),
-('2024-03-31 14:00:00', 120, '123 Sunset Ave, Richmond', 19,' Bring your Pet and take Easter Bunny Photography Day with them! ', 'Easter Pet Day','https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/TXCAL25XTBH4XLRRV42NHER2NQ.jpg'),
-('2024-06-10 11:00:00', 120, '1345 River St, Richmond', 20,'HAve a calm and Yoga day with your dog. ', 'Yoga Dog','https://static.posters.cz/image/750/plakaty/yoga-dogs-i8488.jpg')
+('2024-12-24 15:30:00', 120, '1525 Forest Ave, Staten Island',1, 'Take a Pet Picture with Santa Clause.','Paw with Clause','https://lexingtonhumanesociety.org/wp-content/uploads/2023/11/Santa.jpg'),
+('2024-05-11  14:00:00', 120, '310 Land Ave, Staten Island', 1,'Bring your Dog and make a Painting with them ', 'Paint N Bark!' ,'https://14d14a1b70be1f7f7d4a-0863ae42a3340022d3e557e78745c047.ssl.cf5.rackcdn.com/18811_w.jpg'),
+('2024-2-14  13:00:00', 120, '12 Broad St, Staten Island', 3,'Be your Pets Valentines and take a picture with them ', 'Valentines Pet Photography Day !','https://i.etsystatic.com/18798297/r/il/e6fefb/5590408841/il_fullxfull.5590408841_7a7t.jpg'),
+('2024-7-29  13:00:00', 120, '234 Madison Rd, BloomField', 4,'Now is the time to bring your Pet and show their talent','Show Your Pets Talent Day','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzey8AvtOdKCtY_qxtGKuRtogfH4hUEcwatw&usqp=CAU'),
+('2024-10-29 15:00:00', 120, '97 Sunfield St, Edison', 4,'Bring your reptile and we can train them to do trick','Train Your Reptile Day','https://live.staticflickr.com/2728/4087069361_af27644398_b.jpg'),
+('2024-8-13  20:00:00', 120, '898 main St, Newark ', 3,'Bring your Bird and come dance with them and other friendly birds.','Bird Dance Party','https://pbs.twimg.com/media/Cwi0DNiXAAEgMNH.jpg'),
+('2024-11-28 19:00:00', 120, '873 Bay Ave, Elizabeth', 1,'Bring your Dog and Enjoy a Thanksgiving Dinner with them.','Thanksgiving Dog Day','https://media1.tenor.com/m/empfM8ECCyYAAAAC/happy-thanksgiving-dogs.gif'),
+('2024-11-27 19:00:00', 120, '120 Crossway Ln, SeaShore', 2,'Bring your Cat and Enjoy a Thanksgiving Dinner with them.','Thanksgiving Cat Day','https://i.ytimg.com/vi/8gZ86flqw1U/maxresdefault.jpg'),
+('2024-10-28 19:00:00', 120, '59 Lake Rd, Richmond', 1,'Bring your Dog in Costume to see who is more scary for this Halloween.','Halloween Dog Costume Contest','https://i.fbcd.co/products/resized/resized-750-500/spooky-season-1-d940c74e82a310c822100bd5609411643c399721a980c38a5b2d81089d9f0fa7.jpg'),
+('2024-10-29 19:00:00', 120, '59 Lake Rd, Richmond', 2,'Bring your Cat in Costume to see who is more scary for this Halloween.','Halloween Cat Costume Contest','https://t4.ftcdn.net/jpg/06/46/56/91/360_F_646569188_veAYeASiVLLd829st5KE5ZwrRrqUmXt5.jpg'),
+('2024-10-26 19:00:00', 120, '59 Lake Rd, Richmond', 4,'Bring your Reptile in Costume to see who is more scary for this Halloween.','Halloween Reptile Costume Contest','https://m.media-amazon.com/images/I/61FOY0SIiXL.jpg'), 
+('2024-08-19 17:00:00', 120, '320 Marmaid Ln, Richmond', 2,'Show Your Bird Feather Contest', 'Feather Contest!', 'https://img.freepik.com/premium-vector/cartoon-birds-collection-set_29190-3004.jpg'),
+('2024-10-26 12:00:00', 120, '5901 Park Rd, Richmond', 2,'Come with your pet to celebrate Pet Appreciation','Pet Appreciation Party Day','https://smb.ibsrv.net/imageresizer/image/blog_images/1200x1200/9408/92872/0237527001545676647.jpg'),
+('2024-09-03 13:00:00', 120, '1203 Willow Rd, Richmond', 2,'Bring you Cat and Drink Tea  them ',' Tea Meow Party','https://thumbs.dreamstime.com/b/print-186500438.jpg'),
+('2024-03-31 14:00:00', 120, '123 Sunset Ave, Richmond', 1,' Bring your Pet and take Easter Bunny Photography Day with them! ', 'Easter Pet Day','https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/TXCAL25XTBH4XLRRV42NHER2NQ.jpg'),
+('2024-06-10 11:00:00', 120, '1345 River St, Richmond', 1,'HAve a calm and Yoga day with your dog. ', 'Yoga Dog','https://static.posters.cz/image/750/plakaty/yoga-dogs-i8488.jpg')
 ;
-
-('2023-12-20 15:00:00', 120, '123 Park Ave, Cityville', 1, 'Dog meet-up in the park.'),
-('2023-12-22 10:00:00', 180, '456 Beach Rd, Seaside', 2, 'Beach day for cats and their owners.'),
-('2023-12-25 17:00:00', 150, '789 Forest Ln, Greenfield', 3, 'Bird watching event.'),
-('2023-12-28 20:00:00', 120, '321 Jungle St, Rainforest', 4, 'Reptile showcase.')
-('2024-12-24 15:30:00', 120, '1525 Forest Ave, Staten Island',5, 'Take a Pet Picture with Santa Clause.'),
-('2024-1-20  14:00:00', 120, '310 Land Ave, Staten Island', 6,'Sip N Paint with your Dog'),
-('2024-2-14  13:00:00', 120, '12 Broad St, Staten Island', 7,'Valentines Pet Photography Day '),
-('2024-7-29  13:00:00', 120, '234 Madison Rd, BloomField', 8,'Show Your Pets Talent Day'),
-('2024-10-29 15:00:00', 120, '97 Sunfield St, Edison', 9,'Train Your Reptile Day'),
-('2024-8-13  20:00:00', 120, '898 main St, Newark ', 10,'Bird Dance Party'),
-('2024-11-28 19:00:00', 120, '873 Bay Ave, Elizabeth', 11,'Thanksgiving Dog Day'),
-('2024-11-27 19:00:00', 120, '120 Crossway Ln, SeaShore', 12,'Thanksgiving Cat Day'),
-('2024-10-28 19:00:00', 120, '59 Lake Rd, Richmond', 13,'Halloween Dog Costume Contest'),
-('2024-10-29 19:00:00', 120, '59 Lake Rd, Richmond', 14,'Halloween Cat Costume Contest'),
-('2024-10-26 19:00:00', 120, '59 Lake Rd, Richmond', 15,'Halloween Reptile Costume Contest'),
-('2024-08-19 17:00:00', 120, '320 Marmaid Ln, Richmond', 16,'Show Your Bird Feather Contest'),
-('2024-10-26 12:00:00', 120, '5901 Park Rd, Richmond', 17,'Pet Appreciation Party Day'),
-('2024-09-03 13:00:00', 120, '1203 Willow Rd, Richmond', 18,'A Cat Tea Party'),
-('2024-03-31 14:00:00', 120, '123 Sunset Ave, Richmond', 19,' Pet Easter Bunny Photography Day '),
-('2024-06-10 11:00:00', 120, '1345 River St, Richmond', 20,'Yoga With Dog')
-;
-
 INSERT INTO Pets_Events (pet_id, event_id)
 VALUES
 (1, 1), -- Dog goes to the dog meet-up
