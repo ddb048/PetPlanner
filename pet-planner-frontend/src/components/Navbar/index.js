@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PetPlannerLogo from '../../assets/PetPlannerLogo.png';
 import arrow from '../../assets/arrow.svg';
 import caret from '../../assets/caret.svg';
@@ -43,6 +43,7 @@ function LoggedOutMenu({ onShowSignup, onShowLogin }) {
 function LoggedInMenu({ user }) {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -50,6 +51,7 @@ function LoggedInMenu({ user }) {
 
     const handleLogout = () => {
         dispatch(logout());
+        navigate('/');
     };
 
 
