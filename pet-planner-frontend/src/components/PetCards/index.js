@@ -5,6 +5,8 @@ import './index.css';
 
 function PetCards({ pet }) {
 
+    console.log('pet threaded in to PetCards', pet)
+
     //Data-related
     const allPets = useSelector(state => state.pets.pets)
 

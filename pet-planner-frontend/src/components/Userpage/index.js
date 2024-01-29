@@ -13,35 +13,6 @@ const UserPage = () => {
   const user = useSelector(state => state.session.user);
   const [loading, setLoading] = useState(true);
 
-
-  // if (!user) {
-  //   navigate('/');
-  // }
-
-  // useEffect(() => {
-
-  //   if (!user) {
-  //     const userToken = localStorage.getItem('userToken');
-
-  //     if (userToken) {
-
-  //       dispatch(restoreUser(userToken));
-  //       if (user) {
-  //         dispatch(getPets(user.id))
-  //         dispatch(getEvents(user.id))
-  //       }
-
-  //     } else {
-  //       navigate('/');
-  //     }
-  //   } else {
-  //     dispatch(getPets(user.id))
-  //     dispatch(getEvents(user.id))
-  //   };
-
-
-  // }, [dispatch]);
-
   // Event-Data and date filtering for display
   const eventsObj = useSelector(state => state.events.events || []);
   const events = Object.values(eventsObj);
