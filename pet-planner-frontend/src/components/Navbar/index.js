@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PetPlannerLogo from '../../assets/PetPlannerLogo.png';
 import arrow from '../../assets/arrow.svg';
 import caret from '../../assets/caret.svg';
-import userProfilePic from '../../assets/profile.png';
+import profilePic from '../../assets/profile.png';
 import { logout } from '../../store/session';
 import './index.css';
 
@@ -22,7 +22,7 @@ function Navbar({ onShowSignup, onShowLogin }) {
             </div>
             <div className="nav-bar-right">
                 {user ? (
-                    <LoggedInMenu />
+                    <LoggedInMenu user={user} />
                 ) : (
                     <LoggedOutMenu onShowSignup={onShowSignup} onShowLogin={onShowLogin} />
                 )}
@@ -40,12 +40,11 @@ function LoggedOutMenu({ onShowSignup, onShowLogin }) {
     );
 }
 
-function LoggedInMenu() {
+function LoggedInMenu({ user }) {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
 
     const toggleDropdown = () => {
-        console.log("Toggling Dropdown. Current state:", isOpen);
         setIsOpen(!isOpen);
     };
 
@@ -56,7 +55,6 @@ function LoggedInMenu() {
 
     useEffect(() => {
         const closeDropdown = (event) => {
-            console.log("Clicked element:", event.target);
             if (isOpen && (!event.target.matches('.navbar-profile-pic'))) {
                 setIsOpen(false);
             }
@@ -70,7 +68,7 @@ function LoggedInMenu() {
         <div className='dropdown'>
             <div className='nav-profile_dropdown_container'>
                 <img
-                    src={userProfilePic}
+                    src={user.profilePic ? user.profilePic : profilePic}
                     className="navbar-profile-pic"
                     alt="User Profile Pic"
                 />

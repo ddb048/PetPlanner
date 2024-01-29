@@ -26,7 +26,6 @@ export async function csrfFetch(endpoint, options = {}) {
     // Call the default window's fetch with the url and the options passed in
     const res = await window.fetch(`${BASE_URL}${endpoint}`, options);
 
-    console.log('res', res);
 
     // Throw an error if the response status is 400 or higher
     if (res.status >= 400) {
