@@ -49,7 +49,6 @@ const loadOnePet = (pet) => {
 export const getPets = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/pets`);
     const data = await response.json();
-    console.log("data from getPets thunk", data)
     dispatch(loadPets(data));
     return response;
 };

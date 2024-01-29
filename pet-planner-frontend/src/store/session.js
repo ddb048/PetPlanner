@@ -67,23 +67,23 @@ export const login = (user) => async (dispatch) => {
         const data = await response.json();
         if (response.ok) {
 
-            console.log('jwt', data.jwt);
+            // console.log('jwt', data.jwt);
             saveToken(data.jwt);
 
-            console.log("response ok and data", data);
+            // console.log("response ok and data", data);
 
             const decodedToken = jwtDecode(data.jwt);
 
-            console.log('decodedToken', decodedToken)
+            // console.log('decodedToken', decodedToken)
             const userId = decodedToken.userId;
 
-            console.log('userId', userId);
+            // console.log('userId', userId);
 
             const userResponse = await csrfFetch(`/api/users/${userId}`);
             const userData = await userResponse.json();
 
 
-            console.log('userData', userData);
+            // console.log('userData', userData);
 
             dispatch(setUser(userData));
         } else {
@@ -104,7 +104,7 @@ export const logout = () => async (dispatch) => {
 //RESTORE User thunk action
 export const restoreUser = (token) => async (dispatch) => {
     const { userToken, JWT } = token;
-    console.log('userToken before being sent to backend within thunk', token, userToken, JWT);
+    // console.log('userToken before being sent to backend within thunk', token, userToken, JWT);
 
     const response = await fetch('http://localhost:8080/reauthenticate', {
         method: 'POST',
@@ -113,7 +113,7 @@ export const restoreUser = (token) => async (dispatch) => {
     });
     const data = await response.json();
 
-    console.log('data from restoreUser thunk', data);
+    // console.log('data from restoreUser thunk', data);
 
     if (response.ok) {
         dispatch(setUser(data));

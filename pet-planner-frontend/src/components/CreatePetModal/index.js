@@ -141,7 +141,6 @@ const CreatePet = () => {
 
       dispatch(createPet(pet))
         .then((pet) => {
-          console.log('pet sent to createPet thunk', pet);
           navigate('/pets');
         });
     }

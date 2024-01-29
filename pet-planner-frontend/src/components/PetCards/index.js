@@ -5,6 +5,8 @@ import './index.css';
 
 function PetCards({ pet }) {
 
+    console.log('pet threaded in to PetCards', pet)
+
     //Data-related
     const allPets = useSelector(state => state.pets.pets)
 
@@ -27,6 +29,9 @@ function PetCards({ pet }) {
     return (
         <Link className="pet-card__link-container" to={`/pets/${pet.id}`}>
             <div className='pet-card__container'>
+            <div className='pet-card__name'>
+                        {pet.petName}
+                    </div>
 
                 <div className="pet-card__img-container">
                     <img className='pet-card__img' alt="Pet Image" src={pet.petPicture} />
@@ -34,24 +39,20 @@ function PetCards({ pet }) {
 
                 <div className='pet-card__details'>
 
-                    <div className='pet-card__name'>
-                        Name: {pet.petName}
+                    
+                <div className='pet-card__birthdate'>
+                        Birthday: {pet.birthdate}
                     </div>
 
                     <div className='pet-card__species'>
                         Species: {pet.species}
                     </div>
-
-                    <div className='pet-card__birthdate'>
-                        Birthday: {pet.birthdate}
-                    </div>
-
                     <div className='pet-card__temparement'>
-                        {pet.temparement}
+                    Temparement: {pet.temparement}
                     </div>
 
                     <div className='pet-card__description'>
-                        {pet.description}
+                    Description :{pet.description}
                     </div>
 
                 </div>

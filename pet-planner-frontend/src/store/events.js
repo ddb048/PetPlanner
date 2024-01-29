@@ -48,7 +48,6 @@ const loadOneEvent = (event) => {
 export const getEvents = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/events`);
     const data = await response.json();
-    console.log("data from getEvents thunk", data);
     dispatch(loadEvents(data));
     return response;
 };
@@ -57,7 +56,7 @@ export const getEvents = (userId) => async (dispatch) => {
 export const getOneEvent = (eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}`);
     const data = await response.json();
-    dispatch(loadOneEvent(data.event));
+    dispatch(loadOneEvent(data));
     return response;
 };
 
@@ -68,7 +67,7 @@ export const createEvent = (event) => async (dispatch) => {
         body: JSON.stringify(event),
     });
     const data = await response.json();
-    dispatch(addEvent(data.event));
+    dispatch(addEvent(data));
     return response;
 };
 
@@ -79,7 +78,7 @@ export const editOneEvent = (event) => async (dispatch) => {
         body: JSON.stringify(event),
     });
     const data = await response.json();
-    dispatch(editEvent(data.event));
+    dispatch(editEvent(data));
     return response;
 };
 
