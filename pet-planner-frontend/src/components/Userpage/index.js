@@ -1,55 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getEvents } from '../../store/events';
-import { getPets } from '../../store/pets';
-import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
 
-const UserPage = () => {
+const UserPage = ({ user, pets, events }) => {
 
   //State-related
-  const dispatch = useDispatch()
   const navigate = useNavigate();
-  const user = useSelector(state => state.session.user);
   const [loading, setLoading] = useState(true);
 
-
-  if (!user) {
-    navigate('/');
-  }
-
-  useEffect(() => {
-
-    if (!user) {
-      const userToken = localStorage.getItem('userToken');
-
-      if (userToken) {
-
-        dispatch(restoreUser(userToken));
-        if (user) {
-          dispatch(getPets(user.id))
-          dispatch(getEvents(user.id))
-        }
-
-      } else {
-        navigate('/');
-      }
-    } else {
-      dispatch(getPets(user.id))
-      dispatch(getEvents(user.id))
-    };
-
-
-  }, [dispatch]);
-
-  // Event-Data and date filtering for display Related
-  const eventsObj = useSelector(state => state.events.events || []);
-  const events = Object.values(eventsObj);
-  const futureEvents = events.filter(event => event.date >= new Date().toISOString());
-  const pastEvents = events.filter(event => event.date < new Date().toISOString());
+  // Event-Data and date filtering for display
+  const targetEvents = Object.values(events);
+  const futureEvents = targetEvents.filter(event => event.date >= new Date().toISOString());
+  const pastEvents = targetEvents.filter(event => event.date < new Date().toISOString());
 
   //Date-related variables we need to initialize for events (Events logic)
   let futureEventDisplay;
@@ -89,13 +53,12 @@ const UserPage = () => {
 
 
   // Pet Card Related
-  const petsObj = useSelector(state => state.pets.pets || []);
-  const pets = Object.values(petsObj);
+  const targetPets = Object.values(pets);
 
   // Pets Display Logic
   let petDisplay;
-  if (pets.length > 0) {
-    petDisplay = pets.map(pet => (
+  if (targetPets.length > 0) {
+    petDisplay = targetPets.map(pet => (
       <PetCards key={pet.id} pet={pet} />
     ));
   } else {
@@ -108,16 +71,23 @@ const UserPage = () => {
     );
   }
 
+  // Loading Logic
+  if (loading) {
+    setTimeout(() => {
+      setLoading(false);
+    } , 2500);
+  };
+
   return (
     <div className='userpage-content__container'>
 
       {user ? (
         <div className='userpage__content'>
-          {user.profilePic && (
+          {/* {user.profilePic && (
             <div className='userpage__profile-pic'>
               <img className='userpage__profile-pic-img' alt='User Profile Pic' src={user.profilePic} />
             </div>
-          )}
+          )} */}
 
           {user.username && (
             <div className='userpage__username'>
@@ -135,7 +105,7 @@ const UserPage = () => {
             Your Pets:
           </div>
           <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
-          {pets.length > 0 && (
+          {targetPets.length > 0 && (
             <div className='userpage__pets'>
               {petDisplay}
             </div>

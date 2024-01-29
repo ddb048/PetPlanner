@@ -19,11 +19,13 @@ class EventTest {
         // Arrange
         Long eventId = 1L;
         Date date = new Date();
+        String eventName= "Dog Park Walk";
+        String eventPictureUrl="eventdog.jpg";
         Integer duration = 2;
         String address = "123 Park Ave";
         User organizer = new User();
         String description = "Dog meet-up in the park";
-
+       
         // Create a set of pets for testing
         Set<Pet> pets = new HashSet<>();
         Pet pet1 = new Pet();
@@ -32,12 +34,14 @@ class EventTest {
         pets.add(pet2);
 
         // Act
-        Event event = new Event(eventId, date, duration, address, organizer, description, pets);
+        Event event = new Event(eventId, date,eventName,eventPictureUrl, duration, address, organizer, description, pets);
 
         // Assert
         assertNotNull(event);
         assertEquals(eventId, event.getId());
         assertEquals(date, event.getDate());
+        assertEquals(eventName, event.getEventName());
+        assertEquals(eventPictureUrl, event.getEventPictureUrl());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
         assertEquals(organizer, event.getUser());
@@ -54,6 +58,8 @@ class EventTest {
         assertNotNull(event);
         assertNull(event.getId());
         assertNull(event.getDate());
+        assertNull(event.getEventName());
+        assertNull(event.getEventName());
         assertNull(event.getDuration());
         assertNull(event.getAddress());
         assertNull(event.getUser());
@@ -67,6 +73,8 @@ class EventTest {
         Event event = new Event();
         Long eventId = 1L;
         Date date = new Date();
+        String eventName= "Test event name";
+        String eventPictureUrl="eventtesturl.jpg";
         Integer duration = 2;
         String address = "123 Main St";
         User organizer = new User();
@@ -82,7 +90,11 @@ class EventTest {
         // Act
         event.setId(eventId);
         event.setDate(date);
+        event.getEventName();
+        event.getEventPictureUrl();
         event.setDuration(duration);
+        event.setEventName(eventName);
+        event.setEventPictureUrl(eventPictureUrl);
         event.setAddress(address);
         event.setUser(organizer);
         event.setDescription(description);
@@ -91,6 +103,8 @@ class EventTest {
         // Assert
         assertEquals(eventId, event.getId());
         assertEquals(date, event.getDate());
+        assertEquals(eventName, event.getEventName());
+        assertEquals(eventPictureUrl, event.getEventPictureUrl());
         assertEquals(duration, event.getDuration());
         assertEquals(address, event.getAddress());
         assertEquals(organizer, event.getUser());

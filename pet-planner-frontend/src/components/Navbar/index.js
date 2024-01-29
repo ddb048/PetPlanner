@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import PetPlannerLogo from '../../assets/PetPlannerLogo.png';
 import arrow from '../../assets/arrow.svg';
 import caret from '../../assets/caret.svg';
-import userProfilePic from '../../assets/profile.png';
+import profilePic from '../../assets/profile.png';
 import { logout } from '../../store/session';
 import './index.css';
 
@@ -22,7 +22,7 @@ function Navbar({ onShowSignup, onShowLogin }) {
             </div>
             <div className="nav-bar-right">
                 {user ? (
-                    <LoggedInMenu />
+                    <LoggedInMenu user={user} />
                 ) : (
                     <LoggedOutMenu onShowSignup={onShowSignup} onShowLogin={onShowLogin} />
                 )}
@@ -40,18 +40,23 @@ function LoggedOutMenu({ onShowSignup, onShowLogin }) {
     );
 }
 
-function LoggedInMenu() {
+function LoggedInMenu({ user }) {
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleDropdown = () => {
-        console.log("Toggling Dropdown. Current state:", isOpen);
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/');
     };
 
 
     useEffect(() => {
         const closeDropdown = (event) => {
-            console.log("Clicked element:", event.target);
             if (isOpen && (!event.target.matches('.navbar-profile-pic'))) {
                 setIsOpen(false);
             }
@@ -65,19 +70,19 @@ function LoggedInMenu() {
         <div className='dropdown'>
             <div className='nav-profile_dropdown_container'>
                 <img
-                    src={userProfilePic}
+                    src={user.profilePic ? user.profilePic : profilePic}
                     className="navbar-profile-pic"
                     alt="User Profile Pic"
                 />
                 <div className="icon" onClick={toggleDropdown}>
-                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret"/>}
+                    {isOpen ? <img src={arrow} alt="Drop Down Arrow" /> : <img src={caret} alt="Drop Down Caret" />}
                 </div>
             </div>
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
                 <Link className="dropdown-item" to="/pets">User's Pets</Link>
                 <Link className="dropdown-item" to="/events/new">Host an Event</Link>
                 <Link className="dropdown-item" to="/pets/new">Add a Pet</Link>
-                <div className="dropdown-item" onClick={logout}>Sign Out</div>
+                <div className="dropdown-item" onClick={handleLogout}>Sign Out</div>
             </div>
         </div>
     );

@@ -51,7 +51,6 @@ INDEX VERSION 1.134+/Users/wendynavarro/Desktop/project2/.metadata/.plugins/org.
 897684971.index
 2398184318.index
 3348149700.index
-1050248887.index
 2246049946.index
 3008763728.index
 2816234018.index

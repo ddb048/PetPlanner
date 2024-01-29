@@ -37,6 +37,20 @@ function LoginModal({ onClose }) {
         }
     };
 
+    const demoUserLogin = async (event) => {
+        event.preventDefault();
+
+        const user = { username: 'alexg', password: 'pass456' };
+        await dispatch(login(user));
+
+        if (!error) {
+            onClose();
+            navigate('/UserPage');
+        } else {
+            alert(error);
+        }
+    }
+
     return (
         <div className='modal-backdrop' onClick={handleBackdropClick}>
             <div className="modal">
@@ -67,6 +81,7 @@ function LoginModal({ onClose }) {
                         <div className='modal-button-container'>
                             <button className="modal-button" type="submit">Login</button>
                             <button className="modal-button" type="button" onClick={onClose}>Close</button>
+                            <button className='modal-button' type="button" onClick={demoUserLogin}>Demo User</button>
                         </div>
                     </form>
                 </div>
