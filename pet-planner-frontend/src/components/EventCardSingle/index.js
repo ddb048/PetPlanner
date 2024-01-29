@@ -64,31 +64,42 @@ function EventCardSingle() {
     const formattedTime = convertToAMPM(time)
 
     return (
-            <div className='event-card__container'>
+           
 
-                <div className='event-card__details'>
+                <div className='event-card__details_single2'>
 
                     <div className='event-card__name'>
-                        {targetEvent.name}
+                    {targetEvent.eventName}
                     </div>
 
-                    <div className='event-card__datetime'>
-                        {date} &middot; {formattedTime}
+                    <div className='event-card__name'>
+                    <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
-                    <div className='event-card__duration'>
-                        Duration: {targetEvent.duration} minutes
+
+                    <div className='event-card__datetime2'>
+                    <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
+                    </div>
+
+                    <div className='event-card__duration2'>
+                    <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
                     <div className='event-card__address'>
-                        {targetEvent.address}
+                    <strong>  This Event will be Located at: </strong>{targetEvent.address}
                     </div>
 
                     <div className='event-card__description'>
-                        {targetEvent.description}
+                    <strong>Description of the Event: </strong> {targetEvent.description}
                     </div>
 
-                </div>
+                    <button type="button" className="event-Delete">
+                                                 Delete Event
+                                                      </button>
+
+                     <button type="button" className="event-Go_Back" >
+                                                      Go Back
+                                                 </button>
             </div>
     )
 }

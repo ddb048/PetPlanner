@@ -55,7 +55,7 @@ function EventCards({ event }) {
             <div className='event-card__container'>
 
             <div className='event-card__name'>
-                         Name:   {event.name}
+                          {event.eventName}
                         </div>
                 <div className='event-card__pic-container'>
                              <img src={event.eventPictureUrl} />
