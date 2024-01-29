@@ -10,7 +10,7 @@ function PetCardSingle() {
     //Data-related
     const { petId } = useParams();
     console.log('petId', petId);
-    const targetPet = useSelector(state => state.pets.pets.petId);
+    const targetPet = useSelector(state => state.pets.pets.OnePet);
     console.log('targetPet', targetPet);
     const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ function PetCardSingle() {
 
     useEffect(() => {
         if (targetPet.id !== petId) {
-            // console.log('attempting to retrieve pet', petId);
+            console.log('attempting to retrieve pet', petId);
             dispatch(getOnePet(petId));
             dispatch(getPetEvents(petId));
         }

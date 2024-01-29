@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import EventCards from '../EventCards';
 import './index.css';
 
 const EventsPage = ({ events }) => {
-
-    const navigate = useNavigate();
 
     const eventList = Object.values(events);
     let eventDisplay;
@@ -38,6 +36,6 @@ const EventsPage = ({ events }) => {
         </>
     )
 
- }
+ };
 
  export default EventsPage;
