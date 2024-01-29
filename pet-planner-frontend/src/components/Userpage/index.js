@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
 
-const UserPage = () => {
+const UserPage = ({ user, pets, events }) => {
 
   //State-related
-  const dispatch = useDispatch()
   const navigate = useNavigate();
-  const user = useSelector(state => state.session.user);
   const [loading, setLoading] = useState(true);
 
   // Event-Data and date filtering for display
-  const eventsObj = useSelector(state => state.events.events || []);
-  const events = Object.values(eventsObj);
-  const futureEvents = events.filter(event => event.date >= new Date().toISOString());
-  const pastEvents = events.filter(event => event.date < new Date().toISOString());
+  const targetEvents = Object.values(events);
+  const futureEvents = targetEvents.filter(event => event.date >= new Date().toISOString());
+  const pastEvents = targetEvents.filter(event => event.date < new Date().toISOString());
 
   //Date-related variables we need to initialize for events (Events logic)
   let futureEventDisplay;
@@ -57,13 +53,12 @@ const UserPage = () => {
 
 
   // Pet Card Related
-  const petsObj = useSelector(state => state.pets.pets || []);
-  const pets = Object.values(petsObj);
+  const targetPets = Object.values(pets);
 
   // Pets Display Logic
   let petDisplay;
-  if (pets.length > 0) {
-    petDisplay = pets.map(pet => (
+  if (targetPets.length > 0) {
+    petDisplay = targetPets.map(pet => (
       <PetCards key={pet.id} pet={pet} />
     ));
   } else {
@@ -75,6 +70,13 @@ const UserPage = () => {
       </div>
     );
   }
+
+  // Loading Logic
+  if (loading) {
+    setTimeout(() => {
+      setLoading(false);
+    } , 2500);
+  };
 
   return (
     <div className='userpage-content__container'>
@@ -103,7 +105,7 @@ const UserPage = () => {
             Your Pets:
           </div>
           <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
-          {pets.length > 0 && (
+          {targetPets.length > 0 && (
             <div className='userpage__pets'>
               {petDisplay}
             </div>

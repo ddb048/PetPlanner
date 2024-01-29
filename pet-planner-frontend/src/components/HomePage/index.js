@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import petPlannerImage from '../../assets/PetPlannerLogo.png';
 import './index.css';
 
@@ -17,6 +18,12 @@ function HomePage({ onShowSignup, onShowLogin, user }) {
                 {!user &&
                     <button onClick={onShowLogin}>Login</button>}
 
+                {user &&
+                    <Link to='/events' className='auth-links__button'> Events </Link>}
+                {user &&
+                    <Link to='/pets' className='auth-links__button'> Pets </Link>}
+                {user &&
+                    <Link to='/UserPage' className='auth-links__button'> Home Page </Link>}
 
 
 

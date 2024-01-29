@@ -19,13 +19,19 @@ import { restoreUser } from './store/session';
 
 
 function App() {
-  const [showSignup, setShowSignup] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user);
+  const pets = useSelector(state => state.pets.pets);
+  const events = useSelector(state => state.events.events);
+
+  const [petsLoading, setPetsLoading] = useState(false);
+  const [eventsLoading, setEventsLoading] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
 
-  // useEffect for restoring the user
+  // useEffect for restoring the user on refresh
   useEffect(() => {
     const userToken = localStorage.getItem('userToken');
     if (userToken && !user) {
@@ -33,17 +39,30 @@ function App() {
     }
   }, [user, dispatch]);
 
-  // useEffect for fetching data after user is restored
+  // useEffect for fetching pets
   useEffect(() => {
-    if (user) {
-      dispatch(getPets(user.userId));
-      dispatch(getEvents(user.userId));
+    if (user && user.id) {
+      setPetsLoading(true);
+      dispatch(getPets(user.id))
+        .then(() => setPetsLoading(false))
+        .catch(() => setPetsLoading(false));
+        console.log("pets fetch triggered") // handle potential errors
+    }
+  }, [user, dispatch]);
+
+  // useEffect for fetching events
+  useEffect(() => {
+    if (user && user.id) {
+      setEventsLoading(true);
+      dispatch(getEvents(user.id))
+        .then(() => setEventsLoading(false))
+        .catch(() => setEventsLoading(false));
+        console.log("events fetch triggered") // handle potential errors
     }
   }, [user, dispatch]);
 
 
-  const pets = useSelector(state => state.pets.pets);
-  const events = useSelector(state => state.events.events);
+
 
   const handleShowSignup = () => setShowSignup(true);
   const handleShowLogin = () => setShowLogin(true);
@@ -51,26 +70,35 @@ function App() {
     setShowSignup(false);
     setShowLogin(false);
   };
-  return (
+
+  if (petsLoading || eventsLoading) {
+    return <div> Loading... </div>;
+  }
+
+      return (
 
 
-    <Router>
-      <Navbar onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />
-      <Routes>
-        <Route path="/" element={<HomePage user={user} onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
-        <Route path="/UserPage" element={<UserPage />} />
-        <Route path="/pets" element={<PetsPage pets={pets} />} />
-        <Route path="/pets/:petId" element={<PetCardSingle />} />
-        <Route path="/pets/new" element={<CreatePet />} />
-        <Route path="/events" element={<EventsPage events={events}/>} />
-        <Route path="/events/:eventId" element={<EventCardSingle />} />
-        <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
-        <Route path="/signup" element={<SignupModal />} />
-      </Routes>
-      {showSignup && <SignupModal onClose={handleCloseModal} />}
-      {showLogin && <LoginModal onClose={handleCloseModal} />}
-    </Router>
-  );
-}
+        <Router>
+          <Navbar onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />
+          <Routes>
+            <Route path="/" element={<HomePage user={user} onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
+            <Route path="/UserPage" element={<UserPage user={user} pets={pets} events={events} />} />
+            <Route path="/pets" element={<PetsPage pets={pets} />} />
+            <Route path="/pets/:petId" element={<PetCardSingle />} />
+            <Route path="/pets/new" element={<CreatePet />} />
+            <Route path="/events" element={<EventsPage events={events} />} />
+            <Route path="/events/:eventId" element={<EventCardSingle />} />
+            <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
+            <Route path="/signup" element={<SignupModal />} />
+          </Routes>
+          {showSignup && <SignupModal onClose={handleCloseModal} />}
+          {showLogin && <LoginModal onClose={handleCloseModal} />}
+        </Router>
+      );
+  }
+
+
+
+
 
 export default App;
