@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CreateEvent from './components/CreateEventModal';
 import CreatePet from './components/CreatePetModal';
+import UpdatePet from './components/UpdatePetModal';
 import HomePage from './components/HomePage';
 import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import PetEvents from './components/PetsDetail';
 import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
-import UserPage from './components/UserPage';
+import UserPage from './components/Userpage';
 
 function App() {
   const [showSignup, setShowSignup] = useState(false);
@@ -31,6 +32,7 @@ function App() {
         <Route path="/UserPage" element={<UserPage />} />
         <Route path="/pets" element={<PetsPage />} />
         <Route path="/pets/new" element={<CreatePet />} />
+        <Route path="/pets/:petId/update" element={<UpdatePet />} />
         <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
         <Route path="/events/:EventId" element={<PetEvents />} />
         <Route path="/signup" element={<SignupModal />} />
