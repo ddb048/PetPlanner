@@ -15,7 +15,7 @@ import Navbar from './components/Navbar';
 import PetCardSingle from './components/PetCardSingle';
 import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
-import UserPage from './components/Userpage';
+import UserPage from './components/UserPage';
 
 import { getEvents } from './store/events';
 import { getPets } from './store/pets';

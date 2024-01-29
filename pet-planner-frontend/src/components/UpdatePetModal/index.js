@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePet, getOnePet } from '../../store/pets'; // Assuming you have an updatePet action
-import { useParams } from 'react-router-dom'; // Import useParams from React Router
+import { useNavigate } from 'react-router-dom';
+import { updatePet } from '../../store/pets';
 import './index.css';
 
 
-  
+
 
 const UpdatePetModal = ({ onClose }) => {
-  
-    const [currentPet, setCurrentPet] = useState(null);
-    const dispatch = useDispatch();
-    const { petId } = useParams(); // Use React Router's useParams to get the petId from the URL
-    //const navigate = useNavigate();
-    
+
+  //Data-related
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const pet = useSelector(state => state.pets.OnePet);
+
+  console.log('pet', pet);
+
+
+  const user = useSelector(state => state.session.user);
+
 
   // State for updated pet information
-  const [name, setName] = useState(currentPet?.pet_name || '');
-  const [birthdate, setBirthdate] = useState(currentPet?.birthdate || '');
-  const [description, setDescription] = useState(currentPet?.description || '');
-  const [species, setSpecies] = useState(currentPet?.species || '');
-  const [temparement, setTemparement] = useState(currentPet?.temparement || '');
-  const [image, setImage] = useState(currentPet?.pet_picture || '');
+  const [name, setName] = useState(pet.petName);
+  const [birthdate, setBirthdate] = useState(pet.birthdate);
+  const [description, setDescription] = useState(pet.description);
+  const [species, setSpecies] = useState(pet.species);
+  const [temparement, setTemparement] = useState(pet.temparement);
+  const [image, setImage] = useState(pet.petPicture);
   const [backendErrors, setBackendErrors] = useState('');
 
 
@@ -34,9 +40,10 @@ const UpdatePetModal = ({ onClose }) => {
   const [imageError, setImageError] = useState(false);
   const [renderErr, setRenderErr] = useState(false);
 
-  const user = useSelector(state => state.session.user);
 
- 
+
+
+
   /**************************FUNCTIONS************************** */
   const urlValidation = str => {
     return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
@@ -44,31 +51,6 @@ const UpdatePetModal = ({ onClose }) => {
 
   useEffect(() => {
 
-    
-
-    const fetchData = async () => {
-      try {
-        const response = await dispatch(getOnePet(petId));
-    
-        if (response.ok) {
-          if (!response.bodyUsed) {
-            const petData = await response.json();
-            setCurrentPet(petData);
-    
-            // Set form fields based on pet details
-            setName(petData.pet_name || '');
-            setBirthdate(petData.birthdate || '');
-            // ... (similarly for other fields)
-          }
-        } else {
-          console.error('Failed to fetch pet details');
-        }
-      } catch (error) {
-        console.error('Error fetching pet details:', error);
-      }
-    };
-
-    const handleErrors = () => {
       //name error handling
       if (!name.length) {
         setNameError('Please enter a name for your pet');
@@ -77,7 +59,7 @@ const UpdatePetModal = ({ onClose }) => {
       } else {
         setNameError('');
       }
-  
+
       //birthdate error handling
       if (!birthdate.length) {
         setBirthdateError('Please enter your pet\'s birthdate');
@@ -86,60 +68,54 @@ const UpdatePetModal = ({ onClose }) => {
       } else {
         setBirthdateError('');
       }
-  
-      // Rest of your error handling logic...
 
       //description error handling
-    if (!description.length) {
-      setDescriptionError('Please enter a description for your pet');
-    } else if (description.length > 500) {
-      setDescriptionError('Description must be 500 characters or less');
-    } else {
-      setDescriptionError('');
-    }
-  
-    //species error handling
-    if (!species.length) {
-      setSpeciesError('Please select a species for your pet');
-    } else {
-      setSpeciesError('');
-    }
-  
-    //temparement error handling
-    if (!temparement.length) {
-      setTemparementError('Please select a temparement for your pet');
-    } else {
-      setTemparementError('');
-    }
-  
-    //image error handling
-    if (!image.length) {
-      setImageError('Please enter an image URL for your pet');
-    } else if (!urlValidation(image)) {
-      setImageError('Images must be formatted as .png, .jpg, .jpeg, or .gif');
-    } else {
-      setImageError('');
-    }
-  
+      if (!description.length) {
+        setDescriptionError('Please enter a description for your pet');
+      } else if (description.length > 500) {
+        setDescriptionError('Description must be 500 characters or less');
+      } else {
+        setDescriptionError('');
+      }
+
+      //species error handling
+      if (!species.length) {
+        setSpeciesError('Please select a species for your pet');
+      } else {
+        setSpeciesError('');
+      }
+
+      //temparement error handling
+      if (!temparement.length) {
+        setTemparementError('Please select a temparement for your pet');
+      } else {
+        setTemparementError('');
+      }
+
+      //image error handling
+      if (!image.length) {
+        setImageError('Please enter an image URL for your pet');
+      } else if (!urlValidation(image)) {
+        setImageError('Images must be formatted as .png, .jpg, .jpeg, or .gif');
+      } else {
+        setImageError('');
+      }
+
       // Clear backend errors
       setBackendErrors('');
-    };
-  
-    // Call the async function immediately
-    fetchData();
-  
-    // Handle errors after fetching data
-    handleErrors();
-  
-  }, [dispatch, petId, name, birthdate, description, species, temparement, image, currentPet]);
 
 
- 
+
+  }, [dispatch, name, birthdate, description, species, temparement, image]);
+
+
+
 
   const handleUpdate = async (event) => {
+
     event.preventDefault();
     setRenderErr(true);
-  
+
     if (
       !nameError &&
       !birthdateError &&
@@ -148,21 +124,22 @@ const UpdatePetModal = ({ onClose }) => {
       !temparementError &&
       !imageError
     ) {
-      const updatedPetInfo = {
-        pet_name: name,
+      const updatedPet = {
+        id: pet.id,
+        petName: name,
         birthdate,
         description,
         species,
         temparement,
-        pet_picture: image,
-        user_id: user.id,
+        petPicture: image,
+        userId: user.id,
       };
-  
+
       // Assuming you have an updatePet action
-      dispatch(updatePet(currentPet.id, updatedPetInfo))
+      dispatch(updatePet(updatedPet))
         .then(() => {
           console.log('Pet updated successfully');
-          onClose(); // Close the modal or perform additional actions
+          navigate(`/pets/${pet.id}`);
         })
         .catch((error) => {
           console.error('Error updating pet:', error);
@@ -179,7 +156,7 @@ const UpdatePetModal = ({ onClose }) => {
           <div className='modal-title'>Update Your Pet Information</div>
           <div className='modal-main'>
             <div className='errors__container'>{backendErrors}</div>
-  
+
             <form className='create-event-form' onSubmit={handleUpdate}>
               <div className='create_pet_form_div'>
                 Name:
@@ -207,7 +184,7 @@ const UpdatePetModal = ({ onClose }) => {
               <div className='errors__container'>
                 {!!renderErr && birthdateError.length > 0 && birthdateError}
               </div>
-  
+
               <div className='create_pet_form_div'>
                 Description:
                 <input
@@ -222,7 +199,7 @@ const UpdatePetModal = ({ onClose }) => {
               <div className='errors__container'>
                 {!!renderErr && descriptionError.length > 0 && descriptionError}
               </div>
-  
+
               <div className='create_pet_form_div'>
                 Species:
                 <select
@@ -243,7 +220,7 @@ const UpdatePetModal = ({ onClose }) => {
               <div className='errors__container'>
                 {!!renderErr && speciesError.length > 0 && speciesError}
               </div>
-  
+
               <div className='create_pet_form_div'>
                 temparement:
                 <select
@@ -263,7 +240,7 @@ const UpdatePetModal = ({ onClose }) => {
               <div className='errors__container'>
                 {!!renderErr && temparementError.length > 0 && temparementError}
               </div>
-  
+
               {/* Display the default image URL, but prevent user input */}
               <div className='create_pet_form_div'>
                 Image URL:
