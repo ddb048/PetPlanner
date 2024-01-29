@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getOneEvent } from '../../store/events';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteOneEvent, getOneEvent } from '../../store/events';
+import PetCards from '../PetCards';
 import './index.css';
 
 function EventCardSingle() {
@@ -11,9 +12,21 @@ function EventCardSingle() {
     const targetEvent = useSelector(state => state.events.OneEvent);
     // console.log("Target Event here",targetEvent)
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     //State-related
     const [loading, setLoading] = useState(true);
+
+    //Pets related
+    const pets = targetEvent.pets;
+    const petArray = Object.values(pets);
+
+    console.log("petArray from Event Card Single Page", petArray);
+
+    const petDisplay = petArray.map(pet => (
+        <PetCards key={pet.id} pet={pet} />
+    ));
+
+
 
     useEffect(() => {
         if (targetEvent.id !== eventId) {
@@ -63,7 +76,27 @@ function EventCardSingle() {
     const { date, time } = splitDateTime(targetEvent.date)
     const formattedTime = convertToAMPM(time)
 
+    // helper Functions to UpdateEvent and DeleteEvent
+
+    const handleUpdateEvent = (e) => {
+        e.preventDefault();
+        navigate(`/events/${targetEvent.id}/update`);
+    }
+
+    const handleDeleteEvent = (e) => {
+        e.preventDefault();
+        dispatch(deleteOneEvent(targetEvent.id))
+            .then(() => {
+                console.log('Event deleted successfully');
+                navigate(`/events`);
+            }
+            )
+
+    }
+
+
     return (
+        <>
             <div className='event-card__container'>
 
                 <div className='event-card__details'>
@@ -88,8 +121,25 @@ function EventCardSingle() {
                         {targetEvent.description}
                     </div>
 
+                    <div className='event-card__buttons'>
+                        <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
+                        <button className='event-card__button' onClick={handleDeleteEvent}>Delete Event</button>
+                    </div>
+
                 </div>
+
+
             </div>
+
+            <div className='event-card__pets'>
+                    <div className='event-card__pets-title'>
+                        Pets Attending:
+                    </div>
+                    <div className='event-card__pets-list'>
+                        {petDisplay}
+                    </div>
+                </div>
+        </>
     )
 }
 

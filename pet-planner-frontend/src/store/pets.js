@@ -127,7 +127,7 @@ const petsReducer = (state = initialState, action) => {
             });
             return newState;
         case LOAD_ONE_PET:
-            newState.pets = { ...state.pets, [+action.pet.id]: action.pet };
+            newState = { ...state};
             newState.OnePet = { ...action.pet };
             return newState;
         case ADD_PET:

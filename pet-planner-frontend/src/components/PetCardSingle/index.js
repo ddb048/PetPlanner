@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getOnePet, getPetEvents } from '../../store/pets';
 import EventCards from '../EventCards';
 import './index.css';
@@ -10,19 +10,23 @@ function PetCardSingle() {
     //Data-related
     const { petId } = useParams();
     console.log('petId', petId);
-    const targetPet = useSelector(state => state.pets.pets.OnePet);
+    const targetPet = useSelector(state => state.pets.OnePet);
     console.log('targetPet', targetPet);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     //Event-related
     const events = targetPet.events;
+
     console.log('events', events);
+    let futureEventDisplay;
+    let pastEventDisplay;
+
+    if (events) {
+
     const eventsList = Object.values(events);
     const futureEvents = eventsList.filter(event => event.date >= new Date().toISOString());
     const pastEvents = eventsList.filter(event => event.date < new Date().toISOString());
-
-    let futureEventDisplay;
-    let pastEventDisplay;
 
     if (futureEvents.length > 0) {
         futureEventDisplay = (
@@ -56,6 +60,10 @@ function PetCardSingle() {
         )
     };
 
+};
+
+
+
 
 
     //State-related
@@ -66,24 +74,33 @@ function PetCardSingle() {
             console.log('attempting to retrieve pet', petId);
             dispatch(getOnePet(petId));
             dispatch(getPetEvents(petId));
+            setLoading(false);
         }
     }, [petId, dispatch]);
 
-    useEffect(() => {
-        if (targetPet.id === petId) {
-            console.log('loading for targetPet', targetPet);
-            dispatch(getOnePet(petId));
-            dispatch(getPetEvents(petId));
-            setLoading(false);
-        }
-    }, [targetPet]);
+    // useEffect(() => {
+    //     if (targetPet.id === petId) {
+    //         console.log('loading for targetPet', targetPet);
+    //         dispatch(getOnePet(petId));
+    //         dispatch(getPetEvents(petId));
+    //         setLoading(false);
+    //     }
+    // }, [targetPet]);
 
     // Loading check
     if (loading) {
         return <div>Loading...</div>;
     }
 
+    //Helper Functions
+    const handleUpdatePet = (e) => {
+        e.preventDefault();
+        navigate(`/pets/${petId}/update`);
+    }
+
+
     return (
+        <>
             <div className='pet-card__container'>
 
                 <div className='pet-card__name'>
@@ -118,26 +135,41 @@ function PetCardSingle() {
                 </div>
 
                 <div className='pet-card__buttons'>
-                    <Link className='pet-card__edit-button' to={`/pets/${targetPet.id}/update`} >Update Pet</Link>
+                    <button className='pet-card__edit-button' onClick={handleUpdatePet} >Update Pet</button>
                     <button className='pet-card__delete-button'>Delete Pet</button>
                 </div>
 
+
+
+
+            </div>
+                {
+                    futureEventDisplay && (
                 <div className='pet-card__events'>
                     <div className='pet-card__events-header'>
-                         Upcoming Events:
+                        Upcoming Events:
                     </div>
                     <div className='pet-card__events-list'>
                         {futureEventDisplay}
                     </div>
-
-                    <div className='pet-card__events-header'>
-                        Past Events:
-                    </div>
-                    <div className='pet-card__events-list'>
-                        {pastEventDisplay}
-                    </div>
                 </div>
-            </div>
+                    )
+                    }
+
+            {
+                pastEventDisplay && (
+                    <div className='pet-card__events'>
+                        <div className='pet-card__events-header'>
+                            Past Events:
+                        </div>
+                        <div className='pet-card__events-list'>
+                            {pastEventDisplay}
+                        </div>
+                    </div>
+                )
+            }
+
+        </>
     )
 
 }

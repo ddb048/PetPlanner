@@ -55,21 +55,21 @@ function EventCards({ event }) {
             <div className='event-card__container'>
 
             <div className='event-card__name'>
-                         Name:   {event.name}
+                         {event.eventName}
                         </div>
                 <div className='event-card__pic-container'>
                              <img src={event.eventPictureUrl} />
                          </div>
 
                 <div className='event-card__details'>
-                    
-                    
-                    
+
+
+
                     <div className='event-card__text-container'>
-                      
 
 
-                       
+
+
                         <div className='event-card__datetime'>
                           Start:   {date} &middot; {formattedTime}
                         </div>
