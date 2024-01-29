@@ -54,39 +54,42 @@ function EventCards({ event }) {
         <Link className="event-card__link-container" to={`/events/${event.id}`}>
             <div className='event-card__container'>
 
+            <div className='event-card__name'>
+                         Name:   {event.name}
+                        </div>
+                <div className='event-card__pic-container'>
+                             <img src={event.eventPictureUrl} />
+                         </div>
+
                 <div className='event-card__details'>
-
+                    
+                    
+                    
                     <div className='event-card__text-container'>
-                        <div className='event-card__name'>
-                            {event.name}
-                        </div>
+                      
 
+
+                       
                         <div className='event-card__datetime'>
-                            {date} &middot; {formattedTime}
+                          Start:   {date} &middot; {formattedTime}
                         </div>
 
-                        <div className='event-card__attendees'>
-                            Sign-ups: {numAttendees}
+                        <div className='event-card__address'>
+                           Address: {event.address}
                         </div>
 
                         <div className='event-card__duration'>
                             Duration: {event.duration} minutes
                         </div>
 
-                        <div className='event-card__address'>
-                            {event.address}
+                        <div className='event-card__attendees'>
+                            Sign-ups: {numAttendees}
                         </div>
 
                         <div className='event-card__description'>
-                            {event.description}
+                        Description: {event.description}
                         </div>
                     </div>
-
-                    <div className='event-card__pic-container'>
-                        <img src={event.eventPictureUrl} />
-                    </div>
-
-
 
                 </div>
             </div>

@@ -15,7 +15,7 @@ import Navbar from './components/Navbar';
 import PetCardSingle from './components/PetCardSingle';
 import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
-import UserPage from './components/UserPage';
+import UserPage from './components/Userpage/index.js';
 
 import { getEvents } from './store/events';
 import { getPets } from './store/pets';
@@ -91,6 +91,7 @@ function App() {
             <Route path="/pets/:petId" element={<PetCardSingle />} />
             <Route path="/pets/:petId/update" element={<UpdatePet />} />
             <Route path="/pets/new" element={<CreatePet />} />
+         
             <Route path="/events" element={<EventsPage events={events} />} />
             <Route path="/events/:eventId" element={<EventCardSingle />} />
             <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />

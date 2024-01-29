@@ -86,16 +86,19 @@ function PetCardSingle() {
     return (
             <div className='pet-card__container'>
 
+                <div className='pet-card__name'>
+                       {targetPet.petName}
+                    </div>
+
                 <div className="pet-card__img-container">
                     <img className='pet-card__img' alt="Pet Image" src={targetPet.petPicture} />
                 </div>
 
                 <div className='pet-card__details'>
 
-                    <div className='pet-card__name'>
-                        Name: {targetPet.petName}
+                <div className='pet-card__birthdate'>
+                        Birthday: {targetPet.birthdate}
                     </div>
-
                     <div className='pet-card__species'>
                         Species: {targetPet.species}
                     </div>
@@ -105,11 +108,11 @@ function PetCardSingle() {
                     </div>
 
                     <div className='pet-card__temparement'>
-                        {targetPet.temparement}
+                    Temparement: {targetPet.temparement}
                     </div>
 
                     <div className='pet-card__description'>
-                        {targetPet.description}
+                    Description: {targetPet.description}
                     </div>
 
                 </div>

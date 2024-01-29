@@ -23,6 +23,7 @@ const EventsPage = ({ events }) => {
 
     return (
         <>
+        
             <div className='userpage__events-header'>
                 Your Events:
             </div>
@@ -32,7 +33,10 @@ const EventsPage = ({ events }) => {
             {eventList.length > 0 && (
                 <div className='userpage__events'>
                     {eventDisplay}
-                </div>)};
+                </div>
+                )};
+
+           
         </>
     )
 
