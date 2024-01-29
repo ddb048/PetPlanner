@@ -3,15 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CreateEvent from './components/CreateEventModal';
 import CreatePet from './components/CreatePetModal';
+
+import UpdatePet from './components/UpdatePetModal';
+
 import EventCardSingle from './components/EventCardSingle';
 import EventsPage from './components/EventsPage';
+
 import HomePage from './components/HomePage';
 import LoginModal from './components/Login';
 import Navbar from './components/Navbar';
 import PetCardSingle from './components/PetCardSingle';
 import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
-import UserPage from './components/UserPage';
+import UserPage from './components/Userpage';
 
 import { getEvents } from './store/events';
 import { getPets } from './store/pets';
@@ -85,6 +89,7 @@ function App() {
             <Route path="/UserPage" element={<UserPage user={user} pets={pets} events={events} />} />
             <Route path="/pets" element={<PetsPage pets={pets} />} />
             <Route path="/pets/:petId" element={<PetCardSingle />} />
+            <Route path="/pets/:petId/update" element={<UpdatePet />} />
             <Route path="/pets/new" element={<CreatePet />} />
             <Route path="/events" element={<EventsPage events={events} />} />
             <Route path="/events/:eventId" element={<EventCardSingle />} />
@@ -96,6 +101,7 @@ function App() {
         </Router>
       );
   }
+
 
 
 
