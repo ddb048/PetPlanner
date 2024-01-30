@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CreateEvent from './components/CreateEventModal';
 import CreatePet from './components/CreatePetModal';
-
+import UpdateEvent from './components/UpdateEventModal';
 import UpdatePet from './components/UpdatePetModal';
 
 import EventCardSingle from './components/EventCardSingle';
@@ -75,7 +75,7 @@ function App() {
     setShowLogin(false);
   };
 
-  if (petsLoading || eventsLoading) {
+  if (petsLoading && eventsLoading) {
     return <div> Loading... </div>;
   }
 
@@ -94,6 +94,7 @@ function App() {
 
             <Route path="/events" element={<EventsPage events={events} />} />
             <Route path="/events/:eventId" element={<EventCardSingle />} />
+            <Route path="/events/:eventId/update" element={<UpdateEvent />} />
             <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
             <Route path="/signup" element={<SignupModal />} />
           </Routes>

@@ -83,9 +83,8 @@ function LoggedInMenu({ user }) {
                 <Link className="dropdown-item" to="/pets">Your Pets</Link>
                 <Link className="dropdown-item" to="/UserPage">Update Profile</Link>
                 <Link className="dropdown-item" to="/events/new">Host an Event</Link>
-                <Link className="dropdown-item" to="/events">Your Event</Link>
+                <Link className="dropdown-item" to="/events">Your Events</Link>
                 <Link className="dropdown-item" to="/pets/new">Add a Pet</Link>
-                <Link className="dropdown-item" to="/pets/update">Update Pets</Link>
                 <div className="dropdown-item" onClick={handleLogout}>Sign Out</div>
             </div>
         </div>
