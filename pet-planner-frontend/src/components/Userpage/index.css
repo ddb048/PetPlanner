@@ -28,7 +28,7 @@
   flex-direction: row;
   margin-left: 20px;
   font-style: italic;
- margin-left: 15px; ; 
+ margin-left: 15px; ;
 }
 
 
@@ -36,19 +36,19 @@
 
 
 .userpage__profile-pic {
-  width: 100px; 
-  height: 100px; 
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border-radius: 50%;
   margin-top: 35px;
   margin-left: 15px;
   }
   .userpage__profile-pic-img {
-    width: 100%; 
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .userpage__add-pet-link{
 
   background-color: #7c58cb;
@@ -59,8 +59,8 @@
   border-radius: 5px;
   cursor: pointer;
   margin-right: 50;
- 
- 
+
+
   }
   .userpage__add-pet-link:hover{
     background-color: hsl(174, 64%, 51%);
