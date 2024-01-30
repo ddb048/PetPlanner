@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import PetCards from '../PetCards';
 import './index.css';
 
 
 const PetsPage = ({ pets }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  //const navigate = useNavigate();
+  //const location = useLocation();
 
   // // Pet Card Related
   const petList = Object.values(pets);

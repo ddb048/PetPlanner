@@ -33,7 +33,7 @@ function EventCardSingle() {
             dispatch(getOneEvent(eventId));
             console.log('attempting to retrieve event', eventId);
         }
-    }, [eventId, dispatch]);
+    }, [eventId, dispatch, targetEvent.id]);
 
     useEffect(() => {
         if (targetEvent) {

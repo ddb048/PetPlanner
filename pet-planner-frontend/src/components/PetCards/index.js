@@ -34,7 +34,7 @@ function PetCards({ pet }) {
                     </div>
 
                 <div className="pet-card__img-container">
-                    <img className='pet-card__img' alt="Pet Image" src={pet.petPicture} />
+                    <img className='pet-card__img' alt="Pet" src={pet.petPicture} />
                 </div>
 
                 <div className='pet-card__details'>

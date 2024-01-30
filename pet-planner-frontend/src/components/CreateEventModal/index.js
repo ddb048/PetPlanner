@@ -9,7 +9,7 @@ const CreateEventModal = ({ onClose, onCreateEvent }) => {
         description: '',
     });
     const [dateInputType, setDateInputType] = useState("text");
-    const [errors, setErrors] = useState({});
+    //const [errors, setErrors] = useState({});
 
     const handleDateFocus = () => {
         setDateInputType("date");
@@ -50,7 +50,7 @@ const CreateEventModal = ({ onClose, onCreateEvent }) => {
             newErrors.description = "Description must be at least 10 characters long";
         }
 
-        setErrors(newErrors);
+        //setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 

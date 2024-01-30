@@ -64,7 +64,7 @@ function LoggedInMenu({ user }) {
 
         document.addEventListener("click", closeDropdown);
         return () => document.removeEventListener("click", closeDropdown);
-    }, []);
+    }, [isOpen]);
 
     return (
         <div className='dropdown'>

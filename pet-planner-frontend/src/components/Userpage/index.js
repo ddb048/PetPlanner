@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
@@ -7,7 +7,7 @@ import './index.css';
 const UserPage = ({ user, pets, events }) => {
 
   //State-related
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   // Event-Data and date filtering for display
