@@ -1,21 +1,32 @@
 .userpage-content__container{
     border: 1px solid black;
+
 }
 
 .userpage__content{
     border: 1px solid black;
+
 }
 
 .userpage__pets{
     border: 1px solid black;
+    margin-left: 20px;
+    display:flex;
+    flex-display:row;
+    flex-wrap: nowrap;
+ 
 }
 
 .userpage__events-section {
     border: 1px solid black;
+    
 }
 
 .userpage__future-events{
     border: 1px solid black;
+    display:flex;
+    flex-display:row;
+    flex-wrap: wrap;
 }
 
 .userpage__past-events{
@@ -23,14 +34,27 @@
 }
 
 
-.userpage__username,
+
 .userpage__email {
   flex-direction: row;
+  margin-top: 10px;
   margin-left: 20px;
   font-style: italic;
- margin-left: 15px; ;
-}
 
+  font-size: 20px;
+ margin-left: 15px; ; 
+
+}
+.userpage__username{
+  flex-direction: row;
+  margin-top: 40px;
+  margin-left: 20px;
+  font-style: italic;
+  font-size: 20px;
+ margin-left: 15px; ; 
+ font-family:monospace
+
+}
 
 
 
@@ -58,10 +82,34 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 50;
 
+  margin-bottom: 400px;
+ 
+  margin-right: 400px;
+  margin-left: 28px;
+  
+ 
 
   }
   .userpage__add-pet-link:hover{
     background-color: hsl(174, 64%, 51%);
   }
+
+
+  .userpage__pets-header{
+    font-size: 40px;
+    font-family:cursive;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+
+
+  .pet-card__events-list{ 
+ 
+    margin:auto;
+    display:flex;
+    flex-display:row;
+    flex-wrap: wrap;
+  }
+
