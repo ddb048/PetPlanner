@@ -76,7 +76,7 @@ function PetCardSingle() {
             dispatch(getPetEvents(petId));
             setLoading(false);
         }
-    }, [petId, dispatch]);
+    }, [petId, dispatch, targetPet.id]);
 
     // useEffect(() => {
     //     if (targetPet.id === petId) {
