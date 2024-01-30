@@ -6,7 +6,6 @@ function SignupModal({ onClose }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [profilePic, setProfilePic] = useState(null);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
@@ -22,19 +21,13 @@ function SignupModal({ onClose }) {
         setError('');
         setSuccess(false);
 
-        const response = await signup(username, password, email, profilePic);
+        const response = await signup(username, password, email);
         if (response.success) {
             setSuccess(true);
             //FIXME - insert redirect to userDetails page
             onClose();
         } else {
             setError(response.message || 'Signup failed');
-        }
-    };
-
-    const handleProfilePicChange = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            setProfilePic(event.target.files[0]);
         }
     };
 

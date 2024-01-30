@@ -37,7 +37,6 @@ const CreateEventModal = () => {
         return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
     }
 
-
     const handleDateFocus = () => {
         setDateInputType("date");
     };

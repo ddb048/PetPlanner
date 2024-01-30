@@ -64,6 +64,8 @@ public class EventController {
                 .orElseThrow(() -> new ResourceNotFoundException("Event", "id", id.toString()));
 
         event.setDate(eventDetails.getDate());
+        event.setEventName(eventDetails.getEventName());
+        event.setEventPictureUrl(eventDetails.getEventPictureUrl());
         event.setDuration(eventDetails.getDuration());
         event.setAddress(eventDetails.getAddress());
         event.setUser(eventDetails.getUser());

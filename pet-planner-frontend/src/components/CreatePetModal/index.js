@@ -13,7 +13,7 @@ const CreatePet = () => {
 
   /**************************STATE************************** */
 
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [description, setDescription] = useState('');

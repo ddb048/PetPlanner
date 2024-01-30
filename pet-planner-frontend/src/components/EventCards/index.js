@@ -60,7 +60,7 @@ function EventCards({ event }) {
 
                         </div>
                 <div className='event-card__pic-container'>
-                             <img src={event.eventPictureUrl} />
+                             <img src={event.eventPictureUrl} alt="Event" />
                          </div>
 
                 <div className='event-card__details'>

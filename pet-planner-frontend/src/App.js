@@ -5,6 +5,7 @@ import CreateEvent from './components/CreateEventModal';
 import CreatePet from './components/CreatePetModal';
 import UpdateEvent from './components/UpdateEventModal';
 import UpdatePet from './components/UpdatePetModal';
+import UpdateUser from './components/UpdateUserModal';
 
 import EventCardSingle from './components/EventCardSingle';
 import EventsPage from './components/EventsPage';
@@ -87,6 +88,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage user={user} onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
             <Route path="/UserPage" element={<UserPage user={user} pets={pets} events={events} />} />
+            <Route path="/users/:userId/update" element={<UpdateUser />} />
+
             <Route path="/pets" element={<PetsPage pets={pets} />} />
             <Route path="/pets/:petId" element={<PetCardSingle />} />
             <Route path="/pets/:petId/update" element={<UpdatePet />} />
