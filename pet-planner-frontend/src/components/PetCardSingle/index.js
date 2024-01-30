@@ -101,9 +101,9 @@ function PetCardSingle() {
 
     return (
         <>
-            <div className='pet-card__container'>
+            <div className='pet-card__container_single'>
 
-                <div className='pet-card__name'>
+                <div className='pet-card__name_single'>
                        {targetPet.petName}
                     </div>
 
@@ -113,23 +113,21 @@ function PetCardSingle() {
 
                 <div className='pet-card__details'>
 
-                <div className='pet-card__birthdate'>
-                        Birthday: {targetPet.birthdate}
-                    </div>
+               
                     <div className='pet-card__species'>
-                        Species: {targetPet.species}
+                    <strong> Species: </strong>  {targetPet.species}
                     </div>
 
                     <div className='pet-card__birthdate'>
-                        Birthday: {targetPet.birthdate}
+                    <strong> Birthday:</strong> {targetPet.birthdate}
                     </div>
 
                     <div className='pet-card__temparement'>
-                    Temparement: {targetPet.temparement}
+                    <strong> Temparement: </strong>{targetPet.temparement}
                     </div>
 
                     <div className='pet-card__description'>
-                    Description: {targetPet.description}
+                    <strong> Description:</strong> {targetPet.description}
                     </div>
 
                 </div>
@@ -147,7 +145,7 @@ function PetCardSingle() {
                     futureEventDisplay && (
                 <div className='pet-card__events'>
                     <div className='pet-card__events-header'>
-                        Upcoming Events:
+                      <strong> Upcoming Events:</strong> 
                     </div>
                     <div className='pet-card__events-list'>
                         {futureEventDisplay}
