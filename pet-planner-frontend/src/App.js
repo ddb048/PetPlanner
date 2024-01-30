@@ -75,7 +75,7 @@ function App() {
     setShowLogin(false);
   };
 
-  if (petsLoading || eventsLoading) {
+  if (petsLoading && eventsLoading) {
     return <div> Loading... </div>;
   }
 
