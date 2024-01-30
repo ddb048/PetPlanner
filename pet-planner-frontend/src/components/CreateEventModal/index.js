@@ -138,7 +138,7 @@ const CreateEventModal = () => {
                 duration: eventDuration,
                 address: eventAddress,
                 description: eventDescription,
-                user_id: user.id,
+                userId: user.id,
             };
 
             const event = await dispatch(createEvent(newEvent));

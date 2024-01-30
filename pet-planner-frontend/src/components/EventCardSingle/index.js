@@ -10,36 +10,27 @@ function EventCardSingle() {
     //Data-related
     const { eventId } = useParams();
     const targetEvent = useSelector(state => state.events.OneEvent);
-    // console.log("Target Event here",targetEvent)
+    console.log("Target Event here",targetEvent)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     //State-related
     const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        if (targetEvent.id !== eventId  || !targetEvent || !targetEvent.id) {
+            console.log("attempting to retrieve event", eventId);
+            dispatch(getOneEvent(eventId));
+            setLoading(false);
+        }
+    }, [eventId, dispatch, targetEvent]);
+
     //Pets related
     const pets = targetEvent.pets;
     const petArray = Object.values(pets);
 
-    console.log("petArray from Event Card Single Page", petArray);
-
     const petDisplay = petArray.map(pet => (
         <PetCards key={pet.id} pet={pet} />
     ));
-
-
-
-    useEffect(() => {
-        if (targetEvent.id !== eventId) {
-            dispatch(getOneEvent(eventId));
-            console.log('attempting to retrieve event', eventId);
-        }
-    }, [eventId, dispatch]);
-
-    useEffect(() => {
-        if (targetEvent) {
-            setLoading(false);
-        }
-    }, [targetEvent]);
 
 
     // Date & Time Helper Functions
@@ -137,7 +128,7 @@ function EventCardSingle() {
 
                 </div>
 
-                  
+
             </div>
 
             <div className='event-card__pets'>
