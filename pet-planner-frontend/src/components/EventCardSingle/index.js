@@ -96,30 +96,39 @@ function EventCardSingle() {
 
 
     return (
+
         <>
             <div className='event-card__container'>
 
-                <div className='event-card__details'>
+
+
+                <div className='event-card__details_single2'>
 
                     <div className='event-card__name'>
-                        {targetEvent.name}
+                    {targetEvent.eventName}
                     </div>
 
-                    <div className='event-card__datetime'>
-                        {date} &middot; {formattedTime}
+                    <div className='event-card__name'>
+                    <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
-                    <div className='event-card__duration'>
-                        Duration: {targetEvent.duration} minutes
+
+                    <div className='event-card__datetime2'>
+                    <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
+                    </div>
+
+                    <div className='event-card__duration2'>
+                    <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
                     <div className='event-card__address'>
-                        {targetEvent.address}
+                    <strong>  This Event will be Located at: </strong>{targetEvent.address}
                     </div>
 
                     <div className='event-card__description'>
-                        {targetEvent.description}
+                    <strong>Description of the Event: </strong> {targetEvent.description}
                     </div>
+
 
                     <div className='event-card__buttons'>
                         <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
@@ -128,7 +137,7 @@ function EventCardSingle() {
 
                 </div>
 
-
+                  
             </div>
 
             <div className='event-card__pets'>
@@ -138,7 +147,7 @@ function EventCardSingle() {
                     <div className='event-card__pets-list'>
                         {petDisplay}
                     </div>
-                </div>
+             </div>
         </>
     )
 }

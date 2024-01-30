@@ -1,0 +1,67 @@
+.event-card__details_single2 .event-card__name{
+
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding: 10px; 
+  background-color: #d5afda;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  text-align: center;
+
+
+}
+.event-card__details_single2 .event-card__name img {
+  max-width: 55%; 
+  height: auto;    
+}
+
+.event-card__details_single2 .event-card__datetime,
+.event-card__details_single2 .event-card__duration, 
+.event-card__details_single2 .event-card__address, 
+.event-card__details_single2 .event-card__description{
+ margin-top: 6px;
+  font-size:20px;
+  font-style: italic;
+  text-align: center;
+  
+
+}
+.event-card__details_single2 .event-Delete{
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  
+  background-color: #f55959; 
+  border-bottom-left-radius: 20px; 
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px; 
+  border-top-right-radius: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+.event-card__details_single2  .event-Go_Back{
+  
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #a9a0a0; 
+  border-bottom-left-radius: 20px; 
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px; 
+  border-top-right-radius: 20px;
+  margin-top: 10px;
+  margin-left: 4px;
+  text-align: center;
+  
+}
+.event-card__details_single2 {
+  display: flex;
+  flex-direction: column;
+  background-color: #dcaae2;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; 
+}
