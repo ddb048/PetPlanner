@@ -1,84 +1,183 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createEvent } from "../../store/events";
 import './index.css';
 
-const CreateEventModal = ({ onClose, onCreateEvent }) => {
-    const [newEvent, setNewEvent] = useState({
-        date: '',
-        duration: '', // Added field
-        address: '',  // Added field
-        description: '',
-    });
+const CreateEventModal = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const user = useSelector(state => state.session.user);
+
+    //**********************STATE******************** */
+    const [eventName, setEventName] = useState("");
+    const [eventPictureUrl, setEventPictureUrl] = useState("");
+    const [eventDate, setEventDate] = useState("");
+    const [eventDuration, setEventDuration] = useState("");
+    const [eventAddress, setEventAddress] = useState("");
+    const [eventDescription, setEventDescription] = useState("");
     const [dateInputType, setDateInputType] = useState("text");
-    const [errors, setErrors] = useState({});
+    const [backendErrors, setBackendErrors] = useState("");
+
+    //field error states
+    const [eventNameError, setEventNameError] = useState("");
+    const [eventPictureUrlError, setEventPictureUrlError] = useState("");
+    const [dateError, setDateError] = useState("");
+    const [durationError, setDurationError] = useState("");
+    const [addressError, setAddressError] = useState("");
+    const [descriptionError, setDescriptionError] = useState("");
+    const [renderErr, setRenderErr] = useState(false);
+
+
+    //***********************FUNCTIONS******************* */
+
+    const urlValidation = str => {
+        return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
+    }
+
 
     const handleDateFocus = () => {
         setDateInputType("date");
     };
 
     const handleDateBlur = () => {
-        if (!newEvent.date) {
+        if (!eventDate) {
             setDateInputType("text");
         }
     };
 
-    const validate = () => {
-        let newErrors = {};
-
-        // Check if the date is filled in
-        if (!newEvent.date) {
-            newErrors.date = "Date is required";
-        }
-
-        // Validate duration (example: it should be a number)
-        if (!newEvent.duration) {
-            newErrors.duration = "Duration is required";
-        } else if (isNaN(newEvent.duration)) {
-            newErrors.duration = "Duration must be a number";
-        }
-
-        // Validate address
-        if (!newEvent.address) {
-            newErrors.address = "Address is required";
-        } else if (newEvent.address.length < 5) { // Example length check
-            newErrors.address = "Address must be at least 5 characters long";
-        }
-
-        // Validate description
-        if (!newEvent.description) {
-            newErrors.description = "Description is required";
-        } else if (newEvent.description.length < 10) { // Example length check
-            newErrors.description = "Description must be at least 10 characters long";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+    const onClose = () => {
+        navigate('/UserPage');
     };
 
-    const handleNewEventChange = (e) => {
-        const { name, value } = e.target;
-        setNewEvent((prevEvent) => ({ ...prevEvent, [name]: value }));
-    };
+    //***********************USE EFFECT********************* */
 
-    const handleCreateEvent = (e) => {
-        e.preventDefault();
-        if (!validate()) return;
-        onCreateEvent(newEvent);
-        onClose();
-    };
+    useEffect(() => {
 
-    const handleBackdropClick = (event) => {
-        if (event.target.classList.contains('modal-backdrop')) {
-            onClose();
+        //event name error handling
+        if (!eventName.length) {
+            setEventNameError('Please enter a name for your event');
+        } else if (eventName.length > 50) {
+            setEventNameError('Name must be 50 characters or less');
+        } else {
+            setEventNameError('');
+        }
+
+        //event picture url error handling
+        if (!eventPictureUrl.length) {
+            setEventPictureUrlError('Please enter a picture url for your event');
+        } else if (!urlValidation(eventPictureUrl)) {
+            setEventPictureUrlError('Please enter a valid url');
+        } else {
+            setEventPictureUrlError('');
+        }
+
+        //date error handling
+        if (!eventDate.length) {
+            setDateError('Please enter a date for your event');
+        } else if (eventDate - new Date() < 0) {
+            setDateError('Date must be in the future');
+        } else {
+            setDateError('');
+        }
+
+        //duration error handling
+        if (!eventDuration.length) {
+            setDurationError('Please enter a duration for your event');
+        } else if (isNaN(eventDuration)) {
+            setDurationError('Duration must be a number');
+        } else if (eventDuration < 0) {
+            setDurationError('Duration must be a positive number');
+        } else {
+            setDurationError('');
+        }
+
+        //address error handling
+        if (!eventAddress.length) {
+            setAddressError('Please enter an address for your event');
+        } else if (eventAddress.length > 100) {
+            setAddressError('Address must be 100 characters or less');
+        } else {
+            setAddressError('');
+        }
+
+        //description error handling
+        if (!eventDescription.length) {
+            setDescriptionError('Please enter a description for your event');
+        } else if (eventDescription.length > 500) {
+            setDescriptionError('Description must be 500 characters or less');
+        } else {
+            setDescriptionError('');
+        }
+
+        setBackendErrors('');
+
+    }, [dispatch, eventName, eventPictureUrl, eventDate, eventDuration, eventAddress, eventDescription]);
+
+    //***********************ON SUBMIT********************* */
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setRenderErr(true);
+
+        if (
+
+            !eventNameError.length &&
+            !eventPictureUrlError.length &&
+            !dateError.length &&
+            !durationError.length &&
+            !addressError.length &&
+            !descriptionError.length
+        ) {
+            const newEvent = {
+                eventName,
+                eventPictureUrl,
+                date: eventDate,
+                duration: eventDuration,
+                address: eventAddress,
+                description: eventDescription,
+                user_id: user.id,
+            };
+
+            const event = await dispatch(createEvent(newEvent));
+            if (event) {
+                navigate(`/events/${event.id}`);
+            }
+
         }
     };
+
+
+    //***********************RETURN********************* */
+
 
     return (
-        <div className='modal-backdrop' onClick={handleBackdropClick}>
+        <div className='modal-backdrop'>
             <div className="create-event-modal">
                 <div className="modal-content">
                     <div className="modal-title">Create a New Event</div>
                     <div className="modal-main">
-                        <form className="create-event-form" onSubmit={handleCreateEvent}>
+                        <div className='errors__container'>{backendErrors}</div>
+                        <form className="create-event-form" onSubmit={handleSubmit}>
+                            <div className="modal-input-container">
+                            Event Name:
+                            <input
+                                className="modal-input"
+                                type="text"
+                                name="eventName"
+                                placeholder="Event Name"
+                                value={eventName}
+                                onChange={(e) => setEventName(e.target.value)}
+                                required
+                            />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && eventNameError.length > 0 && eventNameError}
+                            </div>
+                            <div className="modal-input-container">
+                            Event Date:
                             <input
                                 className="modal-input"
                                 type={dateInputType}
@@ -86,35 +185,71 @@ const CreateEventModal = ({ onClose, onCreateEvent }) => {
                                 placeholder="Pick a Date for your Event"
                                 onFocus={handleDateFocus}
                                 onBlur={handleDateBlur}
-                                value={newEvent.date}
-                                onChange={handleNewEventChange}
+                                value={eventDate}
+                                onChange={(e) => setEventDate(e.target.value)}
                                 required
                             />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && dateError.length > 0 && dateError}
+                            </div>
+                            <div className="modal-input-container">
+                            Event Duration:
                             <input
                                 className="modal-input"
                                 type="text"
                                 name="duration"
                                 placeholder="Duration"
-                                value={newEvent.duration}
-                                onChange={handleNewEventChange}
+                                value={eventDuration}
+                                onChange={(e) => setEventDuration(e.target.value)}
                             />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && durationError.length > 0 && durationError}
+                            </div>
+                            <div className="modal-input-container">
+                            Event Address:
                             <input
                                 className="modal-input"
                                 type="text"
                                 name="address"
                                 placeholder="Address"
-                                value={newEvent.address}
-                                onChange={handleNewEventChange}
+                                value={eventAddress}
+                                onChange={(e) => setEventAddress(e.target.value)}
                             />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && addressError.length > 0 && addressError}
+                            </div>
+                            <div className="modal-input-container">
+                            Event Picture URL:
+                            <input
+                                className="modal-input"
+                                type="text"
+                                name="eventPictureUrl"
+                                placeholder="Event Picture URL"
+                                value={eventPictureUrl}
+                                onChange={(e) => setEventPictureUrl(e.target.value)}
+                            />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && eventPictureUrlError.length > 0 && eventPictureUrlError}
+                            </div>
+                            <div className="modal-input-container">
+                            Event Description:
                             <input
                                 className="modal-input"
                                 type="text"
                                 name="description"
                                 placeholder="Description"
-                                value={newEvent.description}
-                                onChange={handleNewEventChange}
-                                required
+                                value={eventDescription}
+                                onChange={(e) => setEventDescription(e.target.value)}
                             />
+                            </div>
+                            <div className='errors__container'>
+                                {!!renderErr && descriptionError.length > 0 && descriptionError}
+                            </div>
+
                             <div className='modal-button-container'>
                                 <button className="modal-button" type="submit">Create Event</button>
                                 <button className="modal-button" type="button" onClick={onClose}>Close</button>
