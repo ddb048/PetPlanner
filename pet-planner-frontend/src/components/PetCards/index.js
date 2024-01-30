@@ -27,37 +27,22 @@ function PetCards({ pet }) {
     //Link route below may be wrong.
 
     return (
-        <Link className="pet-card__link-container" to={`/pets/${pet.id}`}>
+
+        <div className="pet-card__container-wrapper">
+        <Link className="pet-card__link-container" to={`/pets/${pet.id}`} >
             <div className='pet-card__container'>
-            <div className='pet-card__name'>
-                        {pet.petName}
-                    </div>
 
-                <div className="pet-card__img-container">
-                    <img className='pet-card__img' alt="Pet" src={pet.petPicture} />
-                </div>
-
-                <div className='pet-card__details'>
-
+                    <div className='pet-card__door'>
                     
-                <div className='pet-card__birthdate'>
-                        Birthday: {pet.birthdate}
-                    </div>
-
-                    <div className='pet-card__species'>
-                        Species: {pet.species}
-                    </div>
-                    <div className='pet-card__temparement'>
-                    Temparement: {pet.temparement}
-                    </div>
-
-                    <div className='pet-card__description'>
-                    Description :{pet.description}
-                    </div>
-
-                </div>
-            </div>
+                    <div className='pet-card__name'>
+                            {pet.petName}
+                        </div>
+                     </div>
+        </div>
+      
+            
         </Link>
+        </div> 
     )
 
 }

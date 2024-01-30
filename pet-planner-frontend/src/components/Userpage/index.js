@@ -91,23 +91,27 @@ const UserPage = ({ user, pets, events }) => {
 
           {user.username && (
             <div className='userpage__username'>
-              Username: {user.username}
+              <strong>Username:</strong>  {user.username}
             </div>
           )}
 
           {user.email && (
             <div className='userpage__email'>
-              Email: {user.email}
+             <strong>Email:</strong>  {user.email}
             </div>
           )}
 
           <div className='userpage__pets-header'>
-            Your Pets:
+            Click On Your Pet:
           </div>
+
           <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
+       
           {targetPets.length > 0 && (
+
             <div className='userpage__pets'>
               {petDisplay}
+           
             </div>
           )}
 
