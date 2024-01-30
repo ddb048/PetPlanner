@@ -113,7 +113,7 @@ export const restoreUser = (token) => async (dispatch) => {
     });
     const data = await response.json();
 
-     console.log('data from restoreUser thunk', data);
+    //  console.log('data from restoreUser thunk', data);
 
     if (response.ok) {
 
