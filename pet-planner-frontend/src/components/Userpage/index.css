@@ -40,9 +40,10 @@
   margin-top: 10px;
   margin-left: 20px;
   font-style: italic;
+
   font-size: 20px;
  margin-left: 15px; ; 
- font-family:monospace
+
 }
 .userpage__username{
   flex-direction: row;
@@ -59,19 +60,19 @@
 
 
 .userpage__profile-pic {
-  width: 100px; 
-  height: 100px; 
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border-radius: 50%;
   margin-top: 35px;
   margin-left: 15px;
   }
   .userpage__profile-pic-img {
-    width: 100%; 
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .userpage__add-pet-link{
 
   background-color: #7c58cb;
@@ -81,17 +82,19 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
   margin-bottom: 400px;
  
   margin-right: 400px;
   margin-left: 28px;
   
  
- 
+
   }
   .userpage__add-pet-link:hover{
     background-color: hsl(174, 64%, 51%);
   }
+
 
   .userpage__pets-header{
     font-size: 40px;
@@ -109,3 +112,4 @@
     flex-display:row;
     flex-wrap: wrap;
   }
+

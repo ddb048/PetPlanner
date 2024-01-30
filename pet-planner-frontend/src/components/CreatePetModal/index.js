@@ -47,17 +47,6 @@ const CreatePet = () => {
 
   useEffect(() => {
 
-    // if (!user) {
-    //   // const userToken = localStorage.getItem('userToken');
-    //   // if (userToken) {
-
-    //   //   dispatch(restoreUser(userToken));
-
-    //   // } else {
-    //   navigate('/');
-
-    // }
-
     //name error handling
     if (!name.length) {
       setNameError('Please enter a name for your pet');
