@@ -102,7 +102,7 @@ function EventCardSingle() {
 
 
 
-                <div className='event-card__details_single2'>
+                <div className='event-card__details'>
 
                     <div className='event-card__name'>
                     {targetEvent.eventName}
@@ -113,11 +113,11 @@ function EventCardSingle() {
                     </div>
 
 
-                    <div className='event-card__datetime2'>
+                    <div className='event-card__datetime'>
                     <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
                     </div>
 
-                    <div className='event-card__duration2'>
+                    <div className='event-card__duration'>
                     <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
