@@ -107,7 +107,7 @@ function PetCardSingle() {
                     </div>
 
                 <div className="pet-card__img-container">
-                    <img className='pet-card__img' alt="Pet Image" src={targetPet.petPicture} />
+                    <img className='pet-card__img' alt="Pet" src={targetPet.petPicture} />
                 </div>
 
                 <div className='pet-card__details'>

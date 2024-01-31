@@ -32,7 +32,6 @@ function EventCardSingle() {
         <PetCards key={pet.id} pet={pet} />
     ));
 
-
     // Date & Time Helper Functions
     function splitDateTime(dateTimeString) {
         const [date, fullTime] = dateTimeString.split('T');
