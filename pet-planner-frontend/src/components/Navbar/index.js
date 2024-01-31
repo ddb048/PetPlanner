@@ -90,7 +90,7 @@ function LoggedInMenu({ user }) {
             <div className="dropdown-menu" style={{ display: isOpen ? 'block' : 'none' }}>
                 <Link className="dropdown-item" to="/UserPage">HomePage</Link>
                 <Link className="dropdown-item" to="/pets">Your Pets</Link>
-                <Link className="dropdown-item" to="/UserPage">Update Profile</Link>
+                <Link className="dropdown-item" to={`/users/${user.id}/update`}>Update Profile</Link>
                 <Link className="dropdown-item" to="/events/new">Host an Event</Link>
                 <Link className="dropdown-item" to="/events">Your Events</Link>
                 <Link className="dropdown-item" to="/pets/new">Add a Pet</Link>

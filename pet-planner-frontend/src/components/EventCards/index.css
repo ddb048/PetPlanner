@@ -8,7 +8,9 @@
   border: 3px solid #0026ffde;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  /* padding: 10px; */
 
 
 }
