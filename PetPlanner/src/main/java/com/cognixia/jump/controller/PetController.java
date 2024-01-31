@@ -60,9 +60,9 @@ public class PetController {
     @PostMapping
     @Operation(summary = "Create a new pet", description = "Adds a new pet to the database")
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-    	
+
     	System.out.println(pet.getUser());
-    	
+
     	return new ResponseEntity<>(petService.createPet(pet), HttpStatus.CREATED);
     }
 
@@ -71,12 +71,13 @@ public class PetController {
         try {
             Pet pet = petService.getPetById(id); // Directly get Pet object
 
+            pet.setPetName(petDetails.getPetName());
             pet.setSpecies(petDetails.getSpecies());
             pet.setBirthdate(petDetails.getBirthdate());
             pet.setDescription(petDetails.getDescription());
             pet.setPetPicture(petDetails.getPetPicture());
             pet.setTemparement(petDetails.getTemparement());
-            
+
             Pet updatedPet = petService.updatePet(pet);
             return ResponseEntity.ok(updatedPet);
         } catch (ResourceNotFoundException e) {
@@ -93,13 +94,13 @@ public class PetController {
         }
         return ResponseEntity.noContent().build();
     }
-    
+
     @PostMapping("/{petId}/{eventId}")
     public ResponseEntity<String> addPetToEvent(@PathVariable Long petId, @PathVariable Long eventId) {
         petService.addPetToEvent(petId, eventId);
         return ResponseEntity.ok("Pet added to event successfully");
     }
-    
+
     @DeleteMapping("/{petId}/{eventId}")
     public ResponseEntity<String> deletePetFromEvent(@PathVariable Long petId, @PathVariable Long eventId) {
         petService.deletePetFromEvent(petId, eventId);

@@ -9,9 +9,8 @@ function PetCardSingle() {
 
     //Data-related
     const { petId } = useParams();
-    console.log('petId', petId);
     const targetPet = useSelector(state => state.pets.OnePet);
-    console.log('targetPet', targetPet);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -113,7 +112,7 @@ function PetCardSingle() {
 
                 <div className='pet-card__details'>
 
-               
+
                     <div className='pet-card__species'>
                     <strong> Species: </strong>  {targetPet.species}
                     </div>
@@ -145,7 +144,7 @@ function PetCardSingle() {
                     futureEventDisplay && (
                 <div className='pet-card__events'>
                     <div className='pet-card__events-header'>
-                      <strong> Upcoming Events:</strong> 
+                      <strong> Upcoming Events:</strong>
                     </div>
                     <div className='pet-card__events-list'>
                         {futureEventDisplay}

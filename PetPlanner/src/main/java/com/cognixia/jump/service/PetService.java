@@ -27,9 +27,9 @@ public class PetService {
 
     // CREATE
     public Pet createPet(Pet pet) {
-    	
+
     	System.out.println(pet);
-    	
+
         return petRepository.save(pet);
     }
 
@@ -62,6 +62,7 @@ public class PetService {
                     existingPet.setBirthdate(pet.getBirthdate());
                     existingPet.setTemparement(pet.getTemparement());
                     existingPet.setDescription(pet.getDescription());
+                    existingPet.setPetName(pet.getPetName());
 
                     User user = userRepository.findById(pet.getUser().getId())
                             .orElseThrow(() -> new ResourceNotFoundException("User", "id",
@@ -81,7 +82,7 @@ public class PetService {
         }
         return false;
     }
-    
+
     public void addPetToEvent(Long petId, Long eventId) {
         Pet pet = petRepository.findById(petId).orElse(null);
         Event event = eventRepository.findById(eventId).orElse(null);
@@ -94,7 +95,7 @@ public class PetService {
             petRepository.save(pet);
         }
     }
-    
+
     public void deletePetFromEvent(Long petId, Long eventId) {
         Pet pet = petRepository.findById(petId).orElse(null);
         Event event = eventRepository.findById(eventId).orElse(null);

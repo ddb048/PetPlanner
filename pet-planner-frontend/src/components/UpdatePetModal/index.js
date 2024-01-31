@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { updatePet } from '../../store/pets';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOnePet, updatePet } from '../../store/pets';
 import './index.css';
 
 
 
-
-const UpdatePetModal = ({ onClose }) => {
+const UpdatePetModal = () => {
 
   //Data-related
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { petId } = useParams();
+
+  useEffect(() => {
+    dispatch(getOnePet(petId));
+  }, [dispatch, petId]);
 
   const pet = useSelector(state => state.pets.OnePet);
-
-  console.log('pet', pet);
-
-
   const user = useSelector(state => state.session.user);
 
 
   // State for updated pet information
-  const [name, setName] = useState(pet.petName);
-  const [birthdate, setBirthdate] = useState(pet.birthdate);
-  const [description, setDescription] = useState(pet.description);
-  const [species, setSpecies] = useState(pet.species);
-  const [temparement, setTemparement] = useState(pet.temparement);
-  const [image, setImage] = useState(pet.petPicture);
+  const [name, setName] = useState(pet ? pet.petName : '');
+  const [birthdate, setBirthdate] = useState(pet ? pet.birthdate : '');
+  const [description, setDescription] = useState(pet ? pet.description : '');
+  const [species, setSpecies] = useState(pet ? pet.species : '');
+  const [temparement, setTemparement] = useState(pet ? pet.temparement : '');
+  const [image, setImage] = useState(pet ? pet.petPicture : '');
   const [backendErrors, setBackendErrors] = useState('');
 
 
@@ -39,10 +39,6 @@ const UpdatePetModal = ({ onClose }) => {
   const [temparementError, setTemparementError] = useState('');
   const [imageError, setImageError] = useState(false);
   const [renderErr, setRenderErr] = useState(false);
-
-
-
-
 
   /**************************FUNCTIONS************************** */
   const urlValidation = str => {
@@ -169,7 +165,7 @@ const UpdatePetModal = ({ onClose }) => {
                 />
               </div>
               <div className='errors__container'>
-                {!!renderErr && nameError.length > 0 && nameError}
+                {!!renderErr && nameError?.length > 0 && nameError}
               </div>
               <div className='create_pet_form_div'>
                 Birthday:
@@ -182,7 +178,7 @@ const UpdatePetModal = ({ onClose }) => {
                 />
               </div>
               <div className='errors__container'>
-                {!!renderErr && birthdateError.length > 0 && birthdateError}
+                {!!renderErr && birthdateError?.length > 0 && birthdateError}
               </div>
 
               <div className='create_pet_form_div'>
@@ -197,7 +193,7 @@ const UpdatePetModal = ({ onClose }) => {
                 />
               </div>
               <div className='errors__container'>
-                {!!renderErr && descriptionError.length > 0 && descriptionError}
+                {!!renderErr && descriptionError?.length > 0 && descriptionError}
               </div>
 
               <div className='create_pet_form_div'>
@@ -218,7 +214,7 @@ const UpdatePetModal = ({ onClose }) => {
                 </select>
               </div>
               <div className='errors__container'>
-                {!!renderErr && speciesError.length > 0 && speciesError}
+                {!!renderErr && speciesError?.length > 0 && speciesError}
               </div>
 
               <div className='create_pet_form_div'>
@@ -238,7 +234,7 @@ const UpdatePetModal = ({ onClose }) => {
                 </select>
               </div>
               <div className='errors__container'>
-                {!!renderErr && temparementError.length > 0 && temparementError}
+                {!!renderErr && temparementError?.length > 0 && temparementError}
               </div>
 
               {/* Display the default image URL, but prevent user input */}
@@ -257,7 +253,7 @@ const UpdatePetModal = ({ onClose }) => {
               <button
                 className="modal-button"
                 type="submit"
-                disabled={backendErrors.length}
+                disabled={backendErrors?.length}
               >Update Pet</button>
             </form>
           </div>

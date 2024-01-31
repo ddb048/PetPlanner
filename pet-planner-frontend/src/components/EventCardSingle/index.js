@@ -9,38 +9,28 @@ function EventCardSingle() {
 
     //Data-related
     const { eventId } = useParams();
-    const targetEvent = useSelector(state => state.events.OneEvent);
-    // console.log("Target Event here",targetEvent)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        dispatch(getOneEvent(eventId));
+    }, [eventId, dispatch]);
+
     //State-related
+    const targetEvent = useSelector(state => state.events.OneEvent || null);
     const [loading, setLoading] = useState(true);
 
+    //Loading check
+    if (!targetEvent.id) {
+        return <div>Event data is not retrieved.</div>;
+    };
+
     //Pets related
-    const pets = targetEvent.pets;
-    const petArray = Object.values(pets);
-
-    console.log("petArray from Event Card Single Page", petArray);
-
+    const petArray = Object.values(targetEvent?.pets ?? {});
     const petDisplay = petArray.map(pet => (
         <PetCards key={pet.id} pet={pet} />
     ));
-
-
-
-    useEffect(() => {
-        if (targetEvent.id !== eventId) {
-            dispatch(getOneEvent(eventId));
-            console.log('attempting to retrieve event', eventId);
-        }
-    }, [eventId, dispatch, targetEvent.id]);
-
-    useEffect(() => {
-        if (targetEvent) {
-            setLoading(false);
-        }
-    }, [targetEvent]);
-
 
     // Date & Time Helper Functions
     function splitDateTime(dateTimeString) {
@@ -64,17 +54,10 @@ function EventCardSingle() {
         return `${adjustedHour}:${minute} ${amOrPm}`;
     }
 
-    // Loading check
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!targetEvent.date) {
-        return <div>Event data is not available.</div>;
-    }
 
     const { date, time } = splitDateTime(targetEvent.date)
     const formattedTime = convertToAMPM(time)
+
 
     // helper Functions to UpdateEvent and DeleteEvent
 
@@ -93,7 +76,6 @@ function EventCardSingle() {
             )
 
     }
-
 
     return (
 
@@ -137,7 +119,7 @@ function EventCardSingle() {
 
                 </div>
 
-                  
+
             </div>
 
             <div className='event-card__pets'>
