@@ -1,11 +1,21 @@
 import React, { useState} from 'react';
 import { Link} from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
 
 const UserPage = ({ user, pets, events }) => {
 
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+  };
   //State-related
   const [loading, setLoading] = useState(true);
 
@@ -18,14 +28,15 @@ const UserPage = ({ user, pets, events }) => {
   let futureEventDisplay;
   let pastEventDisplay;
 
-  if (futureEvents.length > 0) {
-    futureEventDisplay = (
-      futureEvents.map(event => (
+  {futureEvents.length > 0 ? 
+   ( <div className='eventspage__events'>
+   <Slider {...settings}>
+      {futureEvents.map(event => (
         <EventCards key={event.id} event={event} />
-      ))
-    )
-  } else {
-    futureEventDisplay = (
+      ))}
+      </Slider>
+      </div>
+    ):(
       <>
         <div className='no-events__container'>
           <div className='no-events__text'> There are current no upcoming events for you. </div>
@@ -80,6 +91,8 @@ const UserPage = ({ user, pets, events }) => {
 
 
   return (
+
+    <div className='userpage_main'>
     <div className='userpage-content__container'>
 
       {user ? (
@@ -135,6 +148,7 @@ const UserPage = ({ user, pets, events }) => {
           Loading user data...
         </div>
       )}
+    </div>
     </div>
   );
 };
