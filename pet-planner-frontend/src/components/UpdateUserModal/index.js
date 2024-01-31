@@ -71,6 +71,10 @@ const UpdateUserModal = () => {
     navigate('/'); // Redirect to the home page, for example
   };
 
+    const onClose = () => {
+      navigate('/UserPage');
+  };
+
   return (
     <div className='modal-backdrop'>
       <div className="modal">
@@ -149,10 +153,9 @@ const UpdateUserModal = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="update-user__button-container">
-              <button className="update-user__button" type="submit">
-                Update User
-              </button>
+            <div className="modal-button-container">
+              <button className="modal-button" type="submit"> Update User </button>
+              <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </div>
           </form>
         </div>

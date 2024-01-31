@@ -7,7 +7,6 @@ import './index.css';
 const UserPage = ({ user, pets, events }) => {
 
   //State-related
-  //const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   // Event-Data and date filtering for display
@@ -77,6 +76,8 @@ const UserPage = ({ user, pets, events }) => {
       setLoading(false);
     } , 2500);
   };
+
+
 
   return (
     <div className='userpage-content__container'>

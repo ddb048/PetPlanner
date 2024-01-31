@@ -143,6 +143,11 @@ const UpdatePetModal = () => {
 
   };
 
+  const onClose = () => {
+    navigate('/UserPage');
+};
+
+
   return (
     <div className='modal-backdrop'>
       <div className="create-event-modal">
@@ -253,6 +258,7 @@ const UpdatePetModal = () => {
                 type="submit"
                 disabled={backendErrors?.length}
               >Update Pet</button>
+              <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </form>
           </div>
         </div>

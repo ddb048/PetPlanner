@@ -135,6 +135,11 @@ const CreatePet = () => {
     }
   };
 
+  const onClose = () => {
+    navigate('/UserPage');
+};
+
+
   //*************************Render************************* */
 
   return (
@@ -245,6 +250,7 @@ const CreatePet = () => {
                 type="submit"
                 disabled={backendErrors.length}
               >Create Pet</button>
+              <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </form>
           </div>
         </div>
