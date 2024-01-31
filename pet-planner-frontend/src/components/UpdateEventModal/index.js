@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editOneEvent } from '../../store/events';
+import { editOneEvent, getOneEvent } from '../../store/events';
 import './index.css';
 
 const UpdateEventModal = () => {
@@ -9,19 +9,21 @@ const UpdateEventModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(getOneEvent(eventId));
+    }, [eventId, dispatch]);
+
     //*****************************STATE************************* */
 
-    const events = useSelector(state => state.events.events);
     const user = useSelector(state => state.session.user);
+    const targetEvent = useSelector(state => state.events.OneEvent);
 
-    const targetEvent = events[eventId];
-
-    const [eventName, setEventName] = useState(targetEvent.eventName);
-    const [eventDate, setEventDate] = useState(targetEvent.date);
-    const [eventDuration, setEventDuration] = useState(targetEvent.duration);
-    const [eventAddress, setEventAddress] = useState(targetEvent.address);
-    const [eventDescription, setEventDescription] = useState(targetEvent.description);
-    const [eventPictureUrl, setEventPictureUrl] = useState(targetEvent.eventPictureUrl);
+    const [eventName, setEventName] = useState(targetEvent ? targetEvent.eventName : '');
+    const [eventDate, setEventDate] = useState(targetEvent ? targetEvent.date : '');
+    const [eventDuration, setEventDuration] = useState(targetEvent ? targetEvent.duration : '');
+    const [eventAddress, setEventAddress] = useState(targetEvent ? targetEvent.address : '');
+    const [eventDescription, setEventDescription] = useState(targetEvent ? targetEvent.description : '');
+    const [eventPictureUrl, setEventPictureUrl] = useState(targetEvent ? targetEvent.eventPictureUrl : '');
     const [dateInputType, setDateInputType] = useState('text');
     const [backendErrors, setBackendErrors] = useState('');
 
@@ -138,7 +140,7 @@ const UpdateEventModal = () => {
             const updatedEvent = {
                 id: targetEvent.id,
                 userId: user.id,
-                eventName,
+                eventName: eventName,
                 date: eventDate,
                 duration: eventDuration,
                 address: eventAddress,
@@ -146,11 +148,9 @@ const UpdateEventModal = () => {
                 eventPictureUrl,
             };
 
-            const event = await dispatch(editOneEvent(updatedEvent));
+            console.log("This is being sent to dispatch as updatedEvent",updatedEvent)
 
-            if (event) {
-                navigate(`events/${event.id}`);
-            }
+            const event = await dispatch(editOneEvent(updatedEvent));
 
         }
 
@@ -158,6 +158,9 @@ const UpdateEventModal = () => {
 
     //**************************RETURN************************** */
 
+    if (!targetEvent) {
+        return <div>Loading event data...</div>;
+    };
 
     return (
         <div className='modal-backdrop'>
@@ -180,7 +183,7 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventNameError.length > 0 && eventNameError}
+                                {!!renderErr && eventNameError?.length > 0 && eventNameError}
                             </div>
                             <div className="modal-input-container">
                                 Event Date:
@@ -197,7 +200,7 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventDateError.length > 0 && eventDateError}
+                                {!!renderErr && eventDateError?.length > 0 && eventDateError}
                             </div>
                             <div className="modal-input-container">
                                 Event Duration:
@@ -211,7 +214,7 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventDurationError.length > 0 && eventDurationError}
+                                {!!renderErr && eventDurationError?.length > 0 && eventDurationError}
                             </div>
                             <div className="modal-input-container">
                                 Event Address:
@@ -225,7 +228,7 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventAddressError.length > 0 && eventAddressError}
+                                {!!renderErr && eventAddressError?.length > 0 && eventAddressError}
                             </div>
                             <div className="modal-input-container">
                                 Event Picture URL:
@@ -239,7 +242,7 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventPictureUrlError.length > 0 && eventPictureUrlError}
+                                {!!renderErr && eventPictureUrlError?.length > 0 && eventPictureUrlError}
                             </div>
                             <div className="modal-input-container">
                                 Event Description:
@@ -253,11 +256,11 @@ const UpdateEventModal = () => {
                                 />
                             </div>
                             <div className='errors__container'>
-                                {!!renderErr && eventDescriptionError.length > 0 && eventDescriptionError}
+                                {!!renderErr && eventDescriptionError?.length > 0 && eventDescriptionError}
                             </div>
 
                             <div className='modal-button-container'>
-                                <button className="modal-button" type="submit">Create Event</button>
+                                <button className="modal-button" type="submit">Update Event</button>
                                 <button className="modal-button" type="button" onClick={onClose}>Close</button>
                             </div>
                         </form>

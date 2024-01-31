@@ -9,25 +9,25 @@ function EventCardSingle() {
 
     //Data-related
     const { eventId } = useParams();
-    const targetEvent = useSelector(state => state.events.OneEvent);
-    console.log("Target Event here",targetEvent)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    //State-related
-    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
-        if (targetEvent.id !== eventId  || !targetEvent || !targetEvent.id) {
-            console.log("attempting to retrieve event", eventId);
-            dispatch(getOneEvent(eventId));
-            setLoading(false);
-        }
-    }, [eventId, dispatch, targetEvent]);
+        dispatch(getOneEvent(eventId));
+    }, [eventId, dispatch]);
+
+    //State-related
+    const targetEvent = useSelector(state => state.events.OneEvent || null);
+    const [loading, setLoading] = useState(true);
+
+    //Loading check
+    if (!targetEvent.id) {
+        return <div>Event data is not retrieved.</div>;
+    };
 
     //Pets related
-    const pets = targetEvent.pets;
-    const petArray = Object.values(pets);
-
+    const petArray = Object.values(targetEvent?.pets ?? {});
     const petDisplay = petArray.map(pet => (
         <PetCards key={pet.id} pet={pet} />
     ));
@@ -55,17 +55,10 @@ function EventCardSingle() {
         return `${adjustedHour}:${minute} ${amOrPm}`;
     }
 
-    // Loading check
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!targetEvent.date) {
-        return <div>Event data is not available.</div>;
-    }
 
     const { date, time } = splitDateTime(targetEvent.date)
     const formattedTime = convertToAMPM(time)
+
 
     // helper Functions to UpdateEvent and DeleteEvent
 
@@ -84,7 +77,6 @@ function EventCardSingle() {
             )
 
     }
-
 
     return (
 

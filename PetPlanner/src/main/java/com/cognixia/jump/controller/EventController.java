@@ -69,6 +69,8 @@ public class EventController {
         event.setUser(eventDetails.getUser());
         event.setDescription(eventDetails.getDescription());
         event.setPets(eventDetails.getPets());
+        event.setEventName(eventDetails.getEventName());
+        event.setEventPictureUrl(eventDetails.getEventPictureUrl());
 
         Event updatedEvent = eventService.updateEvent(event);
         return ResponseEntity.ok(updatedEvent);

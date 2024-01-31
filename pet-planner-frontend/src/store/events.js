@@ -73,13 +73,22 @@ export const createEvent = (event) => async (dispatch) => {
 
 //PUT an edited event
 export const editOneEvent = (event) => async (dispatch) => {
+
+    console.log('event in thunk', event)
     const response = await csrfFetch(`/api/events/${event.id}`, {
         method: 'PUT',
         body: JSON.stringify(event),
     });
     const data = await response.json();
+
+    console.log('data in thunk', data)
+
+    if (response.ok) {
     dispatch(editEvent(data));
     return response;
+    } else {
+        console.log('error in thunk', data)
+    }
 };
 
 //DELETE an event
@@ -116,9 +125,14 @@ const eventsReducer = (state = initialState, action) => {
             newState.events[action.event.id] = action.event;
             return newState;
         case EDIT_EVENT:
-            newState = { ...state };
-            newState.events[action.event.id] = action.event;
-            return newState;
+            return {
+                ...state,
+                events: {
+                    ...state.events,
+                    [action.event.id]: action.event
+                }
+            };
+
         case DELETE_EVENT:
             newState = { ...state };
             delete newState.events[action.eventId];
