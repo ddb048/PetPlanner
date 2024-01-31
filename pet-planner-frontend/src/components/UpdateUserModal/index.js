@@ -10,10 +10,10 @@ const UpdateUserModal = () => {
   const user = useSelector(state => state.session.user);
 
   // State for updated user information
-  const [username, setUsername] = useState(user?.username || '');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [email, setEmail] = useState(user?.email || '');
+  //const [username, setUsername] = useState(user?.username || '');
+  //const [oldPassword, setOldPassword] = useState('');
+  //const [newPassword, setNewPassword] = useState('');
+  //const [email, setEmail] = useState(user?.email || '');
   const [profilePic, setProfilePic] = useState(user?.profilePic || '');
 
   const urlValidation = str => {
@@ -23,6 +23,7 @@ const UpdateUserModal = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
+      /*
       case 'username':
         setUsername(value);
         break;
@@ -35,6 +36,7 @@ const UpdateUserModal = () => {
       case 'email':
         setEmail(value);
         break;
+      */
       case 'profilePic':
         setProfilePic(value);
         break;
@@ -56,10 +58,12 @@ const UpdateUserModal = () => {
     // Dispatch the action to update the user
     dispatch(update({
       id: user.id,
+      /*
       username,
       oldPassword,
       newPassword,
       email,
+      */
       profilePic,
     }));
 
@@ -75,6 +79,7 @@ const UpdateUserModal = () => {
           <form onSubmit={handleSubmit}>
             <div className="update-user__errors"></div>
 
+            {/*
             <div className="update-user__input-container">
               <label htmlFor="username" className="update-user__label">
                 Username
@@ -130,7 +135,7 @@ const UpdateUserModal = () => {
                 onChange={handleInputChange}
               />
             </div>
-
+  */}
             <div className="update-user__input-container">
               <label htmlFor="profilePic" className="update-user__label">
                 Profile Picture URL

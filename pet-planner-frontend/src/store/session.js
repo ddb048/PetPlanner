@@ -103,7 +103,7 @@ export const logout = () => async (dispatch) => {
 
 //RESTORE User thunk action
 export const restoreUser = (token) => async (dispatch) => {
-    //const { userToken, JWT } = token;
+   // const { userToken, JWT } = token;
     // console.log('userToken before being sent to backend within thunk', token, userToken, JWT);
 
     const response = await fetch('http://localhost:8080/reauthenticate', {
