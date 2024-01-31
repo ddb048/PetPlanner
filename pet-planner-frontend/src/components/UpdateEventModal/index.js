@@ -166,7 +166,7 @@ const UpdateEventModal = () => {
         <div className='modal-backdrop'>
             <div className="create-event-modal">
                 <div className="modal-content">
-                    <div className="modal-title">Create a New Event</div>
+                    <div className="modal-title">Update an Event</div>
                     <div className="modal-main">
                         <div className='errors__container'>{backendErrors}</div>
                         <form className="create-event-form" onSubmit={handleSubmit}>
