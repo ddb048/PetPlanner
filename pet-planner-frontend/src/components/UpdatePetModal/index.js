@@ -20,7 +20,6 @@ const UpdatePetModal = () => {
   const pet = useSelector(state => state.pets.OnePet);
   const user = useSelector(state => state.session.user);
 
-
   // State for updated pet information
   const [name, setName] = useState(pet ? pet.petName : '');
   const [birthdate, setBirthdate] = useState(pet ? pet.birthdate : '');
@@ -29,7 +28,6 @@ const UpdatePetModal = () => {
   const [temparement, setTemparement] = useState(pet ? pet.temparement : '');
   const [image, setImage] = useState(pet ? pet.petPicture : '');
   const [backendErrors, setBackendErrors] = useState('');
-
 
   //field error states
   const [nameError, setNameError] = useState('');

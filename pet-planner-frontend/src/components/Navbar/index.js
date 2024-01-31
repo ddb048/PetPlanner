@@ -12,6 +12,8 @@ import './index.css';
 function Navbar({ onShowSignup, onShowLogin }) {
     const user = useSelector(state => state.session.user);
 
+
+
     return (
         <nav className="nav-bar">
             <div className='nav-bar-left'>
@@ -45,7 +47,9 @@ function LoggedInMenu({ user }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (event) => {
+        console.log('toggleDropdown');
+        event.stopPropagation();
         setIsOpen(!isOpen);
     };
 
@@ -56,8 +60,13 @@ function LoggedInMenu({ user }) {
 
 
     useEffect(() => {
+        console.log(isOpen, 'isOpen updated');
+    }, [isOpen]);
+
+    useEffect(() => {
         const closeDropdown = (event) => {
             if (isOpen && (!event.target.matches('.navbar-profile-pic'))) {
+                console.log('closeDropdown triggered in useEffect');
                 setIsOpen(false);
             }
         };

@@ -1,0 +1,18 @@
+.eventsPage_main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 10%;
+    padding-bottom: 25%;
+
+}
+
+.eventspage__events{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: hidden;
+}
