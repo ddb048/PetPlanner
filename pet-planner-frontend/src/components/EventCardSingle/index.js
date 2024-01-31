@@ -79,42 +79,46 @@ function EventCardSingle() {
 
     return (
 
-        <div className='eventsingle_main'>
-            <div className='event-card__container'>
+      
+       < div className='event_single_main'>
 
 
 
-                <div className='event-card__details'>
+            <div className='event-card__container_single'>
 
-                    <div className='event-card__name'>
+        
+
+                <div className='event-card__details_single'>
+
+                    <div className='event-card__name_single'>
                     {targetEvent.eventName}
                     </div>
 
-                    <div className='event-card__name'>
+                    <div className='event-card__name_single'>
                     <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
 
-                    <div className='event-card__datetime'>
+                    <div className='event-card__datetime_single'>
                     <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
                     </div>
 
-                    <div className='event-card__duration'>
+                    <div className='event-card__duration_single'>
                     <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
-                    <div className='event-card__address'>
+                    <div className='event-card__address_single'>
                     <strong>  This Event will be Located at: </strong>{targetEvent.address}
                     </div>
 
-                    <div className='event-card__description'>
+                    <div className='event-card__description_single'>
                     <strong>Description of the Event: </strong> {targetEvent.description}
                     </div>
 
 
-                    <div className='event-card__buttons'>
-                        <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
-                        <button className='event-card__button' onClick={handleDeleteEvent}>Delete Event</button>
+                    <div className='event-card__buttons_single'>
+                        <button className='event-card__button_single' onClick={handleUpdateEvent}>Edit Event</button>
+                        <button className='event-card__button_single' onClick={handleDeleteEvent}>Delete Event</button>
                     </div>
 
                 </div>
@@ -123,8 +127,8 @@ function EventCardSingle() {
             </div>
 
             <div className='event-card__pets'>
-                    <div className='event-card__pets-title'>
-                        Pets Attending:
+                    <div className='event-card__pets-title_single'>
+                       Pets Attending:
                     </div>
                     <div className='event-card__pets-list'>
                         {petDisplay}

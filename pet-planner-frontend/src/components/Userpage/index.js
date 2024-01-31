@@ -92,7 +92,8 @@ const UserPage = ({ user, pets, events }) => {
 
   return (
 
-    <div className='userpage_main'>
+
+ <div className='pet_single_main'>
     <div className='userpage-content__container'>
 
       {user ? (
@@ -130,10 +131,15 @@ const UserPage = ({ user, pets, events }) => {
           )}
 
           <div className='userpage__events-section'>
+          <Link className='userpage__create-event-link' to='/events/new'>Create Event</Link>
             <div className='userpage__future-events'>
-              Upcoming Events:
+              Upcoming Events:     
+
               {futureEventDisplay}
+             
             </div>
+
+
 
             <div className='userpage__past-events'>
               Past Events:
@@ -147,9 +153,10 @@ const UserPage = ({ user, pets, events }) => {
         <div className='userpage__loading'>
           Loading user data...
         </div>
-      )}
-    </div>
-    </div>
+      )};
+   
+   </div>
+   </div>
   );
 };
 

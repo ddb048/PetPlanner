@@ -75,24 +75,44 @@
 
   .userpage__add-pet-link{
 
-  background-color: #7c58cb;
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    cursor: pointer;
+    background-color: rgb(246, 64, 96);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    border: 2px solid black;
 
-  margin-bottom: 400px;
- 
-  margin-right: 400px;
-  margin-left: 28px;
   
- 
-
   }
+
+.userpage__create-event-link{
+  
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  cursor: pointer;
+  background-color: rgb(246, 64, 96);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  border: 2px solid black;
+
+}
+
+.userpage__create-event-link:hover{
+  background-color: hsl(174, 64%, 51%);
+
+}
+
   .userpage__add-pet-link:hover{
-    background-color: hsl(174, 64%, 51%);
+    background-color: hsl(174, 79%, 66%);
   }
 
 
@@ -114,8 +134,6 @@
   }
 
   .userpage_main{
-
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -124,5 +142,4 @@
     margin-right: 25%;
     padding-top: 10%;
     padding-bottom: 25%;
-
   }

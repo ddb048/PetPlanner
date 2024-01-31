@@ -99,7 +99,7 @@ function PetCardSingle() {
 
 
     return (
-        <>
+        <div className='pet_single_main'>
             <div className='pet-card__container_single'>
 
                 <div className='pet-card__name_single'>
@@ -166,7 +166,7 @@ function PetCardSingle() {
                 )
             }
 
-        </>
+        </div>
     )
 
 }
