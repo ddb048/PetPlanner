@@ -79,7 +79,7 @@ function EventCardSingle() {
 
     return (
 
-        <>
+        <div className='eventsingle_main'>
             <div className='event-card__container'>
 
 
@@ -130,7 +130,7 @@ function EventCardSingle() {
                         {petDisplay}
                     </div>
              </div>
-        </>
+        </div>
     )
 }
 
