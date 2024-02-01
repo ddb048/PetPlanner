@@ -26,3 +26,30 @@
     padding-bottom: 25%;
 
 }
+
+.userpage__events-header{
+
+    font-size: 40px;
+    font-family:cursive;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.userpage__add-event-link{
+    margin: 10px;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    cursor: pointer;
+    background-color: rgb(242, 67, 64);
+    color: rgb(255, 255, 255);
+    border:none;
+    border-radius: 10px;
+}
+.userpage__add-event-link:hover{
+
+    background-color: hsl(174, 44%, 52%);
+}

@@ -31,7 +31,7 @@ const EventsPage = ({ events }) => {
     return (
         <div className='eventsPage_main'>
             <div className='userpage__events-header'>
-                Your Events:
+               All Your Events:
             </div>
             <Link className='userpage__add-event-link' to='/events/new'>Add an Event</Link>
 
