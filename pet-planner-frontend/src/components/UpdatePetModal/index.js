@@ -20,6 +20,12 @@ const UpdatePetModal = () => {
   const pet = useSelector(state => state.pets.OnePet);
   const user = useSelector(state => state.session.user);
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   // State for updated pet information
   const [name, setName] = useState(pet ? pet.petName : '');
   const [birthdate, setBirthdate] = useState(pet ? pet.birthdate : '');

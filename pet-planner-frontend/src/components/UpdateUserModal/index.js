@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import './index.css';
 import { update } from '../../store/session';
+import './index.css';
 
 const UpdateUserModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.session.user);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   // State for updated user information
   //const [username, setUsername] = useState(user?.username || '');
@@ -47,7 +53,7 @@ const UpdateUserModal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate URL before dispatching the action
     if (!urlValidation(profilePic)) {
       // Handle invalid URL case (show an error, for example)

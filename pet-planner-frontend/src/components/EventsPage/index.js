@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
@@ -7,6 +8,16 @@ import EventCards from '../EventCards';
 import './index.css';
 
 const EventsPage = ({ events }) => {
+
+    const navigate = useNavigate();
+    const user = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
+
     const settings = {
         dots: true,
         infinite: false,
