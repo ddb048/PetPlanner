@@ -9,15 +9,23 @@ function PetCardSingle() {
 
     //Data-related
     const { petId } = useParams();
-    const targetPet = useSelector(state => state.pets.OnePet);
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    //State-related
+    const targetPet = useSelector(state => state.pets.OnePet);
+    const user = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     //Event-related
     const events = targetPet.events;
 
-    console.log('events', events);
+    // console.log('events', events);
     let futureEventDisplay;
     let pastEventDisplay;
 

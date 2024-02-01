@@ -5,9 +5,19 @@ import { editOneEvent, getOneEvent } from '../../store/events';
 import './index.css';
 
 const UpdateEventModal = () => {
+
     const { eventId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    //User-Checking to ensure user is logged in
+    const user = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         dispatch(getOneEvent(eventId));
@@ -15,7 +25,6 @@ const UpdateEventModal = () => {
 
     //*****************************STATE************************* */
 
-    const user = useSelector(state => state.session.user);
     const targetEvent = useSelector(state => state.events.OneEvent);
 
     const [eventName, setEventName] = useState(targetEvent ? targetEvent.eventName : '');
@@ -61,16 +70,16 @@ const UpdateEventModal = () => {
     useEffect(() => {
 
         //name error handling
-        if (!eventName.length) {
+        if (!eventName?.length) {
             setEventNameError('Please enter a name for your event');
-        } else if (eventName.length > 50) {
+        } else if (eventName?.length > 50) {
             setEventNameError('Name must be 50 characters or less');
         } else {
             setEventNameError('');
         }
 
         //date error handling
-        if (!eventDate.length) {
+        if (!eventDate?.length) {
             setEventDateError('Please enter a date for your event');
         } else if (eventDate - new Date() < 0) {
             setEventDateError('Date must be in the future');
@@ -79,7 +88,7 @@ const UpdateEventModal = () => {
         }
 
         //duration error handling
-        if (!eventDuration.length) {
+        if (!eventDuration?.length) {
             setEventDurationError('Please enter a duration for your event');
         } else if (eventDuration < 0) {
             setEventDurationError('Duration must be a positive number');
@@ -90,25 +99,25 @@ const UpdateEventModal = () => {
         }
 
         //address error handling
-        if (!eventAddress.length) {
+        if (!eventAddress?.length) {
             setEventAddressError('Please enter an address for your event');
-        } else if (eventAddress.length > 100) {
+        } else if (eventAddress?.length > 100) {
             setEventAddressError('Address must be 100 characters or less');
         } else {
             setEventAddressError('');
         }
 
         //description error handling
-        if (!eventDescription.length) {
+        if (!eventDescription?.length) {
             setEventDescriptionError('Please enter a description for your event');
-        } else if (eventDescription.length > 500) {
+        } else if (eventDescription?.length > 500) {
             setEventDescriptionError('Description must be 500 characters or less');
         }   else {
             setEventDescriptionError('');
         }
 
         //image error handling
-        if (!eventPictureUrl.length) {
+        if (!eventPictureUrl?.length) {
             setEventPictureUrlError('Please enter an image URL for your event');
         } else if (!urlValidation(eventPictureUrl)) {
             setEventPictureUrlError('Images must be formatted as .png, .jpg, .jpeg, or .gif');

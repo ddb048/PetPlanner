@@ -1,8 +1,8 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
-
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -60,18 +59,18 @@ public class User implements Serializable {
     @Schema(description = "Email address of the User")
     private String email;
 
-    @Column(columnDefinition = "boolean default true")
+    @Column(columnDefinition = "boolean default false")
     @Schema(description = "Status to indicate if the User account is enabled")
     private boolean enabled;
 
     @Schema(description = "Profile picture URL of the User")
     private String profilePic;
-    
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
 	private List<Pet> pets;
-	
-	
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
    	private List<Event> events;
@@ -186,7 +185,7 @@ public class User implements Serializable {
 				+ email + ", enabled=" + enabled + ", profilePic=" + profilePic + ", pets=" + pets + ", events="
 				+ events + "]";
 	}
-    
-    
+
+
 
 }

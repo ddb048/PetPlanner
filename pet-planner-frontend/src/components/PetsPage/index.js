@@ -1,12 +1,20 @@
-import React from 'react';
-import { Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import PetCards from '../PetCards';
 import './index.css';
 
 
 const PetsPage = ({ pets }) => {
-  //const navigate = useNavigate();
-  //const location = useLocation();
+
+  const navigate = useNavigate();
+  const user = useSelector(state => state.session.user);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   // // Pet Card Related
   const petList = Object.values(pets);
