@@ -12,6 +12,10 @@ function EventCardSingle() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const user = useSelector(state => state.session.user);
+    const pets = useSelector(state => state.pets.pets);
+
+
 
     useEffect(() => {
         dispatch(getOneEvent(eventId));
@@ -28,6 +32,7 @@ function EventCardSingle() {
 
     //Pets related
     const petArray = Object.values(targetEvent?.pets ?? {});
+console.log('pets from Event Card Single', pets)
     const petDisplay = petArray.map(pet => (
         <PetCards key={pet.id} pet={pet} />
     ));

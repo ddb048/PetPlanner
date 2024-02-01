@@ -43,6 +43,12 @@ const CreatePet = () => {
     return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
   }
 
+  const handleDateChange = (e) => {
+    const date = new Date(e.target.value);
+    const formattedDate = date.toISOString().split('T')[0]; // Formats the date as "yyyy-MM-dd"
+    setBirthdate(formattedDate);
+  };
+
   //***********************USE EFFECT******************* */
 
   useEffect(() => {
@@ -119,13 +125,13 @@ const CreatePet = () => {
     ) {
 
       const pet = {
-        pet_name: name,
+        petName: name,
         birthdate,
         description,
         species,
         temparement,
-        pet_picture: image,
-        user_id: user.id,
+        petPicture: image,
+        user: {id: user.id},
       };
 
       dispatch(createPet(pet))
@@ -150,7 +156,7 @@ const CreatePet = () => {
           <div className='modal-main'>
             <div className='errors__container'>{backendErrors}</div>
 
-            <form className='create-event-form' onSubmit={handleSubmit}>
+            <form className='create-event-form'>
               <div className='create_pet_form_div'>
                 Name:
                 <input
@@ -168,10 +174,10 @@ const CreatePet = () => {
                 Birthday:
                 <input
                   className='modal-input'
-                  type="text"
+                  type="date"
                   name="birthday"
                   value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
+                  onChange={handleDateChange}
                 />
               </div>
               <div className='errors__container'>
@@ -242,13 +248,16 @@ const CreatePet = () => {
                   name="image"
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
-                  readOnly />
+                  />
               </div>
-              <br />
+              <div className='errors__container'>
+                {!!renderErr && imageError.length > 0 && imageError}
+              </div>
               <button
                 className="modal-button"
                 type="submit"
                 disabled={backendErrors.length}
+                onClick={handleSubmit}
               >Create Pet</button>
               <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </form>
