@@ -11,13 +11,7 @@ function EventCardSingle() {
     const { eventId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.session.user);
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/');
-        }
-    }, [user, navigate]);
 
     useEffect(() => {
         dispatch(getOneEvent(eventId));
@@ -85,7 +79,7 @@ function EventCardSingle() {
 
     return (
 
-        <div className='eventsingle_main'>
+        <>
             <div className='event-card__container'>
 
 
@@ -136,7 +130,7 @@ function EventCardSingle() {
                         {petDisplay}
                     </div>
              </div>
-        </div>
+        </>
     )
 }
 
