@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { signup } from '../../auth';
+import { signup} from '../../auth';
 import './index.css';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/session.js';
+import { useNavigate } from 'react-router-dom';
 
 function SignupModal({ onClose }) {
     const [username, setUsername] = useState('');
@@ -9,27 +12,57 @@ function SignupModal({ onClose }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [role, setRole] = useState('');  
+    const [profilePic, setProfilePic] = useState(''); 
+
 
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modal-backdrop')) {
             onClose();
         }
     };
+    const dispatch=useDispatch();
+    const navigate = useNavigate();
 
     const handleSignup = async (event) => {
+       
         event.preventDefault();
         setError('');
         setSuccess(false);
 
-        const response = await signup(username, password, email);
+        const userData = {
+            username:username,
+            password:password,
+            email:email,
+            //role: 'ROLE_USER',
+             profilePic: profilePic,
+        };
+       
+        const response =await dispatch(signup(userData));
+       
+       
         if (response.success) {
+            const data = await response.data.json();
+            localStorage.setItem('jwt', data.jwt);
+            dispatch(setUser(data.user));
+      
             setSuccess(true);
             //FIXME - insert redirect to userDetails page
+         
+            navigate('/UserPage');
+
             onClose();
         } else {
             setError(response.message || 'Signup failed');
         }
     };
+
+
+
+
+
+
+
 
     return (
         <div className='modal-backdrop' onClick={handleBackdropClick}>

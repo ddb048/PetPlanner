@@ -16,7 +16,7 @@ const SET_ERROR = 'session/setError';
 //ACTION CREATORS
 
 //SET a USER
-const setUser = (user) => {
+export const setUser = (user) => {
     return {
         type: SET_USER,
         payload: user,
@@ -150,7 +150,10 @@ export const signup = (user) => async (dispatch) => {
             const data = await response.json();
             localStorage.setItem('jwt', data.jwt);
             dispatch(setUser(data.user));
-            return response;
+          
+            return { success: true, data: response };
+
+          //  return response;
         } else {
             throw new Error('Signup failed.');
         }
