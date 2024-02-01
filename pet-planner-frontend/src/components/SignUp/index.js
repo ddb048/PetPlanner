@@ -31,25 +31,21 @@ function SignupModal({ onClose }) {
         setSuccess(false);
 
         const userData = {
-            username:username,
-            password:password,
-            email:email,
-            //role: 'ROLE_USER',
-             profilePic: profilePic,
+            username: username,
+             password: password,
+            email: email, 
+            role: "ROLE_ADMIN",
+             profilePic: profilePic, 
         };
        
         const response =await dispatch(signup(userData));
-       
-       
+
         if (response.success) {
-            const data = await response.data.json();
-            localStorage.setItem('jwt', data.jwt);
-            dispatch(setUser(data.user));
-      
-            setSuccess(true);
             //FIXME - insert redirect to userDetails page
-         
-            navigate('/UserPage');
+            dispatch(setUser(response.data.user)).then(() => {
+                navigate('/UserPage');
+                onClose();
+            });
 
             onClose();
         } else {

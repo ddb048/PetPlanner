@@ -30,11 +30,11 @@ const EventsPage = ({ events }) => {
 
     return (
         <div className='eventsPage_main'>
-            <div className='userpage__events-header'>
-               All Your Events:
+                        <div className='userpage__events-header'>
+               All Events:
             </div>
+           
             <Link className='userpage__add-event-link' to='/events/new'>Add an Event</Link>
-
             {eventList.length > 0 ? (
                 <div className='eventspage__events'>
                     <Slider {...settings}>
