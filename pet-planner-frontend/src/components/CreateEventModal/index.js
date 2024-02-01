@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createEvent } from "../../store/events";
+import { createEvent, getUserEvents } from "../../store/events";
 import './index.css';
 
 const CreateEventModal = () => {
@@ -10,6 +10,13 @@ const CreateEventModal = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
+    console.log('user in create Event Modal', user);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     //**********************STATE******************** */
     const [eventName, setEventName] = useState("");
@@ -115,6 +122,18 @@ const CreateEventModal = () => {
 
     }, [dispatch, eventName, eventPictureUrl, eventDate, eventDuration, eventAddress, eventDescription]);
 
+
+    useEffect(() => {
+
+        dispatch(getUserEvents(user.id))
+            .then(() => {
+                console.log("users event dispatched")
+            }
+            )
+            .catch(() => setBackendErrors('Failed to create event'));
+        }, [dispatch, user.id]);
+
+
     //***********************ON SUBMIT********************* */
 
     const handleSubmit = async (event) => {
@@ -137,11 +156,13 @@ const CreateEventModal = () => {
                 duration: eventDuration,
                 address: eventAddress,
                 description: eventDescription,
-                userId: user.id,
+                user: {id: user.id},
             };
 
             const event = await dispatch(createEvent(newEvent));
+            console.log('event in create event modal after dispatch to create event', event)
             if (event) {
+
                 navigate(`/events/${event.id}`);
             }
 

@@ -18,7 +18,7 @@ import PetsPage from './components/PetsPage';
 import SignupModal from './components/SignUp';
 import UserPage from './components/UserPage';
 
-import { getEvents } from './store/events';
+import { getEvents, getUserEvents } from './store/events';
 import { getPets } from './store/pets';
 import { restoreUser } from './store/session';
 
@@ -29,6 +29,7 @@ function App() {
   const user = useSelector(state => state.session.user);
   const pets = useSelector(state => state.pets.pets);
   const events = useSelector(state => state.events.events);
+  const userEvents = useSelector(state => state.events.userEvents);
 
   const [petsLoading, setPetsLoading] = useState(false);
   const [eventsLoading, setEventsLoading] = useState(false);
@@ -51,7 +52,20 @@ function App() {
       dispatch(getPets(user.id))
         .then(() => setPetsLoading(false))
         .catch(() => setPetsLoading(false));
-        console.log("pets fetch triggered") // handle potential errors
+    }
+  }, [user, dispatch]);
+
+  // useEffect for fetching events
+  useEffect(() => {
+    if (user && user.id) {
+      setEventsLoading(true);
+      dispatch(getUserEvents(user.id))
+        .then(() =>  {
+          setEventsLoading(false);
+          console.log("users event dispatched")
+        }
+        )
+        .catch(() => setEventsLoading(false));
     }
   }, [user, dispatch]);
 
@@ -62,11 +76,8 @@ function App() {
       dispatch(getEvents(user.id))
         .then(() => setEventsLoading(false))
         .catch(() => setEventsLoading(false));
-        console.log("events fetch triggered") // handle potential errors
     }
   }, [user, dispatch]);
-
-
 
 
   const handleShowSignup = () => setShowSignup(true);
@@ -87,7 +98,7 @@ function App() {
           <Navbar onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />
           <Routes>
             <Route path="/" element={<HomePage user={user} onShowSignup={handleShowSignup} onShowLogin={handleShowLogin} />} />
-            <Route path="/UserPage" element={<UserPage user={user} pets={pets} events={events} />} />
+            <Route path="/UserPage" element={<UserPage user={user} pets={pets} events={userEvents} />} />
             <Route path="/users/:userId/update" element={<UpdateUser />} />
 
             <Route path="/pets" element={<PetsPage pets={pets} />} />
@@ -98,7 +109,7 @@ function App() {
             <Route path="/events" element={<EventsPage events={events} />} />
             <Route path="/events/:eventId" element={<EventCardSingle />} />
             <Route path="/events/:eventId/update" element={<UpdateEvent />} />
-            <Route path="events/new" element={<CreateEvent onClose={handleCloseModal} />} />
+            <Route path="/events/new" element={<CreateEvent onClose={handleCloseModal} />} />
             <Route path="/signup" element={<SignupModal />} />
           </Routes>
           {showSignup && <SignupModal onClose={handleCloseModal} />}

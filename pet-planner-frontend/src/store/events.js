@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 //*******************TYPES*********************/
+const LOAD_USER_EVENTS = 'events/LOAD_USER_EVENTS';
 const LOAD_EVENTS = 'events/LOAD_EVENTS';
 const ADD_EVENT = 'events/ADD_EVENT';
 const EDIT_EVENT = 'events/EDIT_EVENT';
@@ -12,6 +13,14 @@ const loadEvents = (events) => {
     return {
         type: LOAD_EVENTS,
         events,
+    };
+};
+
+const loadUserEvents = (userEvents) => {
+    console.log('events in action creator', userEvents);
+    return {
+        type: LOAD_USER_EVENTS,
+        userEvents,
     };
 };
 
@@ -44,11 +53,20 @@ const loadOneEvent = (event) => {
 }
 
 //*******************THUNKS*********************/
-//GET all Users events
-export const getEvents = (userId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/users/${userId}/events`);
+//GET all events
+export const getEvents = () => async (dispatch) => {
+    const response = await csrfFetch('/api/events');
     const data = await response.json();
     dispatch(loadEvents(data));
+    return response;
+};
+
+//GET all Users events
+export const getUserEvents = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}/events`);
+    const data = await response.json();
+    console.log('data in thunk get user Events', data);
+    dispatch(loadUserEvents(data));
     return response;
 };
 
@@ -68,7 +86,7 @@ export const createEvent = (event) => async (dispatch) => {
     });
     const data = await response.json();
     dispatch(addEvent(data));
-    return response;
+    return data;
 };
 
 //PUT an edited event
@@ -103,6 +121,7 @@ export const deleteOneEvent = (eventId) => async (dispatch) => {
 //*******************REDUCER*********************/
 const initialState = {
     events: {},
+    userEvents: {},
     OneEvent: {}
 };
 
@@ -116,14 +135,32 @@ const eventsReducer = (state = initialState, action) => {
                 newState.events[event.id] = event;
             });
             return newState;
+        case LOAD_USER_EVENTS:
+            newState = { ...state }
+            newState.userEvents = {};
+            action.userEvents.forEach((event) => {
+                newState.userEvents[event.id] = event;
+            });
+            return newState;
         case LOAD_ONE_EVENT:
-            newState.events = { ...state.events, [action.event.id]: action.event };
-            newState.OneEvent = { ...action.event };
-            return newState;
+            return {
+                ...state,
+                events: {
+                    ...state.events,
+                    [action.event.id]: action.event
+                },
+                OneEvent: {
+                    ...action.event
+                }
+            };
         case ADD_EVENT:
-            newState = { ...state };
-            newState.events[action.event.id] = action.event;
-            return newState;
+            return {
+                ...state,
+                events: {
+                    ...state.events,
+                    [action.event.id]: action.event
+                }
+            };
         case EDIT_EVENT:
             return {
                 ...state,
@@ -134,9 +171,11 @@ const eventsReducer = (state = initialState, action) => {
             };
 
         case DELETE_EVENT:
-            newState = { ...state };
-            delete newState.events[action.eventId];
-            return newState;
+            const { [action.eventId]: removedEvent, ...remainingEvents } = state.events;
+            return {
+                ...state,
+                events: remainingEvents
+            };
         default:
             return state;
     }

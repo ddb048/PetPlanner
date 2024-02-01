@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './index.css';
 
 function PetCards({ pet }) {
 
-    console.log('pet threaded in to PetCards', pet)
+    // console.log('pet threaded in to PetCards', pet)
 
     //Data-related
+    const navigate = useNavigate();
     const allPets = useSelector(state => state.pets.pets)
+    const user = useSelector(state => state.session.user);
 
     //State-related
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (!user.id) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (allPets) {
@@ -24,8 +32,6 @@ function PetCards({ pet }) {
         return <div>Loading...</div>;
     }
 
-    //Link route below may be wrong.
-
     return (
 
         <div className="pet-card__container-wrapper">
@@ -33,16 +39,16 @@ function PetCards({ pet }) {
             <div className='pet-card__container'>
 
                     <div className='pet-card__door'>
-                    
+
                     <div className='pet-card__name'>
                             {pet.petName}
                         </div>
                      </div>
         </div>
-      
-            
+
+
         </Link>
-        </div> 
+        </div>
     )
 
 }
