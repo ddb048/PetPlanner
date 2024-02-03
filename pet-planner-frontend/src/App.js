@@ -62,7 +62,7 @@ function App() {
       dispatch(getUserEvents(user.id))
         .then(() =>  {
           setEventsLoading(false);
-          console.log("users event dispatched")
+          // console.log("users event dispatched")
         }
         )
         .catch(() => setEventsLoading(false));

@@ -16,12 +16,6 @@ function PetCards({ pet }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!user.id) {
-            navigate('/');
-        }
-    }, [user, navigate]);
-
-    useEffect(() => {
         if (allPets) {
             setLoading(false);
         }

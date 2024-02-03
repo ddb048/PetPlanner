@@ -15,7 +15,12 @@ function EventCardSingle() {
     const user = useSelector(state => state.session.user);
     const pets = useSelector(state => state.pets.pets);
 
-
+    //Logged in user check
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         dispatch(getOneEvent(eventId));
@@ -24,18 +29,27 @@ function EventCardSingle() {
     //State-related
     const targetEvent = useSelector(state => state.events.OneEvent || null);
     const [loading, setLoading] = useState(true);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [selectedPetId, setSelectedPetId] = useState('');
+
+
 
     //Loading check
-    if (!targetEvent.id) {
+    if (!targetEvent?.id) {
         return <div>Event data is not retrieved.</div>;
     };
 
-    //Pets related
+    //Pet-data related
     const petArray = Object.values(targetEvent?.pets ?? {});
-console.log('pets from Event Card Single', pets)
-    const petDisplay = petArray.map(pet => (
+    const allPets = Object.keys(pets).map(key => pets[key]);
+    const allPetsNotAttending = allPets.filter(pet => !petArray.some(petInEvent => petInEvent.id === pet.id));
+
+    //Pet-display related
+    // Attending Pets
+    const petDisplay = petArray?.map(pet => (
         <PetCards key={pet.id} pet={pet} />
     ));
+
 
     // Date & Time Helper Functions
     function splitDateTime(dateTimeString) {
@@ -64,6 +78,7 @@ console.log('pets from Event Card Single', pets)
     const formattedTime = convertToAMPM(time)
 
 
+
     // helper Functions to UpdateEvent and DeleteEvent
 
     const handleUpdateEvent = (e) => {
@@ -80,6 +95,19 @@ console.log('pets from Event Card Single', pets)
             }
             )
 
+    }
+
+    const toggleDropdown = () => {
+        setShowDropdown(prevShowDropdown => !prevShowDropdown);
+    };
+
+    const handleSelectChange = (event) => {
+        setSelectedPetId(event.target.value);
+    };
+
+    const handlePetSubmission = (e) => {
+        e.preventDefault();
+        console.log('pet submission', selectedPetId);
     }
 
     return (
@@ -120,6 +148,34 @@ console.log('pets from Event Card Single', pets)
                     <div className='event-card__buttons'>
                         <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
                         <button className='event-card__button' onClick={handleDeleteEvent}>Delete Event</button>
+                        <div className='event-card__add-attendee-container'>
+                            <button
+                                className='event-card__button'
+                                onClick={toggleDropdown}
+                            >
+                                Show Pets
+                            </button>
+                            {showDropdown && (
+                                <>
+                                    <select
+                                    value={selectedPetId}
+                                        onChange={handleSelectChange}
+                                    >
+                                        <option value="">Select a pet</option>
+                                        {allPetsNotAttending.map(pet => (
+                                            <option key={pet.id} value={pet.id}>{pet.petName}</option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        className='event-card__button'
+                                        onClick={handlePetSubmission}
+                                        >
+                                        RSVP Pet
+                                    </button>
+                                </>
+                            )}
+                        </div>
+
                     </div>
 
                 </div>

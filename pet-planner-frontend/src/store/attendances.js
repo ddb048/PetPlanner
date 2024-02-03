@@ -6,26 +6,30 @@ const ADD_ATTENDANCE = 'attendances/ADD_ATTENDANCE';
 const DELETE_ATTENDANCE = 'attendances/DELETE_ATTENDANCE';
 
 //*******************ACTION CREATORS*********************/
-const loadAttendances = (events) => {
+const loadAttendances = (petId) => {
     return {
         type: LOAD_ATTENDANCES,
-        events
+        petId
     };
 };
 
 const addAttendance = (petId, event) => {
     return {
         type: ADD_ATTENDANCE,
-        petId,
-        event
+        payload: {
+            petId,
+            event
+        }
     };
 };
 
 const deleteAttendance = (petId, event) => {
     return {
         type: DELETE_ATTENDANCE,
-        petId,
-        event
+        payload: {
+            petId,
+            event
+    }
     };
 }
 
@@ -34,7 +38,7 @@ const deleteAttendance = (petId, event) => {
 export const getAttendancesByPet = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}/events`);
     const data = await response.json();
-    dispatch(loadAttendances(data.events));
+    dispatch(loadAttendances(data));
     return response;
 };
 
@@ -76,7 +80,7 @@ const attendancesReducer = (state = initialState, action) => {
             return newState;
         case ADD_ATTENDANCE:
             newState = { ...state };
-            newState.events[action.event.id] = action.event;
+            newState.events[action.payload.event] = action.payload.event;
             return newState;
         case DELETE_ATTENDANCE:
             newState = { ...state };

@@ -78,7 +78,7 @@ function PetCardSingle() {
 
     useEffect(() => {
         if (targetPet.id !== petId) {
-            console.log('attempting to retrieve pet', petId);
+            // console.log('attempting to retrieve pet', petId);
             dispatch(getOnePet(petId));
             dispatch(getPetEvents(petId));
             setLoading(false);

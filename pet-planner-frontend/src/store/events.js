@@ -17,7 +17,7 @@ const loadEvents = (events) => {
 };
 
 const loadUserEvents = (userEvents) => {
-    console.log('events in action creator', userEvents);
+    // console.log('events in action creator', userEvents);
     return {
         type: LOAD_USER_EVENTS,
         userEvents,
@@ -92,14 +92,14 @@ export const createEvent = (event) => async (dispatch) => {
 //PUT an edited event
 export const editOneEvent = (event) => async (dispatch) => {
 
-    console.log('event in thunk', event)
+    // console.log('event in thunk', event)
     const response = await csrfFetch(`/api/events/${event.id}`, {
         method: 'PUT',
         body: JSON.stringify(event),
     });
     const data = await response.json();
 
-    console.log('data in thunk', data)
+    // console.log('data in thunk', data)
 
     if (response.ok) {
     dispatch(editEvent(data));

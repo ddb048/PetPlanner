@@ -10,7 +10,7 @@ const CreateEventModal = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
-    console.log('user in create Event Modal', user);
+    // console.log('user in create Event Modal', user);
 
     useEffect(() => {
         if (!user) {
@@ -127,7 +127,7 @@ const CreateEventModal = () => {
 
         dispatch(getUserEvents(user.id))
             .then(() => {
-                console.log("users event dispatched")
+                // console.log("users event dispatched")
             }
             )
             .catch(() => setBackendErrors('Failed to create event'));
@@ -160,7 +160,7 @@ const CreateEventModal = () => {
             };
 
             const event = await dispatch(createEvent(newEvent));
-            console.log('event in create event modal after dispatch to create event', event)
+            // console.log('event in create event modal after dispatch to create event', event)
             if (event) {
 
                 navigate(`/events/${event.id}`);

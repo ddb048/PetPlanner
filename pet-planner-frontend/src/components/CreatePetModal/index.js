@@ -9,7 +9,14 @@ const CreatePet = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
 
+  //Logged in user check
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   /**************************STATE************************** */
 
@@ -30,12 +37,6 @@ const CreatePet = () => {
   const [temparementError, setTemparementError] = useState('');
   const [imageError, setImageError] = useState(false);
   const [renderErr, setRenderErr] = useState(false);
-
-  const user = useSelector(state => state.session.user);
-
-  if (!user) {
-    navigate('/');
-  }
 
   /**************************FUNCTIONS************************** */
 
