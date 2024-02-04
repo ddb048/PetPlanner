@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 //import { applyMiddleware, compose } from 'redux';
 import { thunk } from 'redux-thunk';
-import attendancesReducer from './attendances';
 import eventsReducer from './events';
 import petsReducer from './pets';
 import sessionReducer from './session';
@@ -11,7 +10,7 @@ const reducer = {
     session: sessionReducer,
     pets: petsReducer,
     events: eventsReducer,
-    attendances: attendancesReducer,
+    // attendances: attendancesReducer,
 };
 
 //let enhancer;

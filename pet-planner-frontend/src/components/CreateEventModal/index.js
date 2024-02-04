@@ -10,7 +10,7 @@ const CreateEventModal = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
-    console.log('user in create Event Modal', user);
+    // console.log('user in create Event Modal', user);
 
     useEffect(() => {
         if (!user) {
@@ -21,7 +21,9 @@ const CreateEventModal = () => {
     //**********************STATE******************** */
     const [eventName, setEventName] = useState("");
     const [eventPictureUrl, setEventPictureUrl] = useState("");
-    const [eventDate, setEventDate] = useState("");
+    const [eventDate, setEventDate] = useState('');
+    const [eventTime, setEventTime] = useState('');
+    const [utcDate, setUtcDate] = useState('');
     const [eventDuration, setEventDuration] = useState("");
     const [eventAddress, setEventAddress] = useState("");
     const [eventDescription, setEventDescription] = useState("");
@@ -38,20 +40,18 @@ const CreateEventModal = () => {
     const [renderErr, setRenderErr] = useState(false);
 
 
-    //***********************FUNCTIONS******************* */
+    //***********************HELPERS******************* */
 
     const urlValidation = str => {
         return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
     }
 
-    const handleDateFocus = () => {
-        setDateInputType("date");
-    };
-
-    const handleDateBlur = () => {
-        if (!eventDate) {
-            setDateInputType("text");
-        }
+    // Function to convert local date and time to UTC string.
+    const toUTCString = (date, time) => {
+        // Combine date and time with 'T' separator
+        const localDateTime = new Date(`${date}T${time}`);
+        // Convert to UTC string
+        return localDateTime.toISOString();
     };
 
     const onClose = () => {
@@ -127,7 +127,7 @@ const CreateEventModal = () => {
 
         dispatch(getUserEvents(user.id))
             .then(() => {
-                console.log("users event dispatched")
+                // console.log("users event dispatched")
             }
             )
             .catch(() => setBackendErrors('Failed to create event'));
@@ -160,11 +160,9 @@ const CreateEventModal = () => {
             };
 
             const event = await dispatch(createEvent(newEvent));
-            console.log('event in create event modal after dispatch to create event', event)
             if (event) {
-
                 navigate(`/events/${event.id}`);
-            }
+            };
 
         }
     };
@@ -197,18 +195,25 @@ const CreateEventModal = () => {
                                 {!!renderErr && eventNameError.length > 0 && eventNameError}
                             </div>
                             <div className="modal-input-container">
-                            Event Date:
-                            <input
-                                className="modal-input"
-                                type={dateInputType}
-                                name="date"
-                                placeholder="Pick a Date for your Event"
-                                onFocus={handleDateFocus}
-                                onBlur={handleDateBlur}
-                                value={eventDate}
-                                onChange={(e) => setEventDate(e.target.value)}
-                                required
-                            />
+                                Event Date & Time:
+                                <input
+                                    className="modal-input"
+                                    type="date"
+                                    name="eventDate"
+                                    placeholder="YYYY-MM-DD"
+                                    value={eventDate}
+                                    onChange={(e) => setEventDate(e.target.value)}
+                                    required
+                                />
+                                <input
+                                    className="modal-input"
+                                    type="time"
+                                    name="eventTime"
+                                    value={eventTime}
+                                    onChange={(e) => setEventTime(e.target.value)}
+                                    step="1800"
+                                    required
+                                />
                             </div>
                             <div className='errors__container'>
                                 {!!renderErr && dateError.length > 0 && dateError}

@@ -20,6 +20,7 @@ import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.service.PetService;
+import com.cognixia.jump.util.ApiResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -87,23 +88,53 @@ public class PetController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a pet", description = "Deletes a pet from the database by their ID")
-    public ResponseEntity<?> deletePet(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> deletePet(@PathVariable Long id) {
         boolean isDeleted = petService.deletePet(id);
         if (!isDeleted) {
-            return ResponseEntity.notFound().build();
+
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "No pet found with ID: " + id));
         }
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(new ApiResponse(true, "Pet successfully deleted."));
     }
 
     @PostMapping("/{petId}/{eventId}")
-    public ResponseEntity<String> addPetToEvent(@PathVariable Long petId, @PathVariable Long eventId) {
-        petService.addPetToEvent(petId, eventId);
-        return ResponseEntity.ok("Pet added to event successfully");
+    public ResponseEntity<ApiResponse> addPetToEvent(@PathVariable Long petId, @PathVariable Long eventId) {
+        PetService.AddPetToEventResult result = petService.addPetToEvent(petId, eventId);
+
+        switch (result) {
+            case SUCCESS:
+                return ResponseEntity.ok(new ApiResponse(true, "Pet added to event successfully"));
+            case PET_ALREADY_ATTENDING:
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse(false, "This pet is already attending this event"));
+            case PET_NOT_FOUND:
+                return ResponseEntity.badRequest().body(new ApiResponse(false, "This pet does not exist"));
+            case EVENT_NOT_FOUND:
+                return ResponseEntity.badRequest().body(new ApiResponse(false, "This event does not exist"));
+            default:
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ApiResponse(false, "An unexpected error occurred"));
+        }
     }
 
     @DeleteMapping("/{petId}/{eventId}")
-    public ResponseEntity<String> deletePetFromEvent(@PathVariable Long petId, @PathVariable Long eventId) {
-        petService.deletePetFromEvent(petId, eventId);
-        return ResponseEntity.ok("Pet removed from event successfully");
+    public ResponseEntity<ApiResponse> deletePetFromEvent(@PathVariable Long petId, @PathVariable Long eventId) {
+        PetService.DeletePetFromEventResult result = petService.deletePetFromEvent(petId, eventId);
+
+        switch (result) {
+            case SUCCESS:
+                return ResponseEntity.ok(new ApiResponse(true, "Pet removed from event successfully"));
+            case PET_NOT_FOUND:
+                return ResponseEntity.badRequest().body(new ApiResponse(false, "This pet does not exist"));
+            case EVENT_NOT_FOUND:
+                return ResponseEntity.badRequest().body(new ApiResponse(false, "This event does not exist"));
+            case PET_NOT_ATTENDING_EVENT:
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse(false, "This pet is not attending the specified event"));
+            default:
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ApiResponse(false, "An unexpected error occurred"));
+        }
     }
 }
