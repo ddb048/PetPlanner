@@ -28,7 +28,9 @@ const UpdateEventModal = () => {
     const targetEvent = useSelector(state => state.events.OneEvent);
 
     const [eventName, setEventName] = useState(targetEvent ? targetEvent.eventName : '');
-    const [eventDate, setEventDate] = useState(targetEvent ? targetEvent.date : '');
+    const [eventDate, setEventDate] = useState('');
+    const [eventTime, setEventTime] = useState('');
+    const [utcDate, setUtcDate] = useState(targetEvent ? targetEvent.date : '');
     const [eventDuration, setEventDuration] = useState(targetEvent ? targetEvent.duration : '');
     const [eventAddress, setEventAddress] = useState(targetEvent ? targetEvent.address : '');
     const [eventDescription, setEventDescription] = useState(targetEvent ? targetEvent.description : '');
@@ -45,21 +47,20 @@ const UpdateEventModal = () => {
     const [eventPictureUrlError, setEventPictureUrlError] = useState('');
     const [renderErr, setRenderErr] = useState(false);
 
-    //***************************FUNCTIONS************************** */
+    //**************************HELPERS************************** */
 
     const urlValidation = str => {
         return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
     }
 
-    const handleDateFocus = () => {
-        setDateInputType("date");
+    // Function to convert local date and time to UTC string.
+    const toUTCString = (date, time) => {
+        // Combine date and time with 'T' separator
+        const localDateTime = new Date(`${date}T${time}`);
+        // Convert to UTC string
+        return localDateTime.toISOString();
     };
 
-    const handleDateBlur = () => {
-        if (!eventDate) {
-            setDateInputType("text");
-        }
-    };
 
     const onClose = () => {
         navigate('/UserPage');
@@ -88,7 +89,7 @@ const UpdateEventModal = () => {
         }
 
         //duration error handling
-        if (!eventDuration?.length) {
+        if (eventDuration?.length === 0) {
             setEventDurationError('Please enter a duration for your event');
         } else if (eventDuration < 0) {
             setEventDurationError('Duration must be a positive number');
@@ -135,6 +136,12 @@ const UpdateEventModal = () => {
         event.preventDefault();
         setRenderErr(true);
 
+        // Combine and convert date and time to UTC
+        const combinedDate = await toUTCString(eventDate, eventTime);
+
+        setUtcDate(combinedDate)
+        console.log("This is the combined date", combinedDate)
+
         if (
 
             !eventNameError.length &&
@@ -150,7 +157,7 @@ const UpdateEventModal = () => {
                 id: targetEvent.id,
                 userId: user.id,
                 eventName: eventName,
-                date: eventDate,
+                date: combinedDate,
                 duration: eventDuration,
                 address: eventAddress,
                 description: eventDescription,
@@ -160,7 +167,9 @@ const UpdateEventModal = () => {
             console.log("This is being sent to dispatch as updatedEvent",updatedEvent)
 
             const event = await dispatch(editOneEvent(updatedEvent));
-
+            if (event) {
+                navigate(`/events/${targetEvent.id}`)
+            };
         }
 
     };
@@ -195,16 +204,22 @@ const UpdateEventModal = () => {
                                 {!!renderErr && eventNameError?.length > 0 && eventNameError}
                             </div>
                             <div className="modal-input-container">
-                                Event Date:
+                                Event Date & Time:
                                 <input
                                     className="modal-input"
-                                    type={dateInputType}
-                                    name="date"
-                                    placeholder="Pick a Date for your Event"
-                                    onFocus={handleDateFocus}
-                                    onBlur={handleDateBlur}
+                                    type="date"
+                                    name="eventDate"
+                                    placeholder="YYYY-MM-DD" // Adjust placeholder as per type change
                                     value={eventDate}
                                     onChange={(e) => setEventDate(e.target.value)}
+                                    required
+                                />
+                                <input
+                                    className="modal-input"
+                                    type="time"
+                                    name="eventTime"
+                                    value={eventTime}
+                                    onChange={(e) => setEventTime(e.target.value)}
                                     required
                                 />
                             </div>

@@ -1,6 +1,9 @@
 package com.cognixia.jump.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,21 @@ public class PetService {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    public enum AddPetToEventResult {
+        SUCCESS,
+        PET_ALREADY_ATTENDING,
+        PET_NOT_FOUND,
+        EVENT_NOT_FOUND
+    }
+
+    public enum DeletePetFromEventResult {
+        SUCCESS,
+        PET_NOT_FOUND,
+        EVENT_NOT_FOUND,
+        PET_NOT_ATTENDING_EVENT
+    }
 
     // CREATE
     public Pet createPet(Pet pet) {
@@ -75,37 +93,73 @@ public class PetService {
     }
 
     // DELETE
+    @Transactional
     public boolean deletePet(Long id) {
-        if (petRepository.existsById(id)) {
-            petRepository.deleteById(id);
-            return true;
-        }
-        return false;
+        return petRepository.findById(id)
+                .map(pet -> {
+                    pet.getEvents().forEach(event -> {
+                        event.getPets().remove(pet);
+                    });
+                    pet.getEvents().clear();
+
+                    petRepository.delete(pet);
+                    return true;
+                }).orElse(false);
     }
 
-    public void addPetToEvent(Long petId, Long eventId) {
-        Pet pet = petRepository.findById(petId).orElse(null);
-        Event event = eventRepository.findById(eventId).orElse(null);
-
-        if (pet != null && event != null) {
-            event.getPets().add(pet);
-            pet.getEvents().add(event);
-
-            eventRepository.save(event);
-            petRepository.save(pet);
+    public AddPetToEventResult addPetToEvent(Long petId, Long eventId) {
+        Optional<Pet> optionalPet = petRepository.findById(petId);
+        if (!optionalPet.isPresent()) {
+            return AddPetToEventResult.PET_NOT_FOUND;
         }
+
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (!optionalEvent.isPresent()) {
+            return AddPetToEventResult.EVENT_NOT_FOUND;
+        }
+
+        Pet pet = optionalPet.get();
+        Event event = optionalEvent.get();
+
+        // Check if the pet is already part of the event
+        if (event.getPets().contains(pet)) {
+            return AddPetToEventResult.PET_ALREADY_ATTENDING;
+        }
+
+        // If not, add the pet to the event and save the changes
+        event.getPets().add(pet);
+        pet.getEvents().add(event);
+
+        eventRepository.save(event);
+        petRepository.save(pet);
+
+        return AddPetToEventResult.SUCCESS;
     }
 
-    public void deletePetFromEvent(Long petId, Long eventId) {
-        Pet pet = petRepository.findById(petId).orElse(null);
-        Event event = eventRepository.findById(eventId).orElse(null);
-
-        if (pet != null && event != null) {
-            event.getPets().remove(pet);
-            pet.getEvents().remove(event);
-
-            eventRepository.save(event);
-            petRepository.save(pet);
+    public DeletePetFromEventResult deletePetFromEvent(Long petId, Long eventId) {
+        Optional<Pet> optionalPet = petRepository.findById(petId);
+        if (!optionalPet.isPresent()) {
+            return DeletePetFromEventResult.PET_NOT_FOUND;
         }
+
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (!optionalEvent.isPresent()) {
+            return DeletePetFromEventResult.EVENT_NOT_FOUND;
+        }
+
+        Pet pet = optionalPet.get();
+        Event event = optionalEvent.get();
+
+        if (!event.getPets().contains(pet)) {
+            return DeletePetFromEventResult.PET_NOT_ATTENDING_EVENT;
+        }
+
+        event.getPets().remove(pet);
+        pet.getEvents().remove(event);
+
+        eventRepository.save(event);
+        petRepository.save(pet);
+
+        return DeletePetFromEventResult.SUCCESS;
     }
 }

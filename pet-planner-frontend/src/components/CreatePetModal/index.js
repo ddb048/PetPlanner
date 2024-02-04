@@ -99,7 +99,7 @@ const CreatePet = () => {
     if (!image.length) {
       setImageError('Please enter an image URL for your pet');
     } else if (!urlValidation(image)) {
-      setImageError('Images must be formatted as .png, .jpg, .jpeg, or .gif');
+      setImageError('please enter a valid image URL');
     } else {
       setImageError('');
     }
@@ -134,6 +134,8 @@ const CreatePet = () => {
         petPicture: image,
         user: {id: user.id},
       };
+
+      console.log(pet, 'pet')
 
       dispatch(createPet(pet))
         .then((pet) => {
@@ -230,7 +232,7 @@ const CreatePet = () => {
                   <option value="">Hows your pets temparement?</option>
                   <option value="0">FRIENDLY</option>
                   <option value="1">RESERVED</option>
-                  <option value="2">AGRESSIVE</option>
+                  <option value="2">AGGRESSIVE</option>
                   <option value="3">PLAYFUL</option>
                   <option value="4">CALM</option>
                 </select>
