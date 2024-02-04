@@ -45,7 +45,7 @@ public class PetController {
         	List<Pet> pets = petService.getAllPetsHelper();
             return ResponseEntity.ok(new ApiResponse(true, "All pets have been founded successfully", pets));
         case PET_NOT_FOUND:
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Pet does not exist"));
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Th"));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
