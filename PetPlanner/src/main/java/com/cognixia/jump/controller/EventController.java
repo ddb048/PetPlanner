@@ -97,7 +97,8 @@ public class EventController {
     	switch (result) {
         
     	case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "Event has been created successfully"));
+    		Optional<Event> optionalEvent = eventService.getEventByIdHelper(event.getId());
+            return ResponseEntity.ok(new ApiResponse(true, "Event has been created successfully", optionalEvent.get()));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
@@ -112,7 +113,8 @@ public class EventController {
     	
     	switch (result) {
         case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "Event has been updated successfully"));
+        	Optional<Event> optionalEvent = eventService.getEventByIdHelper(eventDetails.getId());
+            return ResponseEntity.ok(new ApiResponse(true, "Event has been updated successfully", optionalEvent));
         case EVENT_NOT_FOUND:
             return ResponseEntity.badRequest().body(new ApiResponse(false, "This event does not exist"));
         case USER_NOT_FOUND:

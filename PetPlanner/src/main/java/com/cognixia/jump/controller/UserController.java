@@ -125,7 +125,9 @@ public class UserController {
     	
     	switch (result) {
         case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "User has been created successfully"));
+        	Optional<User> optionalUser = userService.getUserByIdHelper(user.getId());
+        	
+            return ResponseEntity.ok(new ApiResponse(true, "User has been created successfully", optionalUser));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
@@ -140,7 +142,8 @@ public class UserController {
     	
     	switch (result) {
         case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "User has been updated successfully"));
+        	Optional<User> optionalUser = userService.getUserByIdHelper(userDetails.getId());
+            return ResponseEntity.ok(new ApiResponse(true, "User has been updated successfully", optionalUser));
         case USER_NOT_FOUND:
         	return ResponseEntity.badRequest().body(new ApiResponse(false, "This user does not exist"));
         default:

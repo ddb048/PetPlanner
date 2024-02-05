@@ -1,6 +1,7 @@
 package com.cognixia.jump.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
+import com.cognixia.jump.model.User;
 import com.cognixia.jump.service.PetService;
 import com.cognixia.jump.util.ApiResponse;
 
@@ -104,7 +106,9 @@ public class PetController {
     	
     	switch (result) {
         case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "Pet has been created successfully"));
+        	Pet optionalPet = petService.getPetByIdHelper(pet.getId());
+        	
+            return ResponseEntity.ok(new ApiResponse(true, "Pet has been created successfully", optionalPet));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
@@ -118,7 +122,8 @@ public class PetController {
     	
     	switch (result) {
         case SUCCESS:
-            return ResponseEntity.ok(new ApiResponse(true, "Pet has been updated successfully"));
+        	Pet optionalPet = petService.getPetByIdHelper(petDetails.getId());
+            return ResponseEntity.ok(new ApiResponse(true, "Pet has been updated successfully", optionalPet));
         case PET_NOT_FOUND:
             return ResponseEntity.badRequest().body(new ApiResponse(false, "This pet does not exist"));
         case USER_NOT_FOUND:
