@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../store/session';
 import './index.css';
 
 
-import { setUser } from '../../store/session.js';
 function SignupModal({ onClose }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -15,8 +14,8 @@ function SignupModal({ onClose }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
-    const [role, setRole] = useState('');  
-    const [profilePic, setProfilePic] = useState(''); 
+    const [role, setRole] = useState('');
+    const [profilePic, setProfilePic] = useState('');
 
 
     const handleBackdropClick = (event) => {
@@ -24,10 +23,10 @@ function SignupModal({ onClose }) {
             onClose();
         }
     };
-    
+
 
     const handleSignup = async (event) => {
-       
+
         event.preventDefault();
         setError('');
         setSuccess(false);
@@ -37,7 +36,8 @@ function SignupModal({ onClose }) {
             password,
             email,
             profilePic: "https://imgv3.fotor.com/images/blog-richtext-image/10-profile-picture-ideas-to-make-you-stand-out.jpg",
-            role: "ROLE_USER"
+            role: "ROLE_USER",
+            enabled: true
         }
 
         console.log( 'newUser from handleSignup step1', newUser);

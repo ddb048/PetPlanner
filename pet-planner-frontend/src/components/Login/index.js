@@ -26,6 +26,7 @@ function LoginModal({ onClose }) {
         event.preventDefault();
 
         const user = { username, password };
+        console.log( 'user from login', user );
         await dispatch(login(user));
 
 

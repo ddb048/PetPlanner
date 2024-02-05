@@ -54,7 +54,10 @@ const setError = (error) => {
 //LOGIN a USER
 export const login = (user) => async (dispatch) => {
     const { username, password } = user;
+    const currentToken = localStorage.getItem('userToken');
+    console.log('currentToken', currentToken);
     localStorage.removeItem('userToken');  // Clear JWT token
+
     try {
         const response = await csrfFetch('/authenticate', {
             method: 'POST',
@@ -66,6 +69,7 @@ export const login = (user) => async (dispatch) => {
         });
 
         const data = await response.json();
+        console.log('data from login thunk step5', data);
         if (response.ok) {
 
             console.log('data from login thunk step6', data);
@@ -139,8 +143,8 @@ export const restoreUser = (token) => async (dispatch) => {
 
 //SIGNUP a USER
 export const signup = (user) => async (dispatch) => {
-    const { username, email, password, profilePic, role} = user;
-    //console.log('user from signup thunk step2', user);
+    const { username, email, password, profilePic, role, enabled} = user;
+    console.log('user from signup thunk step2', user);
     try {
         const response = await csrfFetch('/api/users', {
             method: 'POST',
@@ -150,7 +154,8 @@ export const signup = (user) => async (dispatch) => {
                 email,
                 password,
                 profilePic,
-                role
+                role,
+                enabled
             }),
         });
 
