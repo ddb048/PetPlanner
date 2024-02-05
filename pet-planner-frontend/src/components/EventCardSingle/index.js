@@ -195,8 +195,9 @@ function EventCardSingle() {
                         {petDisplay}
                     </div>
              </div>
-        </div>
-    )
+             </>
+       )
+    
 }
 
 export default EventCardSingle

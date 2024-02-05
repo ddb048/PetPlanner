@@ -32,9 +32,3 @@ export default store;
     //enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 //}
 
-const store = configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-});
-
-export default store;

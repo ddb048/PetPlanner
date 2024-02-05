@@ -85,7 +85,7 @@ const UpdateUserModal = () => {
     <div className='modal-backdrop'>
       <div className="modal">
         <div className='modal-content'>
-          <div className='modal-title'>Update User</div>
+          <div className='modal-title'> ✏️ Update User 🦔</div>
           <form onSubmit={handleSubmit}>
             <div className="update-user__errors"></div>
 
@@ -148,7 +148,7 @@ const UpdateUserModal = () => {
   */}
             <div className="update-user__input-container">
               <label htmlFor="profilePic" className="update-user__label">
-                Profile Picture URL
+              📷 Profile Picture URL
               </label>
               <input
                 name="profilePic"
@@ -160,7 +160,7 @@ const UpdateUserModal = () => {
               />
             </div>
             <div className="modal-button-container">
-              <button className="modal-button" type="submit"> Update User </button>
+              <button className="modal-button" type="submit">  Update User </button>
               <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </div>
           </form>

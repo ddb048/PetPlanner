@@ -40,7 +40,7 @@
   margin-top: 10px;
   margin-left: 20px;
   font-style: italic;
-
+  font-family:fantasy;
   font-size: 20px;
  margin-left: 15px; ; 
 
@@ -51,8 +51,8 @@
   margin-left: 20px;
   font-style: italic;
   font-size: 20px;
- margin-left: 15px; ; 
- font-family:monospace
+  margin-left: 15px; ; 
+ font-family:fantasy;
 
 }
 
@@ -75,17 +75,20 @@
 
   .userpage__add-pet-link{
 
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    text-decoration: none;
-    cursor: pointer;
-    cursor: pointer;
-    background-color: rgb(246, 64, 96);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    border: 2px solid black;
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        cursor: pointer;
+        background-color: rgb(246, 64, 96);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        font-family:fantasy;
+       font-weight: 900;
+        border: 2px solid black;
+      text-decoration: none;
 
   
   }
@@ -142,4 +145,16 @@
     margin-right: 25%;
     padding-top: 10%;
     padding-bottom: 25%;
+  }
+  .no-pets__text,
+  .userpage__events-section{
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    margin-left: 15px; ; 
+    font-family:fantasy
+  }
+  .no-pets__container{
+    font-size: 20px;
   }

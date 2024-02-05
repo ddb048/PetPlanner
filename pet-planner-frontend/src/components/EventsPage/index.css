@@ -28,7 +28,6 @@
 }
 
 .userpage__events-header{
-
     font-size: 40px;
     font-family:cursive;
     margin-top: 10px;
@@ -36,20 +35,27 @@
     margin-left: 20px;
 }
 
-.userpage__add-event-link{
-    margin: 10px;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    cursor: pointer;
-    background-color: rgb(242, 67, 64);
-    color: rgb(255, 255, 255);
-    border:none;
-    border-radius: 10px;
+.no-events__text{
+    font-size: 20px;
+    font-family:fantasy;
 }
-.userpage__add-event-link:hover{
+.userpage__add-event-link button{
+         margin: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        cursor: pointer;
+        background-color: rgb(246, 64, 96);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        font-family:fantasy;
+       font-weight: 900;
+        border: 2px solid black;
+      text-decoration: none;
+}
+.userpage__add-event-link :hover{
 
     background-color: hsl(174, 44%, 52%);
 }

@@ -139,7 +139,7 @@ export const restoreUser = (token) => async (dispatch) => {
 //SIGNUP a USER
 export const signup = (user) => async (dispatch) => {
     const { username, email, password} = user;
-    console.log('user from signup thunk', user, profilePic);
+   // console.log('user from signup thunk', user, profilePic);
     try {
         const response = await csrfFetch('/api/users', {
             method: 'POST',

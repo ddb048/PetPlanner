@@ -1,0 +1,35 @@
+
+.modal-button_petcreate {
+    
+
+    margin-bottom:  10px;
+    padding: 10px 20px;
+    font-size: 19px;
+    cursor: pointer;
+    cursor: pointer;
+    background-color: rgb(246, 64, 96);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family:fantasy;
+   font-weight: 900;
+    border: 2px solid black;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    margin: 0 5px;
+    margin-top: 10px;
+    width: 80%; 
+        height: 7%;
+        
+    text-align: center; 
+   }
+ 
+   .modal-button_petcreate :hover{
+
+    background-color: rgb(39, 130, 209);
+   }
+
+ 

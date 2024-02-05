@@ -19,11 +19,18 @@ function HomePage({ onShowSignup, onShowLogin, user }) {
                     <button onClick={onShowLogin}>Login</button>}
 
                 {user &&
-                    <Link to='/events' className='auth-links__button'> Events </Link>}
+                    <Link  to='/events' className='auth-links__button'>
+                    
+                    <button>Events</button>
+                    
+                    
+                     </Link>}
                 {user &&
-                    <Link to='/pets' className='auth-links__button'> Pets </Link>}
+                    <Link to='/pets' className='auth-links__button'>    <button>Pets</button> </Link>}
                 {user &&
-                    <Link to='/UserPage' className='auth-links__button'> Home Page </Link>}
+                    <Link to='/UserPage' className='auth-links__button'> <button>Home Page</button> 
+                    
+                    </Link>}
 
 
 

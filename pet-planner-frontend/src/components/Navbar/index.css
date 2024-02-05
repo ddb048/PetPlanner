@@ -99,3 +99,12 @@
 .nav-button:hover {
     cursor: pointer;
 }
+
+.dropdown-item{
+    margin-top: center;
+    font-size: 15px;
+    font-family: fantasy;
+    font-weight:600;
+
+
+}
