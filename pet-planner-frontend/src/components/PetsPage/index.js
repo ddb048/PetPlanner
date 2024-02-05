@@ -36,18 +36,21 @@ const PetsPage = ({ pets }) => {
   }
 
   return (
-    <>
+    <div className='Pets_Page_main'>
       <div className='userpage__pets-header'>
       🐾 Your Pets  🐾
       </div>
       <Link className='userpage__add-pet-link'
-        to='/pets/new'>Add a Pet</Link>
+        to='/pets/new'>
+        Add a Pet
+        </Link>
 
       {petList.length > 0 && (
         <div className='userpage__pets'>
           {petDisplay}
         </div>)}
-    </>
+        
+    </div>
   )
 };
 

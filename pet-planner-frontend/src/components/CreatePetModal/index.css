@@ -32,4 +32,10 @@
     background-color: rgb(39, 130, 209);
    }
 
- 
+   .errors__container{
+    margin-bottom: 20px;
+   font-weight: 400;
+   font-family:'Times New Roman', Times, serif;
+   color: red;
+
+   }

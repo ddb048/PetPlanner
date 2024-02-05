@@ -170,6 +170,12 @@ const CreatePet = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
+
+              
+
+
+
+
               <div className='errors__container'>
                 {!!renderErr && nameError.length > 0 && nameError}
               </div>
@@ -271,7 +277,7 @@ const CreatePet = () => {
                             🥳 When is your furry friend's birthday? Choose a date that holds a special meaning for both of you!
                             </p>
                             <p className="tip-small-under">
-                            🐾✨From its unique quirks to its adorable habits, describe your furry friend's personality, appearance, and anything that makes them stand out. We're all ears and paws! 
+                            🐾✨Describe your furry friend's personality, appearance, and anything that makes them stand out. We're all ears and paws! 
                             </p>
                             <p className="tip-small-under">
                             🐢Tell us about your fur baby! 🐾 What species are they, and how would you describe their temperament? 🐶😺? Share the pet love! 🐕🐱✨ 
