@@ -228,15 +228,14 @@ public class PetService {
     		return DeletePetResult.PET_NOT_FOUND;
     	}
 
-    		optionalPet.ifPresent(pet -> {
-    		    pet.getEvents().forEach(event -> {
-    		        event.getPets().remove(pet);
-    		    });
-    		    pet.getEvents().clear();
+    	optionalPet.ifPresent(pet -> {
+    	    pet.getEvents().forEach(event -> {
+    	        event.getPets().remove(pet);
+    	    });
+    	    pet.getEvents().clear();
 
-    		    petRepository.delete(pet);
-    		    
-    		});
+    	    petRepository.delete(pet);
+    	});
                 
     		return DeletePetResult.SUCCESS;
     }

@@ -21,6 +21,8 @@ import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
 import com.cognixia.jump.service.EventService;
+import com.cognixia.jump.service.PetService;
+import com.cognixia.jump.util.ApiResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -33,55 +35,108 @@ public class EventController {
 
     @GetMapping
     @Operation(summary = "Get all events", description = "Retrieves a list of all events")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        return ResponseEntity.ok(eventService.getAllEvents());
+    public ResponseEntity<ApiResponse> getAllEvents() {
+
+    	EventService.getAllEventsResult result = eventService.getAllEvents();
+    	
+    	switch (result) {
+        case SUCCESS:
+        	List<Event> events = eventService.getAllEventsHelper();
+            return ResponseEntity.ok(new ApiResponse(true, "All events have been founded successfully", events));
+        case EVENT_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "There are no events"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    	}
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get event by ID", description = "Retrieves details of an event by their ID")
-    public ResponseEntity<Optional<Event>> getEventById(@PathVariable Long id) {
-        Optional<Event> event = eventService.getEventById(id);
-        return ResponseEntity.ok(event);
+    public ResponseEntity<ApiResponse> getEventById(@PathVariable Long id) {
+    	
+    	EventService.getEventByIdResult result = eventService.getEventById(id);
+    	
+    	switch (result) {
+        case SUCCESS:
+        	Optional<Event> event = eventService.getEventByIdHelper(id);
+            return ResponseEntity.ok(new ApiResponse(true, "Event have been founded successfully", event.get()));
+        case EVENT_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Event does not exist"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    	}
     }
 
     @GetMapping("/{eventId}/pets")
     @Operation(summary = "Get all pets by event", description = "Retrieves all pets attending a specific event")
-    public ResponseEntity<List<Pet>> getPetsByEvent(@PathVariable Long eventId) {
-        List<Pet> pets = eventService.getPetsForEvent(eventId);
-        return ResponseEntity.ok(pets);
+    public ResponseEntity<ApiResponse> getPetsByEvent(@PathVariable Long eventId) {
+
+    	EventService.getPetsForEventResult result = eventService.getPetsForEvent(eventId);
+    	
+    	switch (result) {
+        case SUCCESS:
+        	List<Pet> pets = eventService.getPetsForEventHelper(eventId);
+            return ResponseEntity.ok(new ApiResponse(true, "Event's pets have been founded successfully", pets));
+        case PETS_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "There are no pets for this event"));
+        case EVENT_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Event does not exist"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    	}
     }
 
     @PostMapping
     @Operation(summary = "Create a new event", description = "Adds a new event to the database")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        return new ResponseEntity<>(eventService.createEvent(event), HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse> createEvent(@RequestBody Event event) {
+    	
+    	EventService.createEventResult result = eventService.createEvent(event);
+    	switch (result) {
+        
+    	case SUCCESS:
+            return ResponseEntity.ok(new ApiResponse(true, "Event has been created successfully"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    	}
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update an event", description = "Updates the details of an existing event")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @Valid @RequestBody Event eventDetails) {
-        Event event = eventService.getEventById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Event", "id", id.toString()));
+    public ResponseEntity<ApiResponse> updateEvent(@PathVariable Long id, @Valid @RequestBody Event eventDetails) {
 
-        event.setDate(eventDetails.getDate());
-        event.setEventName(eventDetails.getEventName());
-        event.setEventPictureUrl(eventDetails.getEventPictureUrl());
-        event.setDuration(eventDetails.getDuration());
-        event.setAddress(eventDetails.getAddress());
-        event.setUser(eventDetails.getUser());
-        event.setDescription(eventDetails.getDescription());
-        event.setPets(eventDetails.getPets());
-        event.setEventName(eventDetails.getEventName());
-        event.setEventPictureUrl(eventDetails.getEventPictureUrl());
-
-        Event updatedEvent = eventService.updateEvent(event);
-        return ResponseEntity.ok(updatedEvent);
+    	EventService.UpdateEventResult result = eventService.updateEvent(eventDetails);
+    	
+    	switch (result) {
+        case SUCCESS:
+            return ResponseEntity.ok(new ApiResponse(true, "Event has been updated successfully"));
+        case EVENT_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "This event does not exist"));
+        case USER_NOT_FOUND:
+        	return ResponseEntity.badRequest().body(new ApiResponse(false, "This user does not exist"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    	}
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete an event", description = "Deletes an event from the database by their ID")
     public ResponseEntity<?> deleteEvent(@PathVariable Long id) {
-        eventService.deleteEvent(id);
-        return ResponseEntity.noContent().build();
+    	
+    	EventService.DeleteEventResult result = eventService.deleteEvent(id);
+    	
+    	switch (result) {
+        case SUCCESS:
+            return ResponseEntity.ok(new ApiResponse(true, "Event has been deleted successfully"));
+        case EVENT_NOT_FOUND:
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "This pet does not exist"));
+        default:
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "An unexpected error occurred"));
+    }
     }
 }
