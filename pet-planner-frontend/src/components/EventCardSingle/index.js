@@ -147,7 +147,7 @@ function EventCardSingle() {
         <div className='event_single_main'>
             <div className='event-card__container_2'>
 
-        
+
 
                 <div className='event-card__details_single'>
 
@@ -156,7 +156,7 @@ function EventCardSingle() {
                     </div>
 
                     <div className='event-card__name'>
-                    <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
+                    <img className='event-card-single_img' src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
 
@@ -177,9 +177,53 @@ function EventCardSingle() {
                     </div>
 
 
-                    <div className='event-card__buttons'>
+                   <div className='event-card__buttons'>
                         <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
                         <button className='event-card__button' onClick={handleDeleteEvent}>Delete Event</button>
+                        <div className='event-card__add-attendee-container'>
+                            <button
+                                className='event-card__button'
+                                onClick={toggleDropdown}
+                            >
+                                Show Pets
+                            </button>
+                            {showDropdown && (
+                                <>
+                                    <select
+                                        value={selectedPetId}
+                                        onChange={handleSelectChange}
+                                    >
+                                        <option value="">Select a pet</option>
+                                        {allPetsNotAttending.map(pet => (
+                                            <option key={pet.id} value={pet.id}>{pet.petName}</option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        className='event-card__button'
+                                        onClick={handlePetSubmission}
+                                    >
+                                        RSVP Pet
+                                    </button>
+
+                                    <select
+                                        value={selectedPetId}
+                                        onChange={handleSelectChange}
+                                    >
+                                        <option value="">Select a pet</option>
+                                        {allPetsAttending.map(pet => (
+                                            <option key={pet.id} value={pet.id}>{pet.petName}</option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        className='event-card__button'
+                                        onClick={handleDeleteRSVPRequest}
+                                    >
+                                        Cancel RSVP
+                                    </button>
+                                </>
+                            )}
+                        </div>
+
                     </div>
 
                 </div>
@@ -197,7 +241,7 @@ function EventCardSingle() {
              </div>
              </div>
        )
-    
+
 }
 
 export default EventCardSingle
