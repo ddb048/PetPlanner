@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createEvent, getUserEvents } from "../../store/events";
+import { restoreUser } from "../../store/session";
 import './index.css';
 
 const CreateEventModal = () => {
@@ -13,10 +14,11 @@ const CreateEventModal = () => {
     // console.log('user in create Event Modal', user);
 
     useEffect(() => {
-        if (!user) {
-            navigate('/');
+        const userToken = localStorage.getItem('userToken');
+        if (userToken && !user) {
+            dispatch(restoreUser(userToken));
         }
-    }, [user, navigate]);
+    }, [user, dispatch]);
 
     //**********************STATE******************** */
     const [eventName, setEventName] = useState("");
@@ -159,7 +161,11 @@ const CreateEventModal = () => {
                 user: {id: user.id},
             };
 
+            console.log('newEvent from component step1', newEvent);
             const event = await dispatch(createEvent(newEvent));
+
+            console.log('event from component step4', event);
+
             if (event) {
                 navigate(`/events/${event.id}`);
             };
