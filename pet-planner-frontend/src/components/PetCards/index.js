@@ -5,7 +5,7 @@ import './index.css';
 
 function PetCards({ pet }) {
 
-    console.log('pet threaded in to PetCards', pet)
+    //console.log('pet threaded in to PetCards', pet)
 
     //Data-related
     const navigate = useNavigate();
