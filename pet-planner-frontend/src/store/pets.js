@@ -74,7 +74,8 @@ export const getPets = (userId) => async (dispatch) => {
 export const getOnePet = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}`);
     const data = await response.json();
-    dispatch(loadOnePet(data));
+    console.log("data from getOnePet", data);
+    dispatch(loadOnePet(data.data));
     return response;
 };
 
