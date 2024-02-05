@@ -49,7 +49,7 @@ function LoggedInMenu({ user }) {
 
 
     const toggleDropdown = (event) => {
-        console.log('toggleDropdown');
+        // console.log('toggleDropdown');
         event.stopPropagation();
         setIsOpen(!isOpen);
     };
@@ -62,7 +62,7 @@ function LoggedInMenu({ user }) {
     useEffect(() => {
         const closeDropdown = (event) => {
             if (isOpen && (!event.target.matches('.navbar-profile-pic'))) {
-                console.log('closeDropdown triggered in useEffect');
+                // console.log('closeDropdown triggered in useEffect');
                 setIsOpen(false);
             }
         };

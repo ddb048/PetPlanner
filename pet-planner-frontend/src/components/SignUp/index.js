@@ -21,7 +21,10 @@ function SignupModal({ onClose }) {
         setError('');
         setSuccess(false);
 
+        console.log ('username', username, 'password', password, 'email', email, "signup component data");
         const response = await signup(username, password, email);
+
+
         if (response.success) {
             setSuccess(true);
             //FIXME - insert redirect to userDetails page

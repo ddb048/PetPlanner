@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOnePet, getPetEvents, removePet } from '../../store/pets';
+import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import './index.css';
 
@@ -16,11 +17,22 @@ function PetCardSingle() {
     const targetPet = useSelector(state => state.pets.OnePet);
     const user = useSelector(state => state.session.user);
 
+
     useEffect(() => {
-        if (!user) {
+        const userToken = localStorage.getItem('userToken');
+        if (userToken && !user) {
+            dispatch(restoreUser(userToken));
+        } else if (!userToken && !user) {
             navigate('/');
         }
-    }, [user, navigate]);
+    }, [user, dispatch, navigate]);
+
+
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate('/');
+    //     }
+    // }, [user, navigate]);
 
     //Event-related
     const events = targetPet.events;

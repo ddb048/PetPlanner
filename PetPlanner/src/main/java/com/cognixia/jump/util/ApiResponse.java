@@ -9,7 +9,6 @@ public class ApiResponse {
     public ApiResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
-        this.data = null;
     }
 
     public ApiResponse(boolean success, String message, Object data) {
