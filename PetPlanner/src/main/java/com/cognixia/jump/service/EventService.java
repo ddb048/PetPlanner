@@ -130,16 +130,16 @@ public class EventService {
         return eventRepository.findByUser(user);
     }
     
-    public getEventsByUserResult getEventsByUser(User user) {
+    public getEventsByUserResult getEventsByUser(Long userId) {
         
-    	Optional<User> optionalUser = userRepository.findById(user.getId());
+    	Optional<User> optionalUser = userRepository.findById(userId);
     	
     	if(optionalUser.isEmpty())
     	{
     		return getEventsByUserResult.USER_NOT_FOUND;
     	}
     	
-    	 List<Event> events = eventRepository.findByUser(user);
+    	 List<Event> events = eventRepository.findByUser(optionalUser.get());
     	 
     	 if(events.isEmpty())
     	 {
