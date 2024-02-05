@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getOnePet, getPetEvents } from '../../store/pets';
+import { getOnePet, getPetEvents, removePet } from '../../store/pets';
+import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import './index.css';
 
@@ -16,11 +17,22 @@ function PetCardSingle() {
     const targetPet = useSelector(state => state.pets.OnePet);
     const user = useSelector(state => state.session.user);
 
+
     useEffect(() => {
-        if (!user) {
+        const userToken = localStorage.getItem('userToken');
+        if (userToken && !user) {
+            dispatch(restoreUser(userToken));
+        } else if (!userToken && !user) {
             navigate('/');
         }
-    }, [user, navigate]);
+    }, [user, dispatch, navigate]);
+
+
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate('/');
+    //     }
+    // }, [user, navigate]);
 
     //Event-related
     const events = targetPet.events;
@@ -78,7 +90,7 @@ function PetCardSingle() {
 
     useEffect(() => {
         if (targetPet.id !== petId) {
-            console.log('attempting to retrieve pet', petId);
+            // console.log('attempting to retrieve pet', petId);
             dispatch(getOnePet(petId));
             dispatch(getPetEvents(petId));
             setLoading(false);
@@ -104,6 +116,23 @@ function PetCardSingle() {
         e.preventDefault();
         navigate(`/pets/${petId}/update`);
     }
+
+    const handleDeletePet = async () => {
+        if (window.confirm("Are you sure you want to delete this pet?")) {
+            try {
+                const response = await dispatch(removePet(petId));
+                if (!response.ok) {
+                    console.error(`Error deleting pet. Status: ${response.status}, Message: ${await response.text()}`);
+                }
+                // Other handling logic
+            } catch (error) {
+                console.error("Error deleting pet:", error);
+                // Handle other errors
+            }
+        }
+
+        navigate('/pets');
+    };
 
 
     return (
@@ -141,7 +170,7 @@ function PetCardSingle() {
 
                 <div className='pet-card__buttons'>
                     <button className='pet-card__edit-button' onClick={handleUpdatePet} >Update Pet</button>
-                    <button className='pet-card__delete-button'>Delete Pet</button>
+                    <button className='pet-card__delete-button'  onClick={handleDeletePet} >Delete Pet</button>
                 </div>
 
 

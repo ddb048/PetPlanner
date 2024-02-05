@@ -8,6 +8,7 @@ const EDIT_PET = 'pets/EDIT_PET';
 const DELETE_PET = 'pets/DELETE_PET';
 const LOAD_ONE_PET = 'pets/LOAD_ONE_PET';
 const LOAD_PET_EVENTS = 'pets/LOAD_PET_EVENTS';
+const SET_ERROR = 'pets/setError';
 
 //*******************ACTION CREATORS*********************/
 const loadPets = (pets) => {
@@ -52,6 +53,14 @@ const loadPetEvents = (events) => {
     };
 }
 
+// Set an ERROR
+const setError = (error) => {
+    return {
+        type: SET_ERROR,
+        payload: error,
+    };
+};
+
 //*******************THUNKS*********************/
 //GET all Users pets
 export const getPets = (userId) => async (dispatch) => {
@@ -65,7 +74,8 @@ export const getPets = (userId) => async (dispatch) => {
 export const getOnePet = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}`);
     const data = await response.json();
-    dispatch(loadOnePet(data));
+    //console.log("data from getOnePet", data);
+    dispatch(loadOnePet(data.data));
     return response;
 };
 
@@ -76,8 +86,15 @@ export const createPet = (pet) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pet),
     });
-    const data = await response.json();
-    dispatch(addPet(data));
+
+    if (response.ok) {
+        const data = await response.json();
+        //console.log("data from attempt to create pet", data);
+        dispatch(addPet(data));
+    } else {
+        console.log("Error in createPet:", response.statusText);
+    }
+
     return response;
 }
 
@@ -131,8 +148,13 @@ const petsReducer = (state = initialState, action) => {
             newState.OnePet = { ...action.pet };
             return newState;
         case ADD_PET:
-            newState = { ...state };
-            newState.pets[+action.pet.id] = action.pet;
+            newState = {
+                ...state,
+                pets: {
+                    ...state.pets,
+                    [action.pet.id]: action.pet
+                }
+            };
             return newState;
         case EDIT_PET:
             return {
@@ -158,6 +180,9 @@ const petsReducer = (state = initialState, action) => {
             action.events.forEach((event) => {
                 newState.OnePet.events[+event.id] = event;
             });
+            return newState;
+        case SET_ERROR:
+            newState = Object.assign({}, state, { error: action.payload });
             return newState;
         default:
             return state;

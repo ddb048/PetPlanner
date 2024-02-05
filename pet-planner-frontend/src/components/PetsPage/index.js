@@ -23,7 +23,7 @@ const PetsPage = ({ pets }) => {
   let petDisplay;
   if (petList.length > 0) {
     petDisplay = petList.map(pet => (
-      <PetCards key={pet.id} pet={pet} />
+      <PetCards key={pet.id + pet.petName} pet={pet} />
     ));
   } else {
     petDisplay = (

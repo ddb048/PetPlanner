@@ -30,16 +30,7 @@ function SignupModal({ onClose }) {
         setError('');
         setSuccess(false);
 
-        const userData = {
-            username: username,
-             password: password,
-            email: email, 
-            role: "ROLE_ADMIN",
-             profilePic: profilePic, 
-        };
-       
-        const response =await dispatch(signup(userData));
-
+        const response = await signup(username, password, email);
         if (response.success) {
             //FIXME - insert redirect to userDetails page
             dispatch(setUser(response.data.user)).then(() => {

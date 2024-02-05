@@ -8,11 +8,11 @@ import profilePic from '../../assets/profile.png';
 import { logout } from '../../store/session';
 import './index.css';
 
-
 function Navbar({ onShowSignup, onShowLogin }) {
+
     const user = useSelector(state => state.session.user);
-
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return (
         <nav className="nav-bar">
@@ -47,8 +47,9 @@ function LoggedInMenu({ user }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     const toggleDropdown = (event) => {
-        console.log('toggleDropdown');
+        // console.log('toggleDropdown');
         event.stopPropagation();
         setIsOpen(!isOpen);
     };
@@ -58,15 +59,10 @@ function LoggedInMenu({ user }) {
         navigate('/');
     };
 
-
-    useEffect(() => {
-        console.log(isOpen, 'isOpen updated');
-    }, [isOpen]);
-
     useEffect(() => {
         const closeDropdown = (event) => {
             if (isOpen && (!event.target.matches('.navbar-profile-pic'))) {
-                console.log('closeDropdown triggered in useEffect');
+                // console.log('closeDropdown triggered in useEffect');
                 setIsOpen(false);
             }
         };

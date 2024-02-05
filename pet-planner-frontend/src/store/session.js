@@ -1,6 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { csrfFetch } from './csrf';
 
+
 // Function to save the token after successful login
 export function saveToken(token) {
     localStorage.setItem('userToken', token);
@@ -67,6 +68,8 @@ export const login = (user) => async (dispatch) => {
         const data = await response.json();
         if (response.ok) {
 
+            console.log('data from login thunk', data);
+
             // console.log('jwt', data.jwt);
             saveToken(data.jwt);
 
@@ -82,10 +85,12 @@ export const login = (user) => async (dispatch) => {
             const userResponse = await csrfFetch(`/api/users/${userId}`);
             const userData = await userResponse.json();
 
+            //console.log('userData for login thunk', userData.data);
+
 
             // console.log('userData', userData);
 
-            dispatch(setUser(userData));
+            dispatch(setUser(userData.data));
         } else {
             return { success: false, message: data.message || 'Authentication failed' };
         }
@@ -122,9 +127,9 @@ export const restoreUser = (token) => async (dispatch) => {
         const userData = await userResponse.json();
 
 
-        // console.log('userData', userData);
+         console.log('userData from restoreUser', userData.data);
 
-        dispatch(setUser(userData));
+        dispatch(setUser(userData.data));
 
     }
 
@@ -133,7 +138,8 @@ export const restoreUser = (token) => async (dispatch) => {
 
 //SIGNUP a USER
 export const signup = (user) => async (dispatch) => {
-    const { username, email, password, profilePic } = user;
+    const { username, email, password} = user;
+    console.log('user from signup thunk', user, profilePic);
     try {
         const response = await csrfFetch('/api/users', {
             method: 'POST',
@@ -142,18 +148,17 @@ export const signup = (user) => async (dispatch) => {
                 username,
                 email,
                 password,
-                profilePic
+                profilePic: "https://imgv3.fotor.com/images/blog-richtext-image/10-profile-picture-ideas-to-make-you-stand-out.jpg",
+                role: "ROLE_USER"
             }),
         });
 
         if (response.ok) {
             const data = await response.json();
+            console.log("data from signup user", data);
             localStorage.setItem('jwt', data.jwt);
-            dispatch(setUser(data.user));
-          
-            return { success: true, data: response };
-
-          //  return response;
+            dispatch(setUser(data.data));
+            return response;
         } else {
             throw new Error('Signup failed.');
         }

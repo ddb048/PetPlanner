@@ -9,7 +9,14 @@ const CreatePet = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
 
+  //Logged in user check
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   /**************************STATE************************** */
 
@@ -31,17 +38,17 @@ const CreatePet = () => {
   const [imageError, setImageError] = useState(false);
   const [renderErr, setRenderErr] = useState(false);
 
-  const user = useSelector(state => state.session.user);
-
-  if (!user) {
-    navigate('/');
-  }
-
   /**************************FUNCTIONS************************** */
 
   const urlValidation = str => {
     return /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/.test(str);
   }
+
+  const handleDateChange = (e) => {
+    const date = new Date(e.target.value);
+    const formattedDate = date.toISOString().split('T')[0]; // Formats the date as "yyyy-MM-dd"
+    setBirthdate(formattedDate);
+  };
 
   //***********************USE EFFECT******************* */
 
@@ -92,7 +99,7 @@ const CreatePet = () => {
     if (!image.length) {
       setImageError('Please enter an image URL for your pet');
     } else if (!urlValidation(image)) {
-      setImageError('Images must be formatted as .png, .jpg, .jpeg, or .gif');
+      setImageError('please enter a valid image URL');
     } else {
       setImageError('');
     }
@@ -119,14 +126,16 @@ const CreatePet = () => {
     ) {
 
       const pet = {
-        pet_name: name,
+        petName: name,
         birthdate,
         description,
         species,
         temparement,
-        pet_picture: image,
-        user_id: user.id,
+        petPicture: image,
+        user: {id: user.id},
       };
+
+      console.log(pet, 'pet')
 
       dispatch(createPet(pet))
         .then((pet) => {
@@ -150,7 +159,7 @@ const CreatePet = () => {
           <div className='modal-main'>
             <div className='errors__container'>{backendErrors}</div>
 
-            <form className='create-event-form' onSubmit={handleSubmit}>
+            <form className='create-event-form'>
               <div className='create_pet_form_div'>
                 Name:
                 <input
@@ -168,10 +177,10 @@ const CreatePet = () => {
                 Birthday:
                 <input
                   className='modal-input'
-                  type="text"
+                  type="date"
                   name="birthday"
                   value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
+                  onChange={handleDateChange}
                 />
               </div>
               <div className='errors__container'>
@@ -201,12 +210,12 @@ const CreatePet = () => {
                   onChange={(e) => setSpecies(e.target.value)}
                   value={species}>
                   <option value="">Select Pet Species</option>
-                  <option value="1">DOG</option>
-                  <option value="2">CAT</option>
-                  <option value="3">BIRD</option>
+                  <option value="0">DOG</option>
+                  <option value="1">CAT</option>
+                  <option value="2">BIRD</option>
                   <option value="3">REPTILE</option>
-                  <option value="3">FISH</option>
-                  <option value="3">OTHER</option>
+                  <option value="4">FISH</option>
+                  <option value="5">OTHER</option>
                 </select>
               </div>
               <div className='errors__container'>
@@ -221,11 +230,11 @@ const CreatePet = () => {
                   name="temparement"
                   value={temparement}>
                   <option value="">Hows your pets temparement?</option>
-                  <option value="1">FRIENDLY</option>
-                  <option value="2">RESERVED</option>
-                  <option value="3">AGRESSIVE</option>
+                  <option value="0">FRIENDLY</option>
+                  <option value="1">RESERVED</option>
+                  <option value="2">AGGRESSIVE</option>
                   <option value="3">PLAYFUL</option>
-                  <option value="3">CALM</option>
+                  <option value="4">CALM</option>
                 </select>
               </div>
               <div className='errors__container'>
@@ -242,13 +251,16 @@ const CreatePet = () => {
                   name="image"
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
-                  readOnly />
+                  />
               </div>
-              <br />
+              <div className='errors__container'>
+                {!!renderErr && imageError.length > 0 && imageError}
+              </div>
               <button
                 className="modal-button"
                 type="submit"
                 disabled={backendErrors.length}
+                onClick={handleSubmit}
               >Create Pet</button>
               <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </form>
