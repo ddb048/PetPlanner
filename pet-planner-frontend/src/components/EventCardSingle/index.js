@@ -147,7 +147,7 @@ function EventCardSingle() {
         <div className='event_single_main'>
             <div className='event-card__container_2'>
 
-        
+
 
                 <div className='event-card__details_single'>
 
@@ -156,7 +156,7 @@ function EventCardSingle() {
                     </div>
 
                     <div className='event-card__name'>
-                    <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
+                    <img className='event-card-single_img' src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
 
@@ -197,7 +197,7 @@ function EventCardSingle() {
              </div>
              </div>
        )
-    
+
 }
 
 export default EventCardSingle

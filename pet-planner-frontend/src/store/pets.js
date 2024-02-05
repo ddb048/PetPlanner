@@ -168,16 +168,14 @@ const petsReducer = (state = initialState, action) => {
             };
             return newState;
         case EDIT_PET:
-            return {
+            newState = {
                 ...state,
                 pets: {
                     ...state.pets,
-                    pets: {
-                        ...state.pets.pets,
-                        [action.pet.id]: action.pet
-                    }
+                    [action.pet.id]: action.pet
                 }
-            };
+            }
+            return newState;
         case DELETE_PET:
             const { [action.petId]: deletedPet, ...remainingPets } = state.pets;
 
