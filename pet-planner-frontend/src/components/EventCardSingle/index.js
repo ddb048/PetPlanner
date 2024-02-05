@@ -144,86 +144,42 @@ function EventCardSingle() {
 
     return (
 
-        <>
-            <div className='event-card__container'>
+        <div className='event_single_main'>
+            <div className='event-card__container_2'>
 
+        
 
-
-                <div className='event-card__details'>
+                <div className='event-card__details_single'>
 
                     <div className='event-card__name'>
-                        {targetEvent.eventName}
+                    {targetEvent.eventName}
                     </div>
 
                     <div className='event-card__name'>
-                        <img src={targetEvent.eventPictureUrl} alt={targetEvent.eventName} />
+                    <img src= {targetEvent.eventPictureUrl}alt={targetEvent.eventName}/>
                     </div>
 
 
                     <div className='event-card__datetime'>
-                        <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
+                    <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
                     </div>
 
                     <div className='event-card__duration'>
-                        <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
+                    <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
                     <div className='event-card__address'>
-                        <strong>  This Event will be Located at: </strong>{targetEvent.address}
+                    <strong>  This Event will be Located at: </strong>{targetEvent.address}
                     </div>
 
                     <div className='event-card__description'>
-                        <strong>Description of the Event: </strong> {targetEvent.description}
+                    <strong>Description of the Event: </strong> {targetEvent.description}
                     </div>
 
 
                     <div className='event-card__buttons'>
                         <button className='event-card__button' onClick={handleUpdateEvent}>Edit Event</button>
                         <button className='event-card__button' onClick={handleDeleteEvent}>Delete Event</button>
-                        <div className='event-card__add-attendee-container'>
-                            <button
-                                className='event-card__button'
-                                onClick={toggleDropdown}
-                            >
-                                Show Pets
-                            </button>
-                            {showDropdown && (
-                                <>
-                                    <select
-                                        value={selectedPetId}
-                                        onChange={handleSelectChange}
-                                    >
-                                        <option value="">Select a pet</option>
-                                        {allPetsNotAttending.map(pet => (
-                                            <option key={pet.id} value={pet.id}>{pet.petName}</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        className='event-card__button'
-                                        onClick={handlePetSubmission}
-                                    >
-                                        RSVP Pet
-                                    </button>
-
-                                    <select
-                                        value={selectedPetId}
-                                        onChange={handleSelectChange}
-                                    >
-                                        <option value="">Select a pet</option>
-                                        {allPetsAttending.map(pet => (
-                                            <option key={pet.id} value={pet.id}>{pet.petName}</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        className='event-card__button'
-                                        onClick={handleDeleteRSVPRequest}
-                                    >
-                                        Cancel RSVP
-                                    </button>
-                                </>
-                            )}
-                        </div>
-
                     </div>
 
                 </div>
@@ -232,15 +188,16 @@ function EventCardSingle() {
             </div>
 
             <div className='event-card__pets'>
-                <div className='event-card__pets-title'>
-                    Pets Attending:
-                </div>
-                <div className='event-card__pets-list'>
-                    {petDisplay}
-                </div>
-            </div>
-        </>
-    )
+                    <div className='event-card__pets-title'>
+                        Pets Attending:
+                    </div>
+                    <div className='event-card__pets-list'>
+                        {petDisplay}
+                    </div>
+             </div>
+             </div>
+       )
+    
 }
 
 export default EventCardSingle

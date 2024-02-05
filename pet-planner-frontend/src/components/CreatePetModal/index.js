@@ -155,13 +155,13 @@ const CreatePet = () => {
     <div className='modal-backdrop'>
       <div className="create-event-modal">
         <div className='modal-content'>
-          <div className='modal-title'>Let's talk about your Pet! </div>
+          <div className='modal-title'>🐾🌈 Let's talk about your Pet! 🐾🌈 </div>
           <div className='modal-main'>
             <div className='errors__container'>{backendErrors}</div>
 
             <form className='create-event-form'>
               <div className='create_pet_form_div'>
-                Name:
+              😊 Name:
                 <input
                   className='modal-input'
                   type="text"
@@ -170,11 +170,17 @@ const CreatePet = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
+
+              
+
+
+
+
               <div className='errors__container'>
                 {!!renderErr && nameError.length > 0 && nameError}
               </div>
               <div className='create_pet_form_div'>
-                Birthday:
+              🎉 Birthday:
                 <input
                   className='modal-input'
                   type="date"
@@ -188,7 +194,7 @@ const CreatePet = () => {
               </div >
 
               <div className='create_pet_form_div'>
-                Description:
+              📝 Description:
                 <input
                   className='modal-input'
                   type="text"
@@ -203,7 +209,7 @@ const CreatePet = () => {
               </div>
 
               <div className='create_pet_form_div'>
-                Species:
+              🐢 Species:
                 <select
                   className="custom-select mr-sm-2"
                   name="species"
@@ -223,7 +229,7 @@ const CreatePet = () => {
               </div>
 
               <div className='create_pet_form_div'>
-                temparement:
+              🤔 Temparement:
                 <select
                   className="custom-select mr-sm-2"
                   onChange={(e) => setTemparement(e.target.value)}
@@ -244,7 +250,7 @@ const CreatePet = () => {
 
               {/* Display the default image URL, but prevent user input */}
               <div className='create_pet_form_div'>
-                Image URL:
+              🖼️ Image URL:
                 <input
                   className='modal-input'
                   type="text"
@@ -253,19 +259,37 @@ const CreatePet = () => {
                   onChange={(e) => setImage(e.target.value)}
                   />
               </div>
+
               <div className='errors__container'>
                 {!!renderErr && imageError.length > 0 && imageError}
               </div>
               <button
-                className="modal-button"
+                className="modal-button_petcreate"
                 type="submit"
                 disabled={backendErrors.length}
                 onClick={handleSubmit}
               >Create Pet</button>
-              <button className="modal-button" type="button" onClick={onClose}>Close</button>
+              <button className="modal-button_petcreate" type="button" onClick={onClose}>Close</button>
             </form>
+            <div className="tips-for-a-great-event">
+                            <h3 className="tips-event-title">Spill the fluff! 🐾  </h3>
+                            <p className="tip-small-titles">
+                            🥳 When is your furry friend's birthday? Choose a date that holds a special meaning for both of you!
+                            </p>
+                            <p className="tip-small-under">
+                            🐾✨Describe your furry friend's personality, appearance, and anything that makes them stand out. We're all ears and paws! 
+                            </p>
+                            <p className="tip-small-under">
+                            🐢Tell us about your fur baby! 🐾 What species are they, and how would you describe their temperament? 🐶😺? Share the pet love! 🐕🐱✨ 
+                            </p>
+                            <p className="tip-small-titles">
+                            🖼️ We need a portrait for the Pet Hall of Fame- drop that adorable image URL! 🐾✨
+                            </p>
+                        </div>
+
           </div>
         </div>
+
       </div>
     </div>
   );

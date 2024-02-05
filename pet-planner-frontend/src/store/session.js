@@ -17,7 +17,7 @@ const SET_ERROR = 'session/setError';
 //ACTION CREATORS
 
 //SET a USER
-const setUser = (user) => {
+export const setUser = (user) => {
     return {
         type: SET_USER,
         payload: user,

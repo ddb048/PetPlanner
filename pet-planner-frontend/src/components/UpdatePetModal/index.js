@@ -155,16 +155,21 @@ const UpdatePetModal = () => {
 
 
   return (
+    
     <div className='modal-backdrop'>
+      
       <div className="create-event-modal">
+  
+
         <div className='modal-content'>
+          
           <div className='modal-title'>Update Your Pet Information</div>
           <div className='modal-main'>
             <div className='errors__container'>{backendErrors}</div>
 
             <form className='create-event-form' onSubmit={handleUpdate}>
               <div className='create_pet_form_div'>
-                Name:
+              😊 Name:
                 <input
                   className='modal-input'
                   type="text"
@@ -177,7 +182,7 @@ const UpdatePetModal = () => {
                 {!!renderErr && nameError?.length > 0 && nameError}
               </div>
               <div className='create_pet_form_div'>
-                Birthday:
+              🎉 Birthday:
                 <input
                   className='modal-input'
                   type="text"
@@ -191,7 +196,7 @@ const UpdatePetModal = () => {
               </div>
 
               <div className='create_pet_form_div'>
-                Description:
+              📝 Description:
                 <input
                   className='modal-input'
                   type="text"
@@ -206,7 +211,7 @@ const UpdatePetModal = () => {
               </div>
 
               <div className='create_pet_form_div'>
-                Species:
+              🐢 Species:
                 <select
                   className="custom-select mr-sm-2"
                   name="species"
@@ -227,7 +232,7 @@ const UpdatePetModal = () => {
               </div>
 
               <div className='create_pet_form_div'>
-                temparement:
+              🤔 Temparement:
                 <select
                   className="custom-select mr-sm-2"
                   onChange={(e) => setTemparement(e.target.value)}
@@ -248,7 +253,7 @@ const UpdatePetModal = () => {
 
               {/* Display the default image URL, but prevent user input */}
               <div className='create_pet_form_div'>
-                Image URL:
+              🖼️ Image URL:
                 <input
                   className='modal-input'
                   type="text"
@@ -266,10 +271,21 @@ const UpdatePetModal = () => {
               >Update Pet</button>
               <button className="modal-button" type="button" onClick={onClose}>Close</button>
             </form>
+            <div className="tips-for-a-great-event">
+                            <h3 className="tips-event-title">🌟Pet Profile Glow-Up!✨✏️</h3>
+                            <p className="tip-small-titles">
+                            ✨ Let's make your pet's profile shine! Add some birthday flair, a sprinkle of personality in the description, reveal their species superstar status, share their temperament vibes, and of course, the pièce de résistance – a glamorous pet portrait! 📸✨ Update now and let the good times roll! 🎊🐕
+                            </p>
+                           
+                        </div>
           </div>
+          
         </div>
+        
       </div>
+      
     </div>
+    
   );
   };
 export default UpdatePetModal;

@@ -59,7 +59,7 @@ function LoginModal({ onClose }) {
                     {errors && errors.map((error, index) => (
                         <div key={index} className='error-message'>{error}</div>
                     ))}
-                    <div className="modal-title">Login</div>
+                    <div className="modal-title"> Login </div>
                     <form onSubmit={handleLogin}>
                         <input
                             className="modal-input"
@@ -79,7 +79,7 @@ function LoginModal({ onClose }) {
                         />
 
                         <div className='modal-button-container'>
-                            <button className="modal-button" type="submit">Login</button>
+                            <button className="modal-button" type="submit">Login </button>
                             <button className="modal-button" type="button" onClick={onClose}>Close</button>
                             <button className='modal-button' type="button" onClick={demoUserLogin}>Demo User</button>
                         </div>

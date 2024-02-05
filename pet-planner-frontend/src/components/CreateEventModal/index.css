@@ -18,6 +18,8 @@
     width: 80%;
 }
 
+
+
 .modal-main {
     display: flex;
     flex-direction: row;
@@ -60,12 +62,71 @@
     justify-content: space-between;
     /* Space buttons side by side */
     margin-top: 10px;
+    
     /* Add a margin on top for spacing */
 }
 
-.modal-button {
-    flex: 1;
-    /* Each button takes up half the space of the container */
-    margin: 0 5px;
-    /* Add a small margin between the buttons */
+.modal-button-container_eventscreate button {
+   
+   
+        margin-bottom:  10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        cursor: pointer;
+        background-color: rgb(246, 64, 96);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        font-family:fantasy;
+       font-weight: 900;
+        border: 2px solid black;
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        flex: 1;
+        margin: 0 5px;
+        margin-top: 10px;
+        width: 80%; 
+        height: 7%;
+        
+
+       
+}
+.tips-for-a-great-event{
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-left: 15px; ; 
+    font-family:fantasy
+
+}
+
+.create-event-modal
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: bolder;
+    font-family: fantasy;
+    
+  
+}
+
+.modal-input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-family: fantasy;
+    font-weight: lighter;
+
+}
+.modal-title,
+.tips-event-title{
+   
+    text-decoration: underline;
+    font-size: 30px;
+
 }

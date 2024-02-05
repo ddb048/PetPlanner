@@ -30,10 +30,17 @@
 }
 
 .nav-text {
-    text-decoration: none;
-
+    text-decoration:none;
     color: black;
-    margin: 0 10px;
+    font-family: fantasy;
+    margin:  10px;
+    margin-top:  50px;
+    font-weight: 900;
+    font-size: 25px;
+}
+.nav-text:hover{
+
+    color: red;
 }
 
 .nav-profile_dropdown_container {
@@ -99,4 +106,13 @@
 
 .nav-button:hover {
     cursor: pointer;
+}
+
+.dropdown-item{
+    margin-top: center;
+    font-size: 15px;
+    font-family: fantasy;
+    font-weight:600;
+
+
 }

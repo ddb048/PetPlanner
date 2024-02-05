@@ -11,6 +11,11 @@
 
 
 }
+.event-card__container:hover{
+  border: 8px solid #f72202de;
+
+
+}
 .event-card__pic-container{
   position: relative;
   width: 100%;

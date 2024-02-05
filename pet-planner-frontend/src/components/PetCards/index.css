@@ -1,9 +1,3 @@
-.pet-card__container-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 
 
 .pet-card__container{

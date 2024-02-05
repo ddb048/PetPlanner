@@ -47,11 +47,15 @@ const UserPage = ({ user, pets, events }) => {
 
         {user ? (
           <div className='userpage__content'>
-            {user.username && <div className='userpage__username'><strong>Username:</strong> {user.username}</div>}
-            {user.email && <div className='userpage__email'><strong>Email:</strong> {user.email}</div>}
+            {user.username && <div className='userpage__username'>🧑‍💻 <strong> Username:</strong> {user.username}</div>}
+            {user.email && <div className='userpage__email'>📧 <strong>Email:</strong> {user.email}</div>}
 
-            <div className='userpage__pets-header'>Your Pets:</div>
-            <Link className='userpage__add-pet-link' to='/pets/new'>Add a Pet</Link>
+            <div className='userpage__pets-header'>🐾Your Pets 🐾</div>
+            <Link className='userpage__add-pet-link' to='/pets/new'>
+              
+           Add a Pet
+              
+              </Link>
 
 
               {targetPets.length > 0 ? (

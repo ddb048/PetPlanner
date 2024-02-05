@@ -1,10 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 //import { applyMiddleware, compose } from 'redux';
 import { thunk } from 'redux-thunk';
 import eventsReducer from './events';
 import petsReducer from './pets';
 import sessionReducer from './session';
-
 
 const reducer = {
     session: sessionReducer,
@@ -12,6 +11,16 @@ const reducer = {
     events: eventsReducer,
     // attendances: attendancesReducer,
 };
+
+
+
+ const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+});
+
+export default store;
+
 
 //let enhancer;
 
@@ -23,9 +32,3 @@ const reducer = {
     //enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 //}
 
-const store = configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-});
-
-export default store;

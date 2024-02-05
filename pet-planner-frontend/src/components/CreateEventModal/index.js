@@ -181,12 +181,12 @@ const CreateEventModal = () => {
         <div className='modal-backdrop'>
             <div className="create-event-modal">
                 <div className="modal-content">
-                    <div className="modal-title">Create a New Event</div>
+                    <div className="modal-title">🎉 Create a New Event 📝</div>
                     <div className="modal-main">
                         <div className='errors__container'>{backendErrors}</div>
                         <form className="create-event-form" onSubmit={handleSubmit}>
                             <div className="modal-input-container">
-                            Event Name:
+                          <strong>🌟 Event Name:</strong>  
                             <input
                                 className="modal-input"
                                 type="text"
@@ -200,8 +200,9 @@ const CreateEventModal = () => {
                             <div className='errors__container'>
                                 {!!renderErr && eventNameError.length > 0 && eventNameError}
                             </div>
+
                             <div className="modal-input-container">
-                                Event Date & Time:
+                               <strong>🕒 Event Date & Time:</strong> 
                                 <input
                                     className="modal-input"
                                     type="date"
@@ -225,7 +226,7 @@ const CreateEventModal = () => {
                                 {!!renderErr && dateError.length > 0 && dateError}
                             </div>
                             <div className="modal-input-container">
-                            Event Duration:
+                           <strong>⏳ Event Duration:</strong> 
                             <input
                                 className="modal-input"
                                 type="text"
@@ -239,7 +240,7 @@ const CreateEventModal = () => {
                                 {!!renderErr && durationError.length > 0 && durationError}
                             </div>
                             <div className="modal-input-container">
-                            Event Address:
+                           <strong>📍 Event Address:</strong>
                             <input
                                 className="modal-input"
                                 type="text"
@@ -253,7 +254,7 @@ const CreateEventModal = () => {
                                 {!!renderErr && addressError.length > 0 && addressError}
                             </div>
                             <div className="modal-input-container">
-                            Event Picture URL:
+                           <strong>🖼️  Event Picture URL:</strong>
                             <input
                                 className="modal-input"
                                 type="text"
@@ -267,7 +268,7 @@ const CreateEventModal = () => {
                                 {!!renderErr && eventPictureUrlError.length > 0 && eventPictureUrlError}
                             </div>
                             <div className="modal-input-container">
-                            Event Description:
+                           <strong>📋 Event Description:</strong> 
                             <input
                                 className="modal-input"
                                 type="text"
@@ -281,24 +282,24 @@ const CreateEventModal = () => {
                                 {!!renderErr && descriptionError.length > 0 && descriptionError}
                             </div>
 
-                            <div className='modal-button-container'>
-                                <button className="modal-button" type="submit">Create Event</button>
-                                <button className="modal-button" type="button" onClick={onClose}>Close</button>
+                            <div className='modal-button-container_eventscreate'>
+                                <button className="modal-button" type="submit">Create Event </button>
+                                <button className="modal-button" type="button" onClick={onClose}>Close </button>
                             </div>
                         </form>
                         <div className="tips-for-a-great-event">
                             <h3 className="tips-event-title">Tips for a great event</h3>
                             <p className="tip-small-titles">
-                                Pick a date from the calendar that works for everyone
+                            🗓️ Pick the Perfect Date: Dive into the calendar and find that golden day to have that event! 🌟
                             </p>
                             <p className="tip-small-under">
-                                Set your duration in minutes.  1 hour would be 60 minutes.  2 hours would be 120 minutes.
+                            ⏰ Set Duration: Time is of the essence! Calculate your event minutes - 1 hour = 60 minutes, 2 hours = 120 minutes. ⌛
                             </p>
                             <p className="tip-small-under">
-                                Make the address easy to identify for any member to identify.
+                            📍 Make the address crystal clear.
                             </p>
                             <p className="tip-small-titles">
-                                Describe things in a clear order so it's easy to digest. Start with an overall description of the event and include a basic agenda, before you move into really specific details.
+                            📝 Clear Description: Lay it out like a boss! Start with the big picture, then sprinkle in the details. Keep it organized for easy digestion! 🎤🔍
                             </p>
                         </div>
                     </div>

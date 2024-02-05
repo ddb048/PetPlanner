@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../store/session';
 import './index.css';
 
+
+import { setUser } from '../../store/session.js';
 function SignupModal({ onClose }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -13,14 +15,19 @@ function SignupModal({ onClose }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [role, setRole] = useState('');  
+    const [profilePic, setProfilePic] = useState(''); 
+
 
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modal-backdrop')) {
             onClose();
         }
     };
+    
 
     const handleSignup = async (event) => {
+       
         event.preventDefault();
         setError('');
         setSuccess(false);
