@@ -66,7 +66,7 @@ const setError = (error) => {
 export const getPets = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/pets`);
     const data = await response.json();
-    console.log("data from getPets", data.data);
+    //console.log("data from getPets", data.data);
     dispatch(loadPets(data.data));
     return response;
 };
@@ -179,9 +179,13 @@ const petsReducer = (state = initialState, action) => {
                 }
             };
         case DELETE_PET:
-            newState = { ...state };
-            delete newState.pets[+action.petId];
-            return newState;
+            const { [action.petId]: deletedPet, ...remainingPets } = state.pets;
+
+            return {
+                ...state,
+                pets: remainingPets,
+                OnePet: {}
+            };
 
         case LOAD_PET_EVENTS:
             newState = { ...state };

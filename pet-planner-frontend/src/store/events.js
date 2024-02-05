@@ -65,7 +65,7 @@ export const getEvents = () => async (dispatch) => {
 export const getUserEvents = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/events`);
     const data = await response.json();
-    console.log('data in thunk get user Events', data.data);
+    //console.log('data in thunk get user Events', data.data);
     dispatch(loadUserEvents(data.data));
     return response;
 };
@@ -80,13 +80,13 @@ export const getOneEvent = (eventId) => async (dispatch) => {
 
 //POST a new event
 export const createEvent = (event) => async (dispatch) => {
-    console.log('event in thunk step2', event);
+    //console.log('event in thunk step2', event);
     const response = await csrfFetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(event),
     });
     const data = await response.json();
-    console.log('data in create event thunk step3', data);
+    //console.log('data in create event thunk step3', data);
     dispatch(addEvent(data.data));
     return data.data;
 };
