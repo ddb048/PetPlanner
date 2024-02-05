@@ -68,7 +68,7 @@ export const login = (user) => async (dispatch) => {
         const data = await response.json();
         if (response.ok) {
 
-            console.log('data from login thunk', data);
+            console.log('data from login thunk step6', data);
 
             // console.log('jwt', data.jwt);
             saveToken(data.jwt);
@@ -92,6 +92,7 @@ export const login = (user) => async (dispatch) => {
 
             dispatch(setUser(userData.data));
         } else {
+            console.log('response from login thunk fail alt6', response);
             return { success: false, message: data.message || 'Authentication failed' };
         }
     } catch (error) {
@@ -138,8 +139,8 @@ export const restoreUser = (token) => async (dispatch) => {
 
 //SIGNUP a USER
 export const signup = (user) => async (dispatch) => {
-    const { username, email, password} = user;
-    console.log('user from signup thunk', user, profilePic);
+    const { username, email, password, profilePic, role} = user;
+    console.log('user from signup thunk step2', user);
     try {
         const response = await csrfFetch('/api/users', {
             method: 'POST',
@@ -148,18 +149,19 @@ export const signup = (user) => async (dispatch) => {
                 username,
                 email,
                 password,
-                profilePic: "https://imgv3.fotor.com/images/blog-richtext-image/10-profile-picture-ideas-to-make-you-stand-out.jpg",
-                role: "ROLE_USER"
+                profilePic,
+                role
             }),
         });
 
+        console.log ('response from signup thunk step3', response);
         if (response.ok) {
             const data = await response.json();
-            console.log("data from signup user", data);
-            localStorage.setItem('jwt', data.jwt);
-            dispatch(setUser(data.data));
-            return response;
+            console.log("data from signup user step4", data.data);
+
+            return data.data;
         } else {
+            console.log('response from signup thunk altStep4', response);
             throw new Error('Signup failed.');
         }
     } catch (err) {

@@ -66,7 +66,8 @@ const setError = (error) => {
 export const getPets = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/pets`);
     const data = await response.json();
-    dispatch(loadPets(data));
+    console.log("data from getPets", data.data);
+    dispatch(loadPets(data.data));
     return response;
 };
 
@@ -90,9 +91,9 @@ export const createPet = (pet) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         //console.log("data from attempt to create pet", data);
-        dispatch(addPet(data));
+        dispatch(addPet(data.data));
     } else {
-        console.log("Error in createPet:", response.statusText);
+        console.log("Error in createPet:", response.message);
     }
 
     return response;
@@ -106,7 +107,7 @@ export const updatePet = (pet) => async (dispatch) => {
         body: JSON.stringify(pet),
     });
     const data = await response.json();
-    dispatch(editPet(data));
+    dispatch(editPet(data.data));
     return response;
 }
 
@@ -122,10 +123,20 @@ export const removePet = (petId) => async (dispatch) => {
 //GET all events for a pet
 export const getPetEvents = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}/events`);
-    const data = await response.json();
-    dispatch(loadPetEvents(data));
-    return response;
-}
+    console.log('response in thunk get pet Events', response);
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log('data in thunk get pet Events', data);
+
+        // Dispatch with an empty array if there are no events
+        dispatch(loadPetEvents(data.data || []));
+        return response;
+    } else {
+        // Handle error or dispatch another action to indicate failure
+        console.log('Error fetching events');
+    }
+};
 
 //*******************REDUCER*********************/
 const initialState = {

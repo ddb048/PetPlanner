@@ -35,7 +35,7 @@ function PetCardSingle() {
     // }, [user, navigate]);
 
     //Event-related
-    const events = targetPet.events;
+    const events = targetPet.events || {} ;
 
     // console.log('events', events);
     let futureEventDisplay;

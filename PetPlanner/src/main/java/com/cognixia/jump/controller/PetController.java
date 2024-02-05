@@ -1,7 +1,6 @@
 package com.cognixia.jump.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Event;
 import com.cognixia.jump.model.Pet;
-import com.cognixia.jump.model.User;
 import com.cognixia.jump.service.PetService;
 import com.cognixia.jump.util.ApiResponse;
 
@@ -39,35 +37,35 @@ public class PetController {
     @GetMapping
     @Operation(summary = "Get all pets", description = "Retrieves a list of all pets")
     public ResponseEntity<ApiResponse> getAllPets() {
-    	
+
     	PetService.getAllPetsResult result = petService.getAllPets();
-    	
+
     	switch (result) {
         case SUCCESS:
         	List<Pet> pets = petService.getAllPetsHelper();
             return ResponseEntity.ok(new ApiResponse(true, "All pets have been founded successfully", pets));
         case PET_NOT_FOUND:
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "Th"));
+            return ResponseEntity.badRequest().body(new ApiResponse(true, "This pet does not exist"));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
     	}
-    	
-    	
-        
+
+
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getPetById(@PathVariable Long id) {
-        
+
     	PetService.getPetByIdResult result = petService.getPetById(id);
-    	
+
     	switch (result) {
         case SUCCESS:
         	Pet pet = petService.getPetByIdHelper(id);
             return ResponseEntity.ok(new ApiResponse(true, "Pet have been founded successfully", pet));
         case PET_NOT_FOUND:
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Pet does not exist"));
+            return ResponseEntity.badRequest().body(new ApiResponse(true, "This Pet does not exist"));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
@@ -77,37 +75,37 @@ public class PetController {
     @GetMapping("/{petId}/events")
     @Operation(summary = "Get all events by pet", description = "Retrieves all events a specific pet is attending")
     public ResponseEntity<ApiResponse> getEventsByPet(@PathVariable Long petId) {
-        
+
     	PetService.getEventsForPetResult result = petService.getEventsForPet(petId);
-    	
+
     	switch (result) {
         case SUCCESS:
         	List<Event> events = petService.getEventsForPetHelper(petId);
             return ResponseEntity.ok(new ApiResponse(true, "Pet's events have been founded successfully",events ));
         case EVENTS_NOT_FOUND:
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Pet has no events"));
+            return ResponseEntity.ok().body(new ApiResponse(false, "This Pet has no events"));
         case PET_NOT_FOUND:
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "This Pet does not exist"));
+            return ResponseEntity.ok().body(new ApiResponse(false, "This Pet does not exist"));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
     	}
-    	
-    	
-    	
-    	
+
+
+
+
     }
 
     @PostMapping
     @Operation(summary = "Create a new pet", description = "Adds a new pet to the database")
     public ResponseEntity<ApiResponse> createPet(@RequestBody Pet pet) {
-    	
+
     	PetService.createPetResult result = petService.createPet(pet);
-    	
+
     	switch (result) {
         case SUCCESS:
         	Pet optionalPet = petService.getPetByIdHelper(pet.getId());
-        	
+
             return ResponseEntity.ok(new ApiResponse(true, "Pet has been created successfully", optionalPet));
         default:
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -117,9 +115,9 @@ public class PetController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> updatePet(@PathVariable Long id, @Valid @RequestBody Pet petDetails) {
-    	
+
     	PetService.UpdatePetResult result = petService.updatePet(petDetails);
-    	
+
     	switch (result) {
         case SUCCESS:
         	Pet optionalPet = petService.getPetByIdHelper(petDetails.getId());
@@ -132,15 +130,15 @@ public class PetController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "An unexpected error occurred"));
     	}
-    		
+
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a pet", description = "Deletes a pet from the database by their ID")
     public ResponseEntity<ApiResponse> deletePet(@PathVariable Long id) {
-        
+
     	PetService.DeletePetResult result = petService.deletePet(id);
-    	
+
     	switch (result) {
         case SUCCESS:
             return ResponseEntity.ok(new ApiResponse(true, "Pet has been deleted successfully"));
@@ -151,9 +149,9 @@ public class PetController {
                     .body(new ApiResponse(false, "An unexpected error occurred"));
     }
     }
-    
-    
-  
+
+
+
 
     @PostMapping("/{petId}/{eventId}")
     public ResponseEntity<ApiResponse> addPetToEvent(@PathVariable Long petId, @PathVariable Long eventId) {

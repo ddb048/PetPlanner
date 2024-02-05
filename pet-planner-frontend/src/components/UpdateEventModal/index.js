@@ -155,7 +155,7 @@ const UpdateEventModal = () => {
 
             const updatedEvent = {
                 id: targetEvent.id,
-                userId: user.id,
+                user: { id: user.id},
                 eventName: eventName,
                 date: combinedDate,
                 duration: eventDuration,

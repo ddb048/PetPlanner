@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { signup } from '../../auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signup } from '../../store/session';
 import './index.css';
 
 function SignupModal({ onClose }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -21,18 +25,29 @@ function SignupModal({ onClose }) {
         setError('');
         setSuccess(false);
 
-        console.log ('username', username, 'password', password, 'email', email, "signup component data");
-        const response = await signup(username, password, email);
-
-
-        if (response.success) {
-            setSuccess(true);
-            //FIXME - insert redirect to userDetails page
-            onClose();
-        } else {
-            setError(response.message || 'Signup failed');
+        const newUser = {
+            username,
+            password,
+            email,
+            profilePic: "https://imgv3.fotor.com/images/blog-richtext-image/10-profile-picture-ideas-to-make-you-stand-out.jpg",
+            role: "ROLE_USER"
         }
+
+        console.log( 'newUser from handleSignup step1', newUser);
+
+        const response = await dispatch(signup(newUser));
+
+        if (response) {
+
+            if (!error) {
+                setSuccess(true);
+            } else {
+                alert(error);
+            }
+        } else {
+            console.log('response from handleSignup', response);
     };
+};
 
     return (
         <div className='modal-backdrop' onClick={handleBackdropClick}>
@@ -40,8 +55,8 @@ function SignupModal({ onClose }) {
                 <div className='modal-content'>
                     <div className='modal-title'>Sign Up</div>
                     {error && <div className="error">{error}</div>}
-                    {success && <div className="success">Signup successful!</div>}
-                    <form onSubmit={handleSignup}>
+                    {success && <div className="success">Signup successful! Please log in</div>}
+                    <form>
                         <input
                             className="modal-input"
                             type="text"
@@ -67,7 +82,7 @@ function SignupModal({ onClose }) {
                             required
                         />
                         <div className='modal-button-container'>
-                            <button className="modal-button" type="submit">Sign Up</button>
+                            <button className="modal-button" type="submit" onClick={handleSignup}>Sign Up</button>
                             <button className="modal-button" type="button" onClick={onClose}>Close</button>
                         </div>
                     </form>

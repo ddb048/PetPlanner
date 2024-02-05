@@ -132,7 +132,7 @@ const UpdatePetModal = () => {
         species,
         temparement,
         petPicture: image,
-        userId: user.id,
+        user: {id: user.id},
       };
 
       // Assuming you have an updatePet action
@@ -214,12 +214,12 @@ const UpdatePetModal = () => {
                   value={species}
                 >
                   <option value="">Select Pet Species</option>
-                  <option value="1">DOG</option>
-                  <option value="2">CAT</option>
-                  <option value="3">BIRD</option>
+                  <option value="0">DOG</option>
+                  <option value="1">CAT</option>
+                  <option value="2">BIRD</option>
                   <option value="3">REPTILE</option>
-                  <option value="3">FISH</option>
-                  <option value="3">OTHER</option>
+                  <option value="4">FISH</option>
+                  <option value="5">OTHER</option>
                 </select>
               </div>
               <div className='errors__container'>
@@ -235,11 +235,11 @@ const UpdatePetModal = () => {
                   value={temparement}
                 >
                   <option value="">Hows your pets temparement?</option>
-                  <option value="1">FRIENDLY</option>
-                  <option value="2">RESERVED</option>
-                  <option value="3">AGGRESSIVE</option>
-                  <option value="4">PLAYFUL</option>
-                  <option value="5">CALM</option>
+                  <option value="0">FRIENDLY</option>
+                  <option value="1">RESERVED</option>
+                  <option value="2">AGGRESSIVE</option>
+                  <option value="3">PLAYFUL</option>
+                  <option value="4">CALM</option>
                 </select>
               </div>
               <div className='errors__container'>

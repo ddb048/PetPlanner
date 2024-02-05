@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import PetCards from '../PetCards';
 import './index.css';
 
 const UserPage = ({ user, pets, events }) => {
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate('/');
+    const userToken = localStorage.getItem('userToken');
+    if (userToken && !user) {
+      dispatch(restoreUser(userToken));
     }
-  }, [user, navigate]);
+  }, [user, dispatch]);
 
   const settings = {
     dots: true,
