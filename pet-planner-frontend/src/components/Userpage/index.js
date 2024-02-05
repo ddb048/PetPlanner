@@ -53,7 +53,7 @@ const UserPage = ({ user, pets, events }) => {
             <div className='userpage__pets-header'>🐾Your Pets 🐾</div>
             <Link className='userpage__add-pet-link' to='/pets/new'>
               
-           Add a Pet
+               Add a Pet
               
               </Link>
 
@@ -72,8 +72,15 @@ const UserPage = ({ user, pets, events }) => {
 
 
             <div className='userpage__events-section'>
-
-                Upcoming Events:
+          
+               <strong >⏰ Upcoming Events 🦜</strong> 
+                
+                <div className='add-event-container'>
+    <Link className='userpage__add-event-link' to='/events/new'>
+      Add Event
+    </Link>
+  </div>
+                
                 {futureEvents.length > 0 ? (
                   <div className='eventspage__events'>
                   <Slider {...settings}>
@@ -85,7 +92,7 @@ const UserPage = ({ user, pets, events }) => {
                     <div className='no-events__text'>There are no upcoming events for you.</div>
                   </div>
                 )}
-
+    
 
 
                 Past Events:
@@ -104,7 +111,7 @@ const UserPage = ({ user, pets, events }) => {
             </div>
           </div>
         ) : (
-          <div className='userpage__loading'>Loading user data...</div>
+          <div className='userpage__loading'>🦎 Loading user's pet data page...  🕒</div>
         )}
 
     </div>
