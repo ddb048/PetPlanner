@@ -145,13 +145,13 @@ function EventCardSingle() {
     return (
 
         <div className='event_single_main'>
-            <div className='event-card__container_2'>
+            <div className='event-card__container'>
 
 
 
-                <div className='event-card__details_single'>
+                <div className='event-card__details_single_'>
 
-                    <div className='event-card__name'>
+                    <div className='event-card__name_sinle_kk'>
                     {targetEvent.eventName}
                     </div>
 
@@ -160,19 +160,19 @@ function EventCardSingle() {
                     </div>
 
 
-                    <div className='event-card__datetime'>
+                    <div className='event-card__datetime_single'>
                     <strong>  Time of the Event: </strong> {date} &middot; {formattedTime}
                     </div>
 
-                    <div className='event-card__duration'>
+                    <div className='event-card__duration_single'>
                     <strong>  Duration of the Event: </strong> {targetEvent.duration} minutes
                     </div>
 
-                    <div className='event-card__address'>
+                    <div className='event-card__address_single'>
                     <strong>  This Event will be Located at: </strong>{targetEvent.address}
                     </div>
 
-                    <div className='event-card__description'>
+                    <div className='event-card__description_single'>
                     <strong>Description of the Event: </strong> {targetEvent.description}
                     </div>
 
