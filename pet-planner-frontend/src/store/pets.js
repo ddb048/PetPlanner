@@ -74,7 +74,7 @@ export const getPets = (userId) => async (dispatch) => {
 export const getOnePet = (petId) => async (dispatch) => {
     const response = await csrfFetch(`/api/pets/${petId}`);
     const data = await response.json();
-    console.log("data from getOnePet", data);
+    //console.log("data from getOnePet", data);
     dispatch(loadOnePet(data.data));
     return response;
 };
@@ -89,7 +89,7 @@ export const createPet = (pet) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log("data from attempt to create pet", data);
+        //console.log("data from attempt to create pet", data);
         dispatch(addPet(data));
     } else {
         console.log("Error in createPet:", response.statusText);
