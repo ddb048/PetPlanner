@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOnePet, getPetEvents, removePet } from '../../store/pets';
-import { restoreUser } from '../../store/session';
 import EventCards from '../EventCards';
 import './index.css';
 
@@ -12,6 +11,7 @@ function PetCardSingle() {
     const { petId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isDeleted, setIsDeleted] = useState(false);
 
     //State-related
     const targetPet = useSelector(state => state.pets.OnePet);
@@ -19,13 +19,19 @@ function PetCardSingle() {
 
 
     useEffect(() => {
-        const userToken = localStorage.getItem('userToken');
-        if (userToken && !user) {
-            dispatch(restoreUser(userToken));
-        } else if (!userToken && !user) {
-            navigate('/');
+        // Only proceed if the petId has been specified and the deletion has not occurred
+        if (petId && !isDeleted) {
+            dispatch(getOnePet(petId))
+                .then(() => {
+                    dispatch(getPetEvents(petId));
+                    setLoading(false); // Indicate loading is complete once data is fetched
+                })
+                .catch((error) => {
+                    console.error("Failed to fetch pet or events:", error);
+                    navigate('/UserPage'); // Redirect only if fetching fails
+                });
         }
-    }, [user, dispatch, navigate]);
+    }, [petId, dispatch, navigate, isDeleted]);
 
 
     // useEffect(() => {
@@ -35,7 +41,7 @@ function PetCardSingle() {
     // }, [user, navigate]);
 
     //Event-related
-    const events = targetPet.events;
+    const events = targetPet.events || {} ;
 
     // console.log('events', events);
     let futureEventDisplay;
@@ -88,14 +94,15 @@ function PetCardSingle() {
     //State-related
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (targetPet.id !== petId) {
-            // console.log('attempting to retrieve pet', petId);
-            dispatch(getOnePet(petId));
-            dispatch(getPetEvents(petId));
-            setLoading(false);
-        }
-    }, [petId, dispatch, targetPet.id]);
+
+    // useEffect(() => {
+    //     if (targetPet.id !== petId && !isDeleted) {
+    //         // console.log('attempting to retrieve pet', petId);
+    //         dispatch(getOnePet(petId));
+    //         dispatch(getPetEvents(petId));
+    //         setLoading(false);
+    //     }
+    // }, [petId, dispatch, targetPet.id, isDeleted]);
 
     // useEffect(() => {
     //     if (targetPet.id === petId) {
@@ -123,15 +130,17 @@ function PetCardSingle() {
                 const response = await dispatch(removePet(petId));
                 if (!response.ok) {
                     console.error(`Error deleting pet. Status: ${response.status}, Message: ${await response.text()}`);
+                } else {
+                    setIsDeleted(true);
+                navigate('/UserPage');
                 }
-                // Other handling logic
             } catch (error) {
                 console.error("Error deleting pet:", error);
                 // Handle other errors
             }
         }
 
-        navigate('/pets');
+        navigate('/UserPage');
     };
 
 

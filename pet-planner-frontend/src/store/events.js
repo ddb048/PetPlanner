@@ -57,7 +57,7 @@ const loadOneEvent = (event) => {
 export const getEvents = () => async (dispatch) => {
     const response = await csrfFetch('/api/events');
     const data = await response.json();
-    dispatch(loadEvents(data));
+    dispatch(loadEvents(data.data));
     return response;
 };
 
@@ -65,8 +65,8 @@ export const getEvents = () => async (dispatch) => {
 export const getUserEvents = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}/events`);
     const data = await response.json();
-    console.log('data in thunk get user Events', data);
-    dispatch(loadUserEvents(data));
+    //console.log('data in thunk get user Events', data.data);
+    dispatch(loadUserEvents(data.data));
     return response;
 };
 
@@ -74,19 +74,21 @@ export const getUserEvents = (userId) => async (dispatch) => {
 export const getOneEvent = (eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}`);
     const data = await response.json();
-    dispatch(loadOneEvent(data));
+    dispatch(loadOneEvent(data.data));
     return response;
 };
 
 //POST a new event
 export const createEvent = (event) => async (dispatch) => {
+    //console.log('event in thunk step2', event);
     const response = await csrfFetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(event),
     });
     const data = await response.json();
-    dispatch(addEvent(data));
-    return data;
+    //console.log('data in create event thunk step3', data);
+    dispatch(addEvent(data.data));
+    return data.data;
 };
 
 //PUT an edited event
@@ -102,8 +104,8 @@ export const editOneEvent = (event) => async (dispatch) => {
     // console.log('data in thunk', data)
 
     if (response.ok) {
-    dispatch(editEvent(data));
-    return response;
+    dispatch(editEvent(data.data));
+    return data.data;
     } else {
         console.log('error in thunk', data)
     }
